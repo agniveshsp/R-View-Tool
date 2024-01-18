@@ -33,7 +33,7 @@ A python powered program that enables users to insert drawings, text, and images
 ## Installation
 
 #### For Windows 
-To use the software, You can download the executable file from [insert link here].
+##### To use the software, You can download the executable file from [here](https://github.com/agniveshsp/R-View-Tool/releases/download/v1.0.0/R-View.Tool_portable.zip).
 
 Build Requirements: Python 3.11 
 
