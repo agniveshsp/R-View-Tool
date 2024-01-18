@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>tools module &mdash; R-View Tool v1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=76e2d817"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="outliner module" href="outliner.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="docs_home.html" class="icon icon-home">
+            R-View Tool
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">R-View Tool</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="file_handler.html">file_handler module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="graphics_manager.html">graphics_manager module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="image_processor.html">image_processor module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keybinds.html">keybinds module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="main.html">main module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="outliner.html">outliner module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">tools module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#tools.TextInsertWindow"><code class="docutils literal notranslate"><span class="pre">TextInsertWindow</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#tools.TextInsertWindow.check_if_overlay"><code class="docutils literal notranslate"><span class="pre">TextInsertWindow.check_if_overlay()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tools.TextInsertWindow.handle_insert_text_btn"><code class="docutils literal notranslate"><span class="pre">TextInsertWindow.handle_insert_text_btn()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tools.TextInsertWindow.hide_text_insert_window"><code class="docutils literal notranslate"><span class="pre">TextInsertWindow.hide_text_insert_window()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tools.TextInsertWindow.new_font_pixel_size"><code class="docutils literal notranslate"><span class="pre">TextInsertWindow.new_font_pixel_size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tools.TextInsertWindow.on_combobox_select"><code class="docutils literal notranslate"><span class="pre">TextInsertWindow.on_combobox_select()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tools.TextInsertWindow.on_listbox_select"><code class="docutils literal notranslate"><span class="pre">TextInsertWindow.on_listbox_select()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tools.TextInsertWindow.populate_listbox"><code class="docutils literal notranslate"><span class="pre">TextInsertWindow.populate_listbox()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tools.TextInsertWindow.reset_font_size"><code class="docutils literal notranslate"><span class="pre">TextInsertWindow.reset_font_size()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tools.TextInsertWindow.reveal_text_insert_window"><code class="docutils literal notranslate"><span class="pre">TextInsertWindow.reveal_text_insert_window()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tools.TextInsertWindow.selected_font"><code class="docutils literal notranslate"><span class="pre">TextInsertWindow.selected_font</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tools.TextInsertWindow.selected_font_file"><code class="docutils literal notranslate"><span class="pre">TextInsertWindow.selected_font_file</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tools.TextInsertWindow.selected_font_index"><code class="docutils literal notranslate"><span class="pre">TextInsertWindow.selected_font_index</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tools.TextInsertWindow.selected_font_size"><code class="docutils literal notranslate"><span class="pre">TextInsertWindow.selected_font_size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tools.TextInsertWindow.stored_text_position"><code class="docutils literal notranslate"><span class="pre">TextInsertWindow.stored_text_position</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tools.TextInsertWindow.stored_text_size"><code class="docutils literal notranslate"><span class="pre">TextInsertWindow.stored_text_size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tools.TextInsertWindow.text_insert_layout"><code class="docutils literal notranslate"><span class="pre">TextInsertWindow.text_insert_layout()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#tools.Tools"><code class="docutils literal notranslate"><span class="pre">Tools</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#tools.Tools.brush_tool"><code class="docutils literal notranslate"><span class="pre">Tools.brush_tool()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tools.Tools.color_picker_tool"><code class="docutils literal notranslate"><span class="pre">Tools.color_picker_tool()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tools.Tools.create_tool_button_dict"><code class="docutils literal notranslate"><span class="pre">Tools.create_tool_button_dict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tools.Tools.current_tool"><code class="docutils literal notranslate"><span class="pre">Tools.current_tool</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tools.Tools.cursor_tool"><code class="docutils literal notranslate"><span class="pre">Tools.cursor_tool()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tools.Tools.decimate_factor"><code class="docutils literal notranslate"><span class="pre">Tools.decimate_factor</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tools.Tools.disable_all_modifiers"><code class="docutils literal notranslate"><span class="pre">Tools.disable_all_modifiers()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tools.Tools.disable_all_tool_buttons"><code class="docutils literal notranslate"><span class="pre">Tools.disable_all_tool_buttons()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tools.Tools.enable_all_tool_buttons"><code class="docutils literal notranslate"><span class="pre">Tools.enable_all_tool_buttons()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tools.Tools.endcap"><code class="docutils literal notranslate"><span class="pre">Tools.endcap</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tools.Tools.eraser_tool"><code class="docutils literal notranslate"><span class="pre">Tools.eraser_tool()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tools.Tools.fill_color"><code class="docutils literal notranslate"><span class="pre">Tools.fill_color</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tools.Tools.fill_color_checkbox_handler"><code class="docutils literal notranslate"><span class="pre">Tools.fill_color_checkbox_handler()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tools.Tools.flat_cap_checkbox_handler"><code class="docutils literal notranslate"><span class="pre">Tools.flat_cap_checkbox_handler()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tools.Tools.highlight_checkbox_handler"><code class="docutils literal notranslate"><span class="pre">Tools.highlight_checkbox_handler()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tools.Tools.line_tool"><code class="docutils literal notranslate"><span class="pre">Tools.line_tool()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tools.Tools.oval_tool"><code class="docutils literal notranslate"><span class="pre">Tools.oval_tool()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tools.Tools.pan_tool"><code class="docutils literal notranslate"><span class="pre">Tools.pan_tool()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tools.Tools.previous_tool"><code class="docutils literal notranslate"><span class="pre">Tools.previous_tool</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tools.Tools.rectangle_tool"><code class="docutils literal notranslate"><span class="pre">Tools.rectangle_tool()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tools.Tools.reset_tool_variables"><code class="docutils literal notranslate"><span class="pre">Tools.reset_tool_variables()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tools.Tools.select_tool_button"><code class="docutils literal notranslate"><span class="pre">Tools.select_tool_button()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tools.Tools.shape_constraint"><code class="docutils literal notranslate"><span class="pre">Tools.shape_constraint</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tools.Tools.shape_fill"><code class="docutils literal notranslate"><span class="pre">Tools.shape_fill</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tools.Tools.stipple"><code class="docutils literal notranslate"><span class="pre">Tools.stipple</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tools.Tools.stroke_width"><code class="docutils literal notranslate"><span class="pre">Tools.stroke_width</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tools.Tools.text_color_tool"><code class="docutils literal notranslate"><span class="pre">Tools.text_color_tool()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tools.Tools.text_tool"><code class="docutils literal notranslate"><span class="pre">Tools.text_tool()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tools.Tools.uniform_shape_checkbox_handler"><code class="docutils literal notranslate"><span class="pre">Tools.uniform_shape_checkbox_handler()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="docs_home.html">R-View Tool</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="docs_home.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">R-View Tool</a></li>
+      <li class="breadcrumb-item active">tools module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/tools.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-tools">
+<span id="tools-module"></span><h1>tools module<a class="headerlink" href="#module-tools" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="tools.TextInsertWindow">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tools.</span></span><span class="sig-name descname"><span class="pre">TextInsertWindow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tools.html#TextInsertWindow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tools.TextInsertWindow" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">CTkFrame</span></code></p>
+<p>Custom Widget that handles the insertion of text items into the canvas.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="tools.TextInsertWindow.check_if_overlay">
+<span class="sig-name descname"><span class="pre">check_if_overlay</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tools.html#TextInsertWindow.check_if_overlay"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tools.TextInsertWindow.check_if_overlay" title="Link to this definition"></a></dt>
+<dd><p>Decorator that checks if the current active canvas is the base canvas or the overlay canvas.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tools.TextInsertWindow.handle_insert_text_btn">
+<span class="sig-name descname"><span class="pre">handle_insert_text_btn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tools.html#TextInsertWindow.handle_insert_text_btn"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tools.TextInsertWindow.handle_insert_text_btn" title="Link to this definition"></a></dt>
+<dd><p>Inserts the text from the widget onto the canvas.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>event</strong> (<em>tkinter.Event</em>) – </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tools.TextInsertWindow.hide_text_insert_window">
+<span class="sig-name descname"><span class="pre">hide_text_insert_window</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tools.html#TextInsertWindow.hide_text_insert_window"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tools.TextInsertWindow.hide_text_insert_window" title="Link to this definition"></a></dt>
+<dd><p>Hides the text_insert_window widget.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tools.TextInsertWindow.new_font_pixel_size">
+<span class="sig-name descname"><span class="pre">new_font_pixel_size</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">-50</span></em><a class="headerlink" href="#tools.TextInsertWindow.new_font_pixel_size" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tools.TextInsertWindow.on_combobox_select">
+<span class="sig-name descname"><span class="pre">on_combobox_select</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">choice</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tools.html#TextInsertWindow.on_combobox_select"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tools.TextInsertWindow.on_combobox_select" title="Link to this definition"></a></dt>
+<dd><p>Called on selecting an option from the dropdown combobox.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>choice</strong> (<em>str</em>) – Name of the font.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tools.TextInsertWindow.on_listbox_select">
+<span class="sig-name descname"><span class="pre">on_listbox_select</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tools.html#TextInsertWindow.on_listbox_select"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tools.TextInsertWindow.on_listbox_select" title="Link to this definition"></a></dt>
+<dd><p>Called on selecting a font name from the listbox. Assigns the Text font as the selected font.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>event</strong> (<em>tkinter.Event</em><em>,</em><em>optional</em>) – Mouse click event.</p></li>
+<li><p><strong>file_name</strong> (<em>str</em><em>,</em><em>optional</em>) – Font filename to use.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tools.TextInsertWindow.populate_listbox">
+<span class="sig-name descname"><span class="pre">populate_listbox</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tools.html#TextInsertWindow.populate_listbox"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tools.TextInsertWindow.populate_listbox" title="Link to this definition"></a></dt>
+<dd><p>Loads the fonts from the ‘fonts’ folder in the program directory and lists the fonts in the widget list box.
+:returns: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tools.TextInsertWindow.reset_font_size">
+<span class="sig-name descname"><span class="pre">reset_font_size</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tools.html#TextInsertWindow.reset_font_size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tools.TextInsertWindow.reset_font_size" title="Link to this definition"></a></dt>
+<dd><p>Resets the current font size to the default size.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tools.TextInsertWindow.reveal_text_insert_window">
+<span class="sig-name descname"><span class="pre">reveal_text_insert_window</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tools.html#TextInsertWindow.reveal_text_insert_window"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tools.TextInsertWindow.reveal_text_insert_window" title="Link to this definition"></a></dt>
+<dd><p>Displays the text_insert_window widget.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>event</strong> (<em>tkinter.Event</em><em>,</em><em>optional</em>) – </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tools.TextInsertWindow.selected_font">
+<span class="sig-name descname"><span class="pre">selected_font</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#tools.TextInsertWindow.selected_font" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tools.TextInsertWindow.selected_font_file">
+<span class="sig-name descname"><span class="pre">selected_font_file</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#tools.TextInsertWindow.selected_font_file" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tools.TextInsertWindow.selected_font_index">
+<span class="sig-name descname"><span class="pre">selected_font_index</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#tools.TextInsertWindow.selected_font_index" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tools.TextInsertWindow.selected_font_size">
+<span class="sig-name descname"><span class="pre">selected_font_size</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">-50</span></em><a class="headerlink" href="#tools.TextInsertWindow.selected_font_size" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tools.TextInsertWindow.stored_text_position">
+<span class="sig-name descname"><span class="pre">stored_text_position</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#tools.TextInsertWindow.stored_text_position" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tools.TextInsertWindow.stored_text_size">
+<span class="sig-name descname"><span class="pre">stored_text_size</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#tools.TextInsertWindow.stored_text_size" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tools.TextInsertWindow.text_insert_layout">
+<span class="sig-name descname"><span class="pre">text_insert_layout</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tools.html#TextInsertWindow.text_insert_layout"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tools.TextInsertWindow.text_insert_layout" title="Link to this definition"></a></dt>
+<dd><p>Creates the text insert widget.
+:returns: None</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="tools.Tools">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tools.</span></span><span class="sig-name descname"><span class="pre">Tools</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">canvas</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graphics_manager</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tools.html#Tools"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tools.Tools" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class that handles the different tools in the main app.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="tools.Tools.brush_tool">
+<span class="sig-name descname"><span class="pre">brush_tool</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tools.html#Tools.brush_tool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tools.Tools.brush_tool" title="Link to this definition"></a></dt>
+<dd><p>Activates the brush tool.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tools.Tools.color_picker_tool">
+<span class="sig-name descname"><span class="pre">color_picker_tool</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tools.html#Tools.color_picker_tool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tools.Tools.color_picker_tool" title="Link to this definition"></a></dt>
+<dd><p>Activates the Color Picker tool.
+:returns: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tools.Tools.create_tool_button_dict">
+<span class="sig-name descname"><span class="pre">create_tool_button_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tools.html#Tools.create_tool_button_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tools.Tools.create_tool_button_dict" title="Link to this definition"></a></dt>
+<dd><p>Creates a dictionary consisting of the tool index as keys and the buttons as values. For ease of configuring the buttons.
+:returns: None</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tools.Tools.current_tool">
+<span class="sig-name descname"><span class="pre">current_tool</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#tools.Tools.current_tool" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tools.Tools.cursor_tool">
+<span class="sig-name descname"><span class="pre">cursor_tool</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tools.html#Tools.cursor_tool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tools.Tools.cursor_tool" title="Link to this definition"></a></dt>
+<dd><p>Activates the Cursor tool.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tools.Tools.decimate_factor">
+<span class="sig-name descname"><span class="pre">decimate_factor</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1.5</span></em><a class="headerlink" href="#tools.Tools.decimate_factor" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tools.Tools.disable_all_modifiers">
+<span class="sig-name descname"><span class="pre">disable_all_modifiers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tools.html#Tools.disable_all_modifiers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tools.Tools.disable_all_modifiers" title="Link to this definition"></a></dt>
+<dd><p>Sets the state of all modifier checkbox to ‘disabled’.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tools.Tools.disable_all_tool_buttons">
+<span class="sig-name descname"><span class="pre">disable_all_tool_buttons</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tools.html#Tools.disable_all_tool_buttons"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tools.Tools.disable_all_tool_buttons" title="Link to this definition"></a></dt>
+<dd><p>Sets the state of all tool buttons to ‘disabled’.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tools.Tools.enable_all_tool_buttons">
+<span class="sig-name descname"><span class="pre">enable_all_tool_buttons</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tools.html#Tools.enable_all_tool_buttons"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tools.Tools.enable_all_tool_buttons" title="Link to this definition"></a></dt>
+<dd><p>Sets the state of all tool buttons to normal.
+:returns: None</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tools.Tools.endcap">
+<span class="sig-name descname"><span class="pre">endcap</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'round'</span></em><a class="headerlink" href="#tools.Tools.endcap" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tools.Tools.eraser_tool">
+<span class="sig-name descname"><span class="pre">eraser_tool</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tools.html#Tools.eraser_tool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tools.Tools.eraser_tool" title="Link to this definition"></a></dt>
+<dd><p>Activates the Eraser tool.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tools.Tools.fill_color">
+<span class="sig-name descname"><span class="pre">fill_color</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'#FF0000'</span></em><a class="headerlink" href="#tools.Tools.fill_color" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tools.Tools.fill_color_checkbox_handler">
+<span class="sig-name descname"><span class="pre">fill_color_checkbox_handler</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tools.html#Tools.fill_color_checkbox_handler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tools.Tools.fill_color_checkbox_handler" title="Link to this definition"></a></dt>
+<dd><p>Gets the state of the fill checkbox and sets the shape_fill variable accordingly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tools.Tools.flat_cap_checkbox_handler">
+<span class="sig-name descname"><span class="pre">flat_cap_checkbox_handler</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tools.html#Tools.flat_cap_checkbox_handler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tools.Tools.flat_cap_checkbox_handler" title="Link to this definition"></a></dt>
+<dd><p>Gets the state of the flatcap checkbox and sets the endcap variable accordingly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tools.Tools.highlight_checkbox_handler">
+<span class="sig-name descname"><span class="pre">highlight_checkbox_handler</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tools.html#Tools.highlight_checkbox_handler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tools.Tools.highlight_checkbox_handler" title="Link to this definition"></a></dt>
+<dd><p>Gets the state of the highlight checkbox and sets the stipple variable accordingly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tools.Tools.line_tool">
+<span class="sig-name descname"><span class="pre">line_tool</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tools.html#Tools.line_tool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tools.Tools.line_tool" title="Link to this definition"></a></dt>
+<dd><p>Activates the Line tool.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tools.Tools.oval_tool">
+<span class="sig-name descname"><span class="pre">oval_tool</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tools.html#Tools.oval_tool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tools.Tools.oval_tool" title="Link to this definition"></a></dt>
+<dd><p>Activates the Oval tool.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tools.Tools.pan_tool">
+<span class="sig-name descname"><span class="pre">pan_tool</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tools.html#Tools.pan_tool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tools.Tools.pan_tool" title="Link to this definition"></a></dt>
+<dd><p>Activates the Pan tool.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tools.Tools.previous_tool">
+<span class="sig-name descname"><span class="pre">previous_tool</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#tools.Tools.previous_tool" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tools.Tools.rectangle_tool">
+<span class="sig-name descname"><span class="pre">rectangle_tool</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tools.html#Tools.rectangle_tool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tools.Tools.rectangle_tool" title="Link to this definition"></a></dt>
+<dd><p>Activates the Rectangle tool.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tools.Tools.reset_tool_variables">
+<span class="sig-name descname"><span class="pre">reset_tool_variables</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tools.html#Tools.reset_tool_variables"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tools.Tools.reset_tool_variables" title="Link to this definition"></a></dt>
+<dd><p>Resets all tool variables like width, fill, constraint to the default state.
+Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tools.Tools.select_tool_button">
+<span class="sig-name descname"><span class="pre">select_tool_button</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tools.html#Tools.select_tool_button"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tools.Tools.select_tool_button" title="Link to this definition"></a></dt>
+<dd><p>Decorator that handles the switch to a new tool.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tools.Tools.shape_constraint">
+<span class="sig-name descname"><span class="pre">shape_constraint</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#tools.Tools.shape_constraint" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tools.Tools.shape_fill">
+<span class="sig-name descname"><span class="pre">shape_fill</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#tools.Tools.shape_fill" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tools.Tools.stipple">
+<span class="sig-name descname"><span class="pre">stipple</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#tools.Tools.stipple" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tools.Tools.stroke_width">
+<span class="sig-name descname"><span class="pre">stroke_width</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">10</span></em><a class="headerlink" href="#tools.Tools.stroke_width" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tools.Tools.text_color_tool">
+<span class="sig-name descname"><span class="pre">text_color_tool</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tools.html#Tools.text_color_tool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tools.Tools.text_color_tool" title="Link to this definition"></a></dt>
+<dd><p>Activates the Text color tool.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tools.Tools.text_tool">
+<span class="sig-name descname"><span class="pre">text_tool</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tools.html#Tools.text_tool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tools.Tools.text_tool" title="Link to this definition"></a></dt>
+<dd><p>Activates the Text tool.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tools.Tools.uniform_shape_checkbox_handler">
+<span class="sig-name descname"><span class="pre">uniform_shape_checkbox_handler</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tools.html#Tools.uniform_shape_checkbox_handler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tools.Tools.uniform_shape_checkbox_handler" title="Link to this definition"></a></dt>
+<dd><p>Gets the state of the uniform checkbox and sets the shape_constraint variable accordingly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="outliner.html" class="btn btn-neutral float-left" title="outliner module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Agnivesh S P.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>image_processor &mdash; R-View Tool v1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=76e2d817"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../docs_home.html" class="icon icon-home">
+            R-View Tool
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">R-View Tool</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../docs_home.html">R-View Tool</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../docs_home.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Module code</a></li>
+      <li class="breadcrumb-item active">image_processor</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for image_processor</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">ImageDraw</span><span class="p">,</span> <span class="n">ImageFont</span>
+<span class="kn">from</span> <span class="nn">tkinter.font</span> <span class="kn">import</span> <span class="n">Font</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+
+<div class="viewcode-block" id="ImageProcessor">
+<a class="viewcode-back" href="../image_processor.html#image_processor.ImageProcessor">[docs]</a>
+<span class="k">class</span> <span class="nc">ImageProcessor</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Handles the Image rendering and save operations.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app</span><span class="p">,</span> <span class="n">canvas_gm</span><span class="p">,</span> <span class="n">overlay_gm</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializer for the ImageProcessor</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            app: Main app</span>
+<span class="sd">            canvas_gm: Base Canvas GraphicsProcessor</span>
+<span class="sd">            overlay_gm: Overlay Canvas GraphicProcessor</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span> <span class="o">=</span> <span class="n">app</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">canvas_gm</span> <span class="o">=</span> <span class="n">canvas_gm</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">overlay_gm</span> <span class="o">=</span> <span class="n">overlay_gm</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_image</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">canvas_image</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">overlay_layer</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_image_size</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prev_image_size</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">font</span> <span class="o">=</span> <span class="n">ImageFont</span><span class="o">.</span><span class="n">truetype</span><span class="p">(</span><span class="n">font</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;fonts&quot;</span><span class="p">,</span> <span class="s2">&quot;RobotoMono-Medium.ttf&quot;</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">font</span> <span class="o">=</span> <span class="n">ImageFont</span><span class="o">.</span><span class="n">load_default</span><span class="p">()</span>
+
+<div class="viewcode-block" id="ImageProcessor.render_images">
+<a class="viewcode-back" href="../image_processor.html#image_processor.ImageProcessor.render_images">[docs]</a>
+    <span class="k">def</span> <span class="nf">render_images</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Renders the graphic annotations onto the images and saves the images in the specified folder.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            batch (bool): True renders every image in queue, False renders the current image on display.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True on successful render of all images. Else False.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># OverlayCanvas is the tkinter.Canvas object for the global overlay elements.</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">HIGHLIGHT_OPACITY</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">user_settings</span><span class="p">[</span><span class="s2">&quot;highlight_opacity&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">OVERLAY_IMAGE_INDEX</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">OVERLAY_GRAPHICS_INDEX</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">FONT_PATH</span> <span class="o">=</span> <span class="s2">&quot;fonts&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">image_data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">graphics_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">graphics_data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_image_size</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prev_image_size</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="n">include_blanks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">include_blanks</span>
+        <span class="n">overlay_enabled</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">render_overlay</span>
+        <span class="n">trim_overlay</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">trim_overlay</span>
+        <span class="n">render_sequence_code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">render_sequence_code</span>
+        <span class="n">sequence_code_position</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">sequence_code_render_position</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">anti_alias</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">anti_alias_output</span>
+        <span class="n">jpeg_quality</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">jpeg_quality</span>
+        <span class="n">png_compression</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">png_compression</span>
+        <span class="n">output_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">output_path</span>
+
+        <span class="n">first_image_processed</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">anti_alias</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">FILM_RESIZE</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">FILM_RESIZE</span> <span class="o">=</span> <span class="mi">1</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">graphics_data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">OVERLAY_GRAPHICS_INDEX</span><span class="p">]:</span>  <span class="c1"># Overlay 2d drawings index.</span>
+            <span class="n">has_2d_overlay</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">has_2d_overlay</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">graphics_data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">OVERLAY_IMAGE_INDEX</span><span class="p">]:</span>  <span class="c1"># Overlay image index</span>
+            <span class="n">has_image_overlay</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">has_image_overlay</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># If nothing in the overlay canvas, set overlay to False.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">has_2d_overlay</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">has_image_overlay</span><span class="p">:</span>
+            <span class="n">overlay_enabled</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="k">if</span> <span class="n">batch</span><span class="p">:</span>  <span class="c1"># If export mode is batch.</span>
+
+            <span class="n">indices_with_queue</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="c1"># Get the total images in queue</span>
+            <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;in_queue&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+                    <span class="n">indices_with_queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>  <span class="c1"># saving the indexes of the images in queue</span>
+            <span class="n">total_images_in_queue</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">indices_with_queue</span><span class="p">)</span>
+
+            <span class="c1"># total_images_in_queue = sum(1 for index,data in self.data_dict.items() if data.get(&quot;in_queue&quot;) is True)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">include_blanks</span><span class="p">:</span>
+                <span class="n">total_blanks</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">indices_with_queue</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">graphics_data</span><span class="p">[</span><span class="n">key</span><span class="p">]:</span>
+                        <span class="n">total_blanks</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">total_images_in_queue</span> <span class="o">=</span> <span class="n">total_images_in_queue</span> <span class="o">-</span> <span class="n">total_blanks</span>
+
+            <span class="n">total_range</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">available_index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">total_images_in_queue</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">render_menu</span><span class="o">.</span><span class="n">update_progress_bar</span><span class="p">(</span><span class="n">progress</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># Render only the current image.</span>
+            <span class="n">total_images_in_queue</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="n">total_range</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">image_index</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">image_index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">files_saved</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># For progress bar update.</span>
+
+        <span class="c1"># Iterating through each of the images and redrawing the graphic elements.</span>
+        <span class="k">for</span> <span class="n">image_index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">*</span><span class="n">total_range</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="c1"># If the image is queued or single image export.</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_dict</span><span class="p">[</span><span class="n">image_index</span><span class="p">][</span><span class="s2">&quot;in_queue&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">batch</span><span class="p">:</span>
+                    <span class="c1"># If no 2d drawings, but include blanks is checked.</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">graphics_data</span><span class="p">[</span><span class="n">image_index</span><span class="p">]</span> <span class="ow">and</span> <span class="p">(</span><span class="n">include_blanks</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">batch</span><span class="p">):</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">final_base_image</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">images</span><span class="p">[</span><span class="n">image_index</span><span class="p">])</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;RGBA&quot;</span><span class="p">)</span>
+
+                    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">graphics_data</span><span class="p">[</span><span class="n">image_index</span><span class="p">]:</span>  <span class="c1"># if the current image has 2d drawings.</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">current_image</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">images</span><span class="p">[</span><span class="n">image_index</span><span class="p">])</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;RGBA&quot;</span><span class="p">)</span>
+
+                        <span class="bp">self</span><span class="o">.</span><span class="n">base_graphics_layer</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;RGBA&quot;</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_image</span><span class="o">.</span><span class="n">width</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">FILM_RESIZE</span><span class="p">,</span>
+                                                                      <span class="bp">self</span><span class="o">.</span><span class="n">current_image</span><span class="o">.</span><span class="n">height</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">FILM_RESIZE</span><span class="p">),</span>
+                                                             <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+
+                        <span class="bp">self</span><span class="o">.</span><span class="n">canvas_draw</span> <span class="o">=</span> <span class="n">ImageDraw</span><span class="o">.</span><span class="n">Draw</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">base_graphics_layer</span><span class="p">)</span>
+
+                        <span class="c1"># ================Render Base Canvas==========================</span>
+
+                        <span class="c1"># The graphic elements are drawn on a transparent blank film layer before finally pasting over the base image.</span>
+
+                        <span class="k">for</span> <span class="nb">id</span><span class="p">,</span> <span class="n">cache</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">graphics_data</span><span class="p">[</span><span class="n">image_index</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                            <span class="c1"># cache is the single graphic object.</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">current_cache</span> <span class="o">=</span> <span class="n">cache</span>
+                            <span class="c1"># Draws the 2d elements on the image.</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">plot_graphic_element</span><span class="p">(</span><span class="n">layer</span><span class="o">=</span><span class="s2">&quot;base&quot;</span><span class="p">)</span>
+
+                        <span class="c1"># Resize the enlarged image to Normal size.</span>
+                        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">anti_alias</span><span class="p">:</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">resized_base_graphics_layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_graphics_layer</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_image</span><span class="o">.</span><span class="n">size</span><span class="p">,</span>
+                                                                                               <span class="n">resample</span><span class="o">=</span><span class="n">Image</span><span class="o">.</span><span class="n">LANCZOS</span><span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>  <span class="c1"># not wasting time with useless resize</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">resized_base_graphics_layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_graphics_layer</span>
+
+                        <span class="c1"># Final Annotated Base image</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">final_base_image</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">alpha_composite</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_image</span><span class="p">,</span>
+                                                                      <span class="bp">self</span><span class="o">.</span><span class="n">resized_base_graphics_layer</span><span class="p">)</span>
+
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">continue</span>  <span class="c1"># Skip the image.</span>
+
+                    <span class="bp">self</span><span class="o">.</span><span class="n">current_image_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">final_base_image</span><span class="o">.</span><span class="n">size</span>
+
+                    <span class="c1"># ================Render Overlay Canvas==========================</span>
+                    <span class="k">if</span> <span class="n">overlay_enabled</span><span class="p">:</span>
+                        <span class="c1"># if the previous image had the same resolution, reuse the currently made overlay.</span>
+                        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">prev_image_size</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_image_size</span><span class="p">:</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">prepare_overlay_layer</span><span class="p">()</span>
+
+                            <span class="c1"># Makes the transparent layer.</span>
+                            <span class="c1"># Enlarge the image if anti_alias enabled.</span>
+                            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">anti_alias</span><span class="p">:</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">overlay_layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">overlay_layer</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span>
+                                    <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">overlay_layer</span><span class="o">.</span><span class="n">width</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">FILM_RESIZE</span><span class="p">,</span>
+                                     <span class="bp">self</span><span class="o">.</span><span class="n">overlay_layer</span><span class="o">.</span><span class="n">height</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">FILM_RESIZE</span><span class="p">))</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">overlay_draw</span> <span class="o">=</span> <span class="n">ImageDraw</span><span class="o">.</span><span class="n">Draw</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">overlay_layer</span><span class="p">)</span>
+
+                            <span class="k">for</span> <span class="nb">id</span><span class="p">,</span> <span class="n">cache</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">graphics_data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">OVERLAY_GRAPHICS_INDEX</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                                <span class="c1"># cache is the single graphic object.</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">current_cache</span> <span class="o">=</span> <span class="n">cache</span>
+                                <span class="c1"># Draw overlay 2d items one by one.</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">plot_graphic_element</span><span class="p">(</span><span class="n">layer</span><span class="o">=</span><span class="s2">&quot;overlay&quot;</span><span class="p">)</span>
+
+                            <span class="c1"># Rescale overlay to image size.</span>
+                            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">anti_alias</span><span class="p">:</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">overlay_layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">overlay_layer</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span>
+                                    <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">overlay_layer</span><span class="o">.</span><span class="n">width</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">FILM_RESIZE</span><span class="p">,</span>
+                                     <span class="bp">self</span><span class="o">.</span><span class="n">overlay_layer</span><span class="o">.</span><span class="n">height</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">FILM_RESIZE</span><span class="p">),</span>
+                                    <span class="n">resample</span><span class="o">=</span><span class="n">Image</span><span class="o">.</span><span class="n">LANCZOS</span><span class="p">)</span>
+
+                            <span class="c1"># Images are pasted in after all the drawings has been made on the overlay layer.</span>
+                            <span class="k">if</span> <span class="n">has_image_overlay</span><span class="p">:</span>  <span class="c1"># if current overlay canvas has image elements.</span>
+                                <span class="k">for</span> <span class="nb">id</span><span class="p">,</span> <span class="n">image_cache</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">graphics_data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">OVERLAY_IMAGE_INDEX</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                                    <span class="bp">self</span><span class="o">.</span><span class="n">current_cache</span> <span class="o">=</span> <span class="n">image_cache</span>
+                                    <span class="c1"># Draw overlay image items one by one.</span>
+                                    <span class="bp">self</span><span class="o">.</span><span class="n">insert_overlay_image_element</span><span class="p">()</span>
+                        <span class="k">else</span><span class="p">:</span>
+
+                            <span class="k">pass</span>
+
+                        <span class="bp">self</span><span class="o">.</span><span class="n">background_layer</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;RGBA&quot;</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">overlay_layer</span><span class="o">.</span><span class="n">width</span><span class="p">,</span>
+                                                                   <span class="bp">self</span><span class="o">.</span><span class="n">overlay_layer</span><span class="o">.</span><span class="n">height</span><span class="p">),</span> <span class="s2">&quot;white&quot;</span><span class="p">)</span>
+
+                        <span class="n">paste_position</span> <span class="o">=</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">overlay_layer</span><span class="o">.</span><span class="n">width</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">final_base_image</span><span class="o">.</span><span class="n">width</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span>
+                                          <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">overlay_layer</span><span class="o">.</span><span class="n">height</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">final_base_image</span><span class="o">.</span><span class="n">height</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span>
+
+                        <span class="c1"># pasting the base image on a 16:9 backdrop</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">background_layer</span><span class="o">.</span><span class="n">paste</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">final_base_image</span><span class="p">,</span> <span class="n">paste_position</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">final_image</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">alpha_composite</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">background_layer</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">overlay_layer</span><span class="p">)</span>
+
+                        <span class="c1"># -----------Trim the Final Image to the original image size------------------</span>
+                        <span class="k">if</span> <span class="n">trim_overlay</span><span class="p">:</span>
+                            <span class="n">original_width</span><span class="p">,</span> <span class="n">original_height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">final_image</span><span class="o">.</span><span class="n">size</span>
+                            <span class="n">target_width</span><span class="p">,</span> <span class="n">target_height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">final_base_image</span><span class="o">.</span><span class="n">size</span>
+
+                            <span class="c1"># Calculate the coordinates for cropping from the center</span>
+                            <span class="n">left</span> <span class="o">=</span> <span class="p">(</span><span class="n">original_width</span> <span class="o">-</span> <span class="n">target_width</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+                            <span class="n">upper</span> <span class="o">=</span> <span class="p">(</span><span class="n">original_height</span> <span class="o">-</span> <span class="n">target_height</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+                            <span class="n">right</span> <span class="o">=</span> <span class="n">left</span> <span class="o">+</span> <span class="n">target_width</span>
+                            <span class="n">lower</span> <span class="o">=</span> <span class="n">upper</span> <span class="o">+</span> <span class="n">target_height</span>
+                            <span class="c1"># crop the image</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">final_image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">final_image</span><span class="o">.</span><span class="n">crop</span><span class="p">((</span><span class="n">left</span><span class="p">,</span> <span class="n">upper</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">lower</span><span class="p">))</span>
+
+                    <span class="k">else</span><span class="p">:</span>  <span class="c1"># if no overlay save the base image.</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">final_image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">final_base_image</span>
+
+                    <span class="c1"># ============Imprint the Sequence code on the image=================</span>
+                    <span class="k">if</span> <span class="n">render_sequence_code</span><span class="p">:</span>
+                        <span class="n">sequence_code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_dict</span><span class="p">[</span><span class="n">image_index</span><span class="p">][</span><span class="s1">&#39;sequence_code&#39;</span><span class="p">]</span>
+                        <span class="k">if</span> <span class="n">sequence_code</span><span class="p">:</span>
+                            <span class="n">sequence_code_image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generate_sequence_code_image</span><span class="p">(</span><span class="n">sequence_code</span><span class="o">=</span><span class="n">sequence_code</span><span class="p">)</span>
+
+                            <span class="k">if</span> <span class="n">sequence_code_position</span> <span class="o">==</span> <span class="s2">&quot;ne&quot;</span><span class="p">:</span>  <span class="c1"># top right</span>
+                                <span class="n">paste_anchor</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">final_image</span><span class="o">.</span><span class="n">width</span> <span class="o">-</span> <span class="n">sequence_code_image</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+                            <span class="k">elif</span> <span class="n">sequence_code_position</span> <span class="o">==</span> <span class="s2">&quot;sw&quot;</span><span class="p">:</span>  <span class="c1"># bottom left</span>
+                                <span class="n">paste_anchor</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">final_image</span><span class="o">.</span><span class="n">height</span> <span class="o">-</span> <span class="n">sequence_code_image</span><span class="o">.</span><span class="n">height</span><span class="p">)</span>
+
+                            <span class="k">elif</span> <span class="n">sequence_code_position</span> <span class="o">==</span> <span class="s2">&quot;se&quot;</span><span class="p">:</span>  <span class="c1"># bottom right</span>
+                                <span class="n">paste_anchor</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">final_image</span><span class="o">.</span><span class="n">width</span> <span class="o">-</span> <span class="n">sequence_code_image</span><span class="o">.</span><span class="n">width</span><span class="p">,</span>
+                                                <span class="bp">self</span><span class="o">.</span><span class="n">final_image</span><span class="o">.</span><span class="n">height</span> <span class="o">-</span> <span class="n">sequence_code_image</span><span class="o">.</span><span class="n">height</span><span class="p">)</span>
+                            <span class="k">else</span><span class="p">:</span>  <span class="c1"># nw top corner</span>
+                                <span class="n">paste_anchor</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+                            <span class="bp">self</span><span class="o">.</span><span class="n">final_image</span><span class="o">.</span><span class="n">paste</span><span class="p">(</span><span class="n">sequence_code_image</span><span class="p">,</span> <span class="n">paste_anchor</span><span class="p">)</span>
+
+                    <span class="c1"># ================Save the rendered image==========================</span>
+                    <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_dict</span><span class="p">[</span><span class="n">image_index</span><span class="p">][</span><span class="s1">&#39;file&#39;</span><span class="p">])</span>
+                    <span class="n">output_location</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">output_path</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">&quot;</span>
+
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">final_image</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">output_location</span><span class="p">,</span> <span class="n">quality</span><span class="o">=</span><span class="n">jpeg_quality</span><span class="p">,</span> <span class="n">compress_level</span><span class="o">=</span><span class="n">png_compression</span><span class="p">)</span>
+                    <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>  <span class="c1"># incase image fails to save with alphas</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">final_image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">final_image</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">&quot;RGB&quot;</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">final_image</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">output_location</span><span class="p">,</span> <span class="n">quality</span><span class="o">=</span><span class="n">jpeg_quality</span><span class="p">,</span> <span class="n">compress_level</span><span class="o">=</span><span class="n">png_compression</span><span class="p">)</span>
+                    <span class="k">finally</span><span class="p">:</span>
+                        <span class="n">files_saved</span> <span class="o">+=</span> <span class="mi">1</span>
+                        <span class="n">progress</span> <span class="o">=</span> <span class="n">files_saved</span> <span class="o">/</span> <span class="n">total_images_in_queue</span>  <span class="c1"># 0 to 1 range</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">prev_image_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_image_size</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">render_menu</span><span class="o">.</span><span class="n">update_progress_bar</span><span class="p">(</span><span class="n">progress</span><span class="o">=</span><span class="n">progress</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                    <span class="k">except</span><span class="p">:</span>
+                        <span class="k">return</span> <span class="kc">False</span>
+
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>  <span class="c1"># If any one of the image fails to save.</span>
+                <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="ImageProcessor.plot_graphic_element">
+<a class="viewcode-back" href="../image_processor.html#image_processor.ImageProcessor.plot_graphic_element">[docs]</a>
+    <span class="k">def</span> <span class="nf">plot_graphic_element</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layer</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adjusts the values and calls the specified method to plot the graphic element to an image.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            layer (str): If the overlay elements are being drawn then,&quot;overlay&quot;. Else &quot;base&quot;</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">cache</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_cache</span>
+
+        <span class="k">if</span> <span class="n">layer</span> <span class="o">!=</span> <span class="s2">&quot;overlay&quot;</span><span class="p">:</span>
+            <span class="n">canvas</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">canvas_draw</span>
+            <span class="k">if</span> <span class="n">cache</span><span class="o">.</span><span class="n">tool</span> <span class="o">==</span> <span class="mi">8</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">adjusted_coordinates</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_resized_coordinates</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="s2">&quot;text&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">adjusted_font_size</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">cache</span><span class="o">.</span><span class="n">font_size</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">FILM_RESIZE</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">adjusted_coordinates</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_resized_coordinates</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">adjusted_stroke_width</span> <span class="o">=</span> <span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">cache</span><span class="o">.</span><span class="n">width</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">FILM_RESIZE</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">canvas</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">overlay_draw</span>
+            <span class="k">if</span> <span class="n">cache</span><span class="o">.</span><span class="n">tool</span> <span class="o">==</span> <span class="mi">8</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">adjusted_coordinates</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_values_for_overlay_layer_from_overlaycache</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="s2">&quot;text&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">adjusted_font_size</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_values_for_overlay_layer_from_overlaycache</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="s2">&quot;font&quot;</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">adjusted_coordinates</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_values_for_overlay_layer_from_overlaycache</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">adjusted_stroke_width</span> <span class="o">=</span> <span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_values_for_overlay_layer_from_overlaycache</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="s2">&quot;width&quot;</span><span class="p">)))</span>
+
+        <span class="k">if</span> <span class="n">cache</span><span class="o">.</span><span class="n">tool</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>  <span class="c1"># Brush tool</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">plot_brush_stroke</span><span class="p">(</span><span class="n">canvas</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">cache</span><span class="o">.</span><span class="n">tool</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>  <span class="c1"># Line tool</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">plot_line</span><span class="p">(</span><span class="n">canvas</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">cache</span><span class="o">.</span><span class="n">tool</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>  <span class="c1"># rectangle tool</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">plot_rectangle</span><span class="p">(</span><span class="n">canvas</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">cache</span><span class="o">.</span><span class="n">tool</span> <span class="o">==</span> <span class="mi">6</span><span class="p">:</span>  <span class="c1"># rectangle tool</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">plot_oval</span><span class="p">(</span><span class="n">canvas</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">cache</span><span class="o">.</span><span class="n">tool</span> <span class="o">==</span> <span class="mi">8</span><span class="p">:</span>  <span class="c1"># Insert Text</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">insert_text</span><span class="p">(</span><span class="n">canvas</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ImageProcessor.prepare_overlay_layer">
+<a class="viewcode-back" href="../image_processor.html#image_processor.ImageProcessor.prepare_overlay_layer">[docs]</a>
+    <span class="k">def</span> <span class="nf">prepare_overlay_layer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Prepares a transparent image in the 16:9 ratio for the graphic elements to be drawn onto.</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">annotated_img_width</span><span class="p">,</span> <span class="n">annotated_img_height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">final_base_image</span><span class="o">.</span><span class="n">size</span>
+
+        <span class="n">canvas_width</span> <span class="o">=</span> <span class="mi">16</span> <span class="o">*</span> <span class="n">annotated_img_height</span> <span class="o">//</span> <span class="mi">9</span>
+        <span class="n">canvas_height</span> <span class="o">=</span> <span class="n">annotated_img_height</span>
+
+        <span class="k">if</span> <span class="n">canvas_width</span> <span class="o">&lt;</span> <span class="n">annotated_img_width</span><span class="p">:</span>
+            <span class="n">canvas_width</span> <span class="o">=</span> <span class="n">annotated_img_width</span>
+            <span class="n">canvas_height</span> <span class="o">=</span> <span class="mi">9</span> <span class="o">*</span> <span class="n">annotated_img_width</span> <span class="o">//</span> <span class="mi">16</span>
+
+        <span class="n">base_width</span> <span class="o">=</span> <span class="n">canvas_width</span>  <span class="c1"># *self.OVERLAY_RESIZE</span>
+        <span class="n">base_height</span> <span class="o">=</span> <span class="n">canvas_height</span>  <span class="c1"># *self.OVERLAY_RESIZE</span>
+
+        <span class="c1"># Makes a new transparent image .</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">overlay_layer</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;RGBA&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">base_width</span><span class="p">,</span> <span class="n">base_height</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">overlay_draw</span> <span class="o">=</span> <span class="n">ImageDraw</span><span class="o">.</span><span class="n">Draw</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">overlay_layer</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ImageProcessor.insert_overlay_image_element">
+<a class="viewcode-back" href="../image_processor.html#image_processor.ImageProcessor.insert_overlay_image_element">[docs]</a>
+    <span class="k">def</span> <span class="nf">insert_overlay_image_element</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Renders the overlay image element to the overlay cel layer.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">transparent_layer</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;RGBA&quot;</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">overlay_layer</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">overlay_layer</span><span class="o">.</span><span class="n">height</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+        <span class="c1"># self.overlay_draw = ImageDraw.Draw(transparent_layer)</span>
+
+        <span class="n">image_to_paste</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_cache</span><span class="o">.</span><span class="n">image_object</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">&quot;RGBA&quot;</span><span class="p">)</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_values_for_overlay_layer_from_overlaycache</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="s2">&quot;image&quot;</span><span class="p">)</span>
+        <span class="c1"># Converting from overlay canvas size to true image size.</span>
+        <span class="n">new_width</span><span class="p">,</span> <span class="n">new_height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_values_for_overlay_layer_from_overlaycache</span><span class="p">(</span><span class="n">coordinates</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">current_cache</span><span class="o">.</span><span class="n">size</span><span class="p">,</span>
+                                                                                    <span class="n">item</span><span class="o">=</span><span class="s2">&quot;image&quot;</span><span class="p">)</span>
+        <span class="n">resized_image</span> <span class="o">=</span> <span class="n">image_to_paste</span><span class="o">.</span><span class="n">resize</span><span class="p">((</span><span class="nb">round</span><span class="p">(</span><span class="n">new_width</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">new_height</span><span class="p">)))</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">rotation_angle</span> <span class="o">:=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_cache</span><span class="o">.</span><span class="n">angle</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">360</span><span class="p">):</span>
+            <span class="n">resized_image</span> <span class="o">=</span> <span class="n">resized_image</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">rotation_angle</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">resample</span><span class="o">=</span><span class="n">Image</span><span class="o">.</span><span class="n">BICUBIC</span><span class="p">)</span>
+
+        <span class="c1"># Center anchoring the image.</span>
+        <span class="n">x_offset</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="p">(</span><span class="n">resized_image</span><span class="o">.</span><span class="n">width</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">y_offset</span> <span class="o">=</span> <span class="n">y</span> <span class="o">-</span> <span class="p">(</span><span class="n">resized_image</span><span class="o">.</span><span class="n">height</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span>
+
+        <span class="c1"># Uses the alpha from the imported image as a mask.</span>
+        <span class="n">transparent_layer</span><span class="o">.</span><span class="n">paste</span><span class="p">(</span><span class="n">resized_image</span><span class="p">,</span> <span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">x_offset</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">y_offset</span><span class="p">)),</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">overlay_layer</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">alpha_composite</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">overlay_layer</span><span class="p">,</span> <span class="n">transparent_layer</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ImageProcessor.plot_brush_stroke">
+<a class="viewcode-back" href="../image_processor.html#image_processor.ImageProcessor.plot_brush_stroke">[docs]</a>
+    <span class="k">def</span> <span class="nf">plot_brush_stroke</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">canvas</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Renders graphic elements plotted using the Brush tool onto the given canvas draw object.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            canvas: PIL draw object.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_cache</span><span class="o">.</span><span class="n">stipple</span><span class="p">:</span>  <span class="c1"># if Current line is a highlight, add transparency.</span>
+            <span class="n">fill_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_highlight_color</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">fill_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_cache</span><span class="o">.</span><span class="n">fill_color</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">round_cap</span><span class="p">(</span><span class="n">fill_color</span><span class="o">=</span><span class="n">fill_color</span><span class="p">,</span> <span class="n">canvas</span><span class="o">=</span><span class="n">canvas</span><span class="p">)</span>
+        <span class="n">canvas</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">adjusted_coordinates</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">fill_color</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">adjusted_stroke_width</span><span class="p">),</span> <span class="n">joint</span><span class="o">=</span><span class="s2">&quot;curve&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ImageProcessor.plot_line">
+<a class="viewcode-back" href="../image_processor.html#image_processor.ImageProcessor.plot_line">[docs]</a>
+    <span class="k">def</span> <span class="nf">plot_line</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">canvas</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Renders graphic elements plotted using the Line tool onto the given canvas draw object.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            canvas: PIL draw object.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_cache</span><span class="o">.</span><span class="n">stipple</span><span class="p">:</span>  <span class="c1"># Current line is a highlight</span>
+            <span class="n">fill_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_highlight_color</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">fill_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_cache</span><span class="o">.</span><span class="n">fill_color</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_cache</span><span class="o">.</span><span class="n">capstyle</span> <span class="o">==</span> <span class="s2">&quot;round&quot;</span><span class="p">:</span>
+            <span class="c1"># Caps the ends</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">round_cap</span><span class="p">(</span><span class="n">fill_color</span><span class="o">=</span><span class="n">fill_color</span><span class="p">,</span> <span class="n">canvas</span><span class="o">=</span><span class="n">canvas</span><span class="p">)</span>
+
+        <span class="n">canvas</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">adjusted_coordinates</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">fill_color</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">adjusted_stroke_width</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ImageProcessor.plot_rectangle">
+<a class="viewcode-back" href="../image_processor.html#image_processor.ImageProcessor.plot_rectangle">[docs]</a>
+    <span class="k">def</span> <span class="nf">plot_rectangle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">canvas</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Renders graphic elements plotted using the Rectangle tool onto the given canvas draw object.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            canvas: PIL draw object.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">fill_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_cache</span><span class="o">.</span><span class="n">fill_color</span>
+        <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">adjusted_coordinates</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">adjusted_coordinates</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="c1"># making coordinates Pillow compatible</span>
+        <span class="k">if</span> <span class="n">x1</span> <span class="o">&gt;</span> <span class="n">x2</span><span class="p">:</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">x1</span>
+            <span class="n">x1</span> <span class="o">=</span> <span class="n">x2</span>
+            <span class="n">x2</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="k">if</span> <span class="n">y1</span> <span class="o">&gt;</span> <span class="n">y2</span><span class="p">:</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">y1</span>
+            <span class="n">y1</span> <span class="o">=</span> <span class="n">y2</span>
+            <span class="n">y2</span> <span class="o">=</span> <span class="n">y</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_cache</span><span class="o">.</span><span class="n">interior_fill_color</span><span class="p">:</span>  <span class="c1"># rectangle is solid filled.</span>
+            <span class="n">width</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_cache</span><span class="o">.</span><span class="n">stipple</span><span class="p">:</span>  <span class="c1"># Current line is a highlight</span>
+                <span class="n">fill_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_highlight_color</span><span class="p">()</span>
+            <span class="n">canvas</span><span class="o">.</span><span class="n">rectangle</span><span class="p">((</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">),</span> <span class="n">fill</span><span class="o">=</span><span class="n">fill_color</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># rectangle has only outline.</span>
+            <span class="n">width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">adjusted_stroke_width</span>
+            <span class="c1"># Outline in pillow works differently so pushing it to the center</span>
+            <span class="n">canvas</span><span class="o">.</span><span class="n">rectangle</span><span class="p">((</span><span class="n">x1</span> <span class="o">-</span> <span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y1</span> <span class="o">-</span> <span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">x2</span> <span class="o">+</span> <span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y2</span> <span class="o">+</span> <span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span>
+                             <span class="n">outline</span><span class="o">=</span><span class="n">fill_color</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ImageProcessor.plot_oval">
+<a class="viewcode-back" href="../image_processor.html#image_processor.ImageProcessor.plot_oval">[docs]</a>
+    <span class="k">def</span> <span class="nf">plot_oval</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">canvas</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Renders graphic elements plotted using the Oval tool onto the given canvas draw object.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            canvas: PIL draw object.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">fill_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_cache</span><span class="o">.</span><span class="n">fill_color</span>
+        <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">adjusted_coordinates</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">adjusted_coordinates</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="c1"># making coordinates Pillow compatible</span>
+        <span class="k">if</span> <span class="n">x1</span> <span class="o">&gt;</span> <span class="n">x2</span><span class="p">:</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">x1</span>
+            <span class="n">x1</span> <span class="o">=</span> <span class="n">x2</span>
+            <span class="n">x2</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="k">if</span> <span class="n">y1</span> <span class="o">&gt;</span> <span class="n">y2</span><span class="p">:</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">y1</span>
+            <span class="n">y1</span> <span class="o">=</span> <span class="n">y2</span>
+            <span class="n">y2</span> <span class="o">=</span> <span class="n">y</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_cache</span><span class="o">.</span><span class="n">interior_fill_color</span><span class="p">:</span>  <span class="c1"># rectangle is solid filled.</span>
+            <span class="n">width</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_cache</span><span class="o">.</span><span class="n">stipple</span><span class="p">:</span>  <span class="c1"># Current line is a highlight</span>
+                <span class="n">fill_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_highlight_color</span><span class="p">()</span>
+            <span class="n">canvas</span><span class="o">.</span><span class="n">ellipse</span><span class="p">((</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">),</span> <span class="n">fill</span><span class="o">=</span><span class="n">fill_color</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># rectangle has only outline.</span>
+            <span class="n">width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">adjusted_stroke_width</span>
+            <span class="c1"># Outline in pillow works differently so pushing it inside</span>
+            <span class="n">canvas</span><span class="o">.</span><span class="n">ellipse</span><span class="p">((</span><span class="n">x1</span> <span class="o">-</span> <span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y1</span> <span class="o">-</span> <span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">x2</span> <span class="o">+</span> <span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y2</span> <span class="o">+</span> <span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span>
+                           <span class="n">outline</span><span class="o">=</span><span class="n">fill_color</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ImageProcessor.insert_text">
+<a class="viewcode-back" href="../image_processor.html#image_processor.ImageProcessor.insert_text">[docs]</a>
+    <span class="k">def</span> <span class="nf">insert_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">canvas</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Renders graphic elements plotted using the Text tool onto the given canvas draw object.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            canvas: PIL draw object.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">             None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_cache</span><span class="o">.</span><span class="n">stipple</span><span class="p">:</span>  <span class="c1"># Current line is a highlight</span>
+            <span class="n">fill_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_highlight_color</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">fill_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_cache</span><span class="o">.</span><span class="n">fill_color</span>
+
+        <span class="n">font_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">FONT_PATH</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_cache</span><span class="o">.</span><span class="n">font_file</span><span class="p">)</span>
+        <span class="n">font</span> <span class="o">=</span> <span class="n">ImageFont</span><span class="o">.</span><span class="n">truetype</span><span class="p">(</span><span class="n">font_path</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">adjusted_font_size</span><span class="p">))</span>
+
+        <span class="c1"># Pillow does not use the same anchor,as tkinter and if using left descender(&quot;ld&quot;) (&quot;sw&quot;) some fonts are misaligned.</span>
+        <span class="c1"># So finding the descent value to get the baseline value of the font. then using that baseline value as an anchor fixes the issue.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">tk_font</span> <span class="o">=</span> <span class="n">Font</span><span class="p">(</span><span class="n">family</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">current_cache</span><span class="o">.</span><span class="n">font_name</span><span class="p">,</span>
+                           <span class="n">size</span><span class="o">=-</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">adjusted_font_size</span><span class="p">))</span>  <span class="c1"># -ve to match tkinter.</span>
+            <span class="n">tk_font_info</span> <span class="o">=</span> <span class="n">tk_font</span><span class="o">.</span><span class="n">metrics</span><span class="p">()</span>
+            <span class="n">descent</span> <span class="o">=</span> <span class="n">tk_font_info</span><span class="p">[</span><span class="s2">&quot;descent&quot;</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">error_prompt</span><span class="o">.</span><span class="n">display_error_prompt</span><span class="p">(</span><span class="n">error_msg</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;failed to render,&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">current_cache</span><span class="o">.</span><span class="n">text</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="c1"># Subtracting the descent value to get the baseline value.</span>
+        <span class="n">canvas</span><span class="o">.</span><span class="n">text</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">adjusted_coordinates</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">adjusted_coordinates</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">descent</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_cache</span><span class="o">.</span><span class="n">text</span><span class="p">,</span>
+                    <span class="n">font</span><span class="o">=</span><span class="n">font</span><span class="p">,</span>
+                    <span class="n">fill</span><span class="o">=</span><span class="n">fill_color</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="s2">&quot;ls&quot;</span><span class="p">)</span>  <span class="c1"># Left Baseline,</span></div>
+
+
+<div class="viewcode-block" id="ImageProcessor.round_cap">
+<a class="viewcode-back" href="../image_processor.html#image_processor.ImageProcessor.round_cap">[docs]</a>
+    <span class="k">def</span> <span class="nf">round_cap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fill_color</span><span class="p">,</span> <span class="n">canvas</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Uses the start and end coordinate of a segment to draw two circles to generate round tips.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            fill_color: Hex color code.</span>
+<span class="sd">            canvas: PIL draw object.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">start_point</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">adjusted_coordinates</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">end_point</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">adjusted_coordinates</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">circle_radius</span> <span class="o">=</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">adjusted_stroke_width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="n">canvas</span><span class="o">.</span><span class="n">ellipse</span><span class="p">([</span><span class="n">start_point</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">circle_radius</span><span class="p">,</span> <span class="n">start_point</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">circle_radius</span><span class="p">,</span>
+                        <span class="n">start_point</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">circle_radius</span><span class="p">,</span> <span class="n">start_point</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">circle_radius</span><span class="p">],</span> <span class="n">fill</span><span class="o">=</span><span class="n">fill_color</span><span class="p">)</span>
+
+        <span class="n">canvas</span><span class="o">.</span><span class="n">ellipse</span><span class="p">([</span><span class="n">end_point</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">circle_radius</span><span class="p">,</span> <span class="n">end_point</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">circle_radius</span><span class="p">,</span>
+                        <span class="n">end_point</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">circle_radius</span><span class="p">,</span> <span class="n">end_point</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">circle_radius</span><span class="p">],</span> <span class="n">fill</span><span class="o">=</span><span class="n">fill_color</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ImageProcessor.get_highlight_color">
+<a class="viewcode-back" href="../image_processor.html#image_processor.ImageProcessor.get_highlight_color">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_highlight_color</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adds 50% transparency to the current fill_color to emulate highlight color</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            str: Hex color</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">color_rgb</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_cache</span><span class="o">.</span><span class="n">fill_color</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span> <span class="o">+</span> <span class="mi">2</span><span class="p">],</span> <span class="mi">16</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+        <span class="n">opacity_value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">HIGHLIGHT_OPACITY</span> <span class="o">/</span> <span class="mi">100</span><span class="p">)</span> <span class="o">*</span> <span class="mi">255</span><span class="p">)</span>
+        <span class="n">fill_color</span> <span class="o">=</span> <span class="n">color_rgb</span> <span class="o">+</span> <span class="p">(</span><span class="n">opacity_value</span><span class="p">,)</span>
+        <span class="k">return</span> <span class="n">fill_color</span></div>
+
+
+<div class="viewcode-block" id="ImageProcessor.get_resized_coordinates">
+<a class="viewcode-back" href="../image_processor.html#image_processor.ImageProcessor.get_resized_coordinates">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_resized_coordinates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Scales the coordinates to match the size of the transparent film layer in which the images are being drawn on.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            item (str,optional): &quot;text&quot; in the item is text.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            (list|tuple): Scaled coordinates matching the enlarged film layer size.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">item</span> <span class="o">==</span> <span class="s2">&quot;text&quot;</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="n">coordinate</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">FILM_RESIZE</span> <span class="k">for</span> <span class="n">coordinate</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_cache</span><span class="o">.</span><span class="n">coordinates</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="n">coordinate</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">FILM_RESIZE</span> <span class="k">for</span> <span class="n">coordinate</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_cache</span><span class="o">.</span><span class="n">coordinates</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+        <span class="n">scaled_coordinates</span> <span class="o">=</span> <span class="p">[((</span><span class="n">x</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">FILM_RESIZE</span><span class="p">),</span> <span class="p">(</span><span class="n">y</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">FILM_RESIZE</span><span class="p">))</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span>
+                              <span class="bp">self</span><span class="o">.</span><span class="n">current_cache</span><span class="o">.</span><span class="n">coordinates</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">scaled_coordinates</span></div>
+
+
+<div class="viewcode-block" id="ImageProcessor.get_values_for_overlay_layer_from_overlaycache">
+<a class="viewcode-back" href="../image_processor.html#image_processor.ImageProcessor.get_values_for_overlay_layer_from_overlaycache">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_values_for_overlay_layer_from_overlaycache</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coordinates</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">item</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Resize element values to whatever size the current overlay film layer is at.(including scaled up for antialiasing)</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            coordinates (list|tuple): Coordinates to be scaled to match the current overlay size.</span>
+<span class="sd">            item (str,optional) : &quot;font&quot;, &quot;image&quot;, &quot;text&quot;, &quot;width&quot;</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Scaled coordinates matching the current overlay film size.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">coordinates</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">coordinates</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_cache</span><span class="o">.</span><span class="n">coordinates</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">coordinates</span> <span class="o">=</span> <span class="n">coordinates</span>
+        <span class="c1"># convert cords from 1920 to image size</span>
+
+        <span class="c1"># xlarge image since antialias</span>
+        <span class="n">new_width</span><span class="p">,</span> <span class="n">new_height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">overlay_layer</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">overlay_layer</span><span class="o">.</span><span class="n">height</span>
+        <span class="n">old_width</span><span class="p">,</span> <span class="n">old_height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">overlay_gm</span><span class="o">.</span><span class="n">OVERLAY_WIDTH</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">overlay_gm</span><span class="o">.</span><span class="n">OVERLAY_HEIGHT</span>
+
+        <span class="n">scale_x</span> <span class="o">=</span> <span class="n">new_width</span> <span class="o">/</span> <span class="n">old_width</span>
+        <span class="n">scale_y</span> <span class="o">=</span> <span class="n">new_height</span> <span class="o">/</span> <span class="n">old_height</span>
+
+        <span class="n">scale_factor</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">scale_x</span><span class="p">,</span> <span class="n">scale_y</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">item</span> <span class="o">==</span> <span class="s2">&quot;text&quot;</span> <span class="ow">or</span> <span class="n">item</span> <span class="o">==</span> <span class="s2">&quot;image&quot;</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="n">coordinate</span> <span class="o">*</span> <span class="n">scale_factor</span> <span class="k">for</span> <span class="n">coordinate</span> <span class="ow">in</span> <span class="n">coordinates</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="n">coordinate</span> <span class="o">*</span> <span class="n">scale_factor</span> <span class="k">for</span> <span class="n">coordinate</span> <span class="ow">in</span> <span class="n">coordinates</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+            <span class="k">return</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">item</span> <span class="o">==</span> <span class="s2">&quot;font&quot;</span><span class="p">:</span>
+            <span class="n">new_font_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_cache</span><span class="o">.</span><span class="n">font_size</span> <span class="o">*</span> <span class="n">scale_factor</span>
+            <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">new_font_size</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">item</span> <span class="o">==</span> <span class="s2">&quot;width&quot;</span><span class="p">:</span>
+            <span class="n">new_width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_cache</span><span class="o">.</span><span class="n">width</span> <span class="o">*</span> <span class="n">scale_factor</span>
+            <span class="k">return</span> <span class="n">new_width</span>
+
+        <span class="n">scaled_coordinates</span> <span class="o">=</span> <span class="p">[((</span><span class="n">x</span> <span class="o">*</span> <span class="n">scale_factor</span><span class="p">),</span> <span class="p">(</span><span class="n">y</span> <span class="o">*</span> <span class="n">scale_factor</span><span class="p">))</span>
+                              <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">coordinates</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">scaled_coordinates</span></div>
+
+
+<div class="viewcode-block" id="ImageProcessor.generate_sequence_code_image">
+<a class="viewcode-back" href="../image_processor.html#image_processor.ImageProcessor.generate_sequence_code_image">[docs]</a>
+    <span class="k">def</span> <span class="nf">generate_sequence_code_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sequence_code</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generates an image from the sequence code.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            An RGB Image with the sequence code</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">final_image_width</span><span class="p">,</span> <span class="n">final_image_height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">final_image</span><span class="o">.</span><span class="n">size</span>
+        <span class="n">backdrop_width</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="mi">10</span> <span class="o">/</span> <span class="mi">100</span><span class="p">)</span> <span class="o">*</span> <span class="n">final_image_width</span><span class="p">)</span>
+        <span class="n">backdrop_height</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="mi">35</span> <span class="o">/</span> <span class="mi">100</span><span class="p">)</span> <span class="o">*</span> <span class="n">backdrop_width</span><span class="p">)</span>
+
+        <span class="n">sequence_code_img</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;RGB&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">backdrop_width</span><span class="p">,</span> <span class="n">backdrop_height</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
+        <span class="n">drawobj</span> <span class="o">=</span> <span class="n">ImageDraw</span><span class="o">.</span><span class="n">Draw</span><span class="p">(</span><span class="n">sequence_code_img</span><span class="p">)</span>
+
+        <span class="n">font_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">backdrop_height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">font</span> <span class="o">=</span> <span class="n">ImageFont</span><span class="o">.</span><span class="n">truetype</span><span class="p">(</span><span class="n">font</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;fonts&quot;</span><span class="p">,</span> <span class="s2">&quot;RobotoMono-Medium.ttf&quot;</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="n">font_size</span><span class="p">)</span>
+
+        <span class="n">text_width</span> <span class="o">=</span> <span class="n">drawobj</span><span class="o">.</span><span class="n">textlength</span><span class="p">(</span><span class="n">sequence_code</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="p">)</span>
+        <span class="n">text_height</span> <span class="o">=</span> <span class="n">font_size</span>
+        <span class="n">text_position</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">backdrop_width</span> <span class="o">-</span> <span class="n">text_width</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">backdrop_height</span> <span class="o">-</span> <span class="n">text_height</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.3</span><span class="p">)</span>
+
+        <span class="n">drawobj</span><span class="o">.</span><span class="n">text</span><span class="p">((</span><span class="n">text_position</span><span class="p">),</span> <span class="n">sequence_code</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span> <span class="n">font</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">sequence_code_img</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Agnivesh S P.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

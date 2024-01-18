@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>R-View Tool &mdash; R-View Tool v1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=76e2d817"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="file_handler module" href="file_handler.html" />
+    <link rel="prev" title="Welcome to R-View Tool’s documentation!" href="docs_home.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="docs_home.html" class="icon icon-home">
+            R-View Tool
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">R-View Tool</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="file_handler.html">file_handler module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="graphics_manager.html">graphics_manager module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="image_processor.html">image_processor module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keybinds.html">keybinds module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="main.html">main module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="outliner.html">outliner module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools.html">tools module</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="docs_home.html">R-View Tool</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="docs_home.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">R-View Tool</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/modules.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="r-view-tool">
+<h1>R-View Tool<a class="headerlink" href="#r-view-tool" title="Link to this heading"></a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="file_handler.html">file_handler module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="file_handler.html#file_handler.FileHandler"><code class="docutils literal notranslate"><span class="pre">FileHandler</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="file_handler.html#file_handler.FileHandler.get_sequence_code"><code class="docutils literal notranslate"><span class="pre">FileHandler.get_sequence_code()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="file_handler.html#file_handler.FileHandler.load_project_file"><code class="docutils literal notranslate"><span class="pre">FileHandler.load_project_file()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="file_handler.html#file_handler.FileHandler.save_project_file"><code class="docutils literal notranslate"><span class="pre">FileHandler.save_project_file()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="file_handler.html#file_handler.FileHandler.validate_image"><code class="docutils literal notranslate"><span class="pre">FileHandler.validate_image()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="file_handler.html#file_handler.FileHandler.validate_project_file"><code class="docutils literal notranslate"><span class="pre">FileHandler.validate_project_file()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="file_handler.html#file_handler.FileHandler.validate_user_settings_file"><code class="docutils literal notranslate"><span class="pre">FileHandler.validate_user_settings_file()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="graphics_manager.html">graphics_manager module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsCache"><code class="docutils literal notranslate"><span class="pre">GraphicsCache</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsCache.capstyle"><code class="docutils literal notranslate"><span class="pre">GraphicsCache.capstyle</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsCache.coordinates"><code class="docutils literal notranslate"><span class="pre">GraphicsCache.coordinates</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsCache.fill_color"><code class="docutils literal notranslate"><span class="pre">GraphicsCache.fill_color</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsCache.font_file"><code class="docutils literal notranslate"><span class="pre">GraphicsCache.font_file</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsCache.font_name"><code class="docutils literal notranslate"><span class="pre">GraphicsCache.font_name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsCache.font_size"><code class="docutils literal notranslate"><span class="pre">GraphicsCache.font_size</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsCache.interior_fill_color"><code class="docutils literal notranslate"><span class="pre">GraphicsCache.interior_fill_color</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsCache.joinstyle"><code class="docutils literal notranslate"><span class="pre">GraphicsCache.joinstyle</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsCache.outline_fill_color"><code class="docutils literal notranslate"><span class="pre">GraphicsCache.outline_fill_color</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsCache.shape_fill"><code class="docutils literal notranslate"><span class="pre">GraphicsCache.shape_fill</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsCache.stipple"><code class="docutils literal notranslate"><span class="pre">GraphicsCache.stipple</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsCache.tags"><code class="docutils literal notranslate"><span class="pre">GraphicsCache.tags</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsCache.text"><code class="docutils literal notranslate"><span class="pre">GraphicsCache.text</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsCache.tool"><code class="docutils literal notranslate"><span class="pre">GraphicsCache.tool</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsCache.width"><code class="docutils literal notranslate"><span class="pre">GraphicsCache.width</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsManager"><code class="docutils literal notranslate"><span class="pre">GraphicsManager</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsManager.annotation_visibility_checker"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.annotation_visibility_checker()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsManager.check_if_overlay"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.check_if_overlay()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsManager.convert_width_to_max_size"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.convert_width_to_max_size()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsManager.coordinates_to_image_size"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.coordinates_to_image_size()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsManager.create_proxy_annotation"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.create_proxy_annotation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsManager.create_text_selection_border"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.create_text_selection_border()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsManager.delete_item"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.delete_item()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsManager.draw_graphic_elements_from_project_file"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.draw_graphic_elements_from_project_file()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsManager.draw_graphics"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.draw_graphics()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsManager.draw_release"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.draw_release()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsManager.erase_graphic"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.erase_graphic()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsManager.find_item"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.find_item()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsManager.flush_mouse_events"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.flush_mouse_events()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsManager.force_hide_all_canvas_annotations"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.force_hide_all_canvas_annotations()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsManager.get_dynamic_coordinates"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.get_dynamic_coordinates()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsManager.get_dynamic_stroke_width"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.get_dynamic_stroke_width()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsManager.get_proxy_stroke_width"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.get_proxy_stroke_width()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsManager.get_selection_color"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.get_selection_color()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsManager.hex_to_rgb"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.hex_to_rgb()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsManager.hide_current_text_items"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.hide_current_text_items()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsManager.hide_parent_annotations"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.hide_parent_annotations()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsManager.hide_proxy_annotations"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.hide_proxy_annotations()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsManager.hide_text_item_selection_border"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.hide_text_item_selection_border()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsManager.image_coordinates_to_max_size"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.image_coordinates_to_max_size()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsManager.initial_canvas_click"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.initial_canvas_click()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsManager.peucker_algorithm"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.peucker_algorithm()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsManager.remove_text_item_selection"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.remove_text_item_selection()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsManager.reposition_text_item"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.reposition_text_item()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsManager.reset_actual_size"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.reset_actual_size()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsManager.reset_zoomed_size"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.reset_zoomed_size()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsManager.reveal_parent_annotations"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.reveal_parent_annotations()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsManager.reveal_proxy_annotations"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.reveal_proxy_annotations()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsManager.reveal_text_item_selection_border"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.reveal_text_item_selection_border()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsManager.scale_coordinates"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.scale_coordinates()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsManager.scale_item_to_current_scale"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.scale_item_to_current_scale()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsManager.scale_to_actual_size"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.scale_to_actual_size()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsManager.scale_to_zoomed_size"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.scale_to_zoomed_size()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsManager.select_canvas_item"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.select_canvas_item()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsManager.select_text_item"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.select_text_item()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsManager.set_text_drag_offset"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.set_text_drag_offset()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsManager.update_text_color"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.update_text_color()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsManager.update_text_item_coords"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.update_text_item_coords()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsManager.update_text_item_scale"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.update_text_item_scale()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsManager.width_to_image_size"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.width_to_image_size()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.GraphicsManager.wipe_current_annotations"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.wipe_current_annotations()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="graphics_manager.html#graphics_manager.OverlayGraphicsManager"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.OverlayGraphicsManager.add_image_to_overlay_canvas"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.add_image_to_overlay_canvas()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.OverlayGraphicsManager.change_overlay_image_opacity"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.change_overlay_image_opacity()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.OverlayGraphicsManager.convert_width_to_max_size"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.convert_width_to_max_size()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.OverlayGraphicsManager.coordinates_to_image_size"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.coordinates_to_image_size()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.OverlayGraphicsManager.create_overlay_image_selection_border"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.create_overlay_image_selection_border()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.OverlayGraphicsManager.delete_item"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.delete_item()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.OverlayGraphicsManager.draw_graphic_elements_from_project_file"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.draw_graphic_elements_from_project_file()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.OverlayGraphicsManager.get_viewport_size_from_absolute_overlay_size"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.get_viewport_size_from_absolute_overlay_size()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.OverlayGraphicsManager.hide_overlay_image_selection_border"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.hide_overlay_image_selection_border()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.OverlayGraphicsManager.hide_parent_overlay_annotations"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.hide_parent_overlay_annotations()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.OverlayGraphicsManager.hide_proxy_overlay_annotations"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.hide_proxy_overlay_annotations()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.OverlayGraphicsManager.image_coordinates_to_max_size"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.image_coordinates_to_max_size()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.OverlayGraphicsManager.redraw_selected_image"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.redraw_selected_image()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.OverlayGraphicsManager.remove_overlay_image_selection"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.remove_overlay_image_selection()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.OverlayGraphicsManager.reposition_overlay_image"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.reposition_overlay_image()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.OverlayGraphicsManager.rescale_overlay_elements_to_absolute_overlay_size"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.rescale_overlay_elements_to_absolute_overlay_size()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.OverlayGraphicsManager.rescale_overlay_images_to_view"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.rescale_overlay_images_to_view()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.OverlayGraphicsManager.reset_selected_image"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.reset_selected_image()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.OverlayGraphicsManager.reveal_overlay_image_selection_border"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.reveal_overlay_image_selection_border()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.OverlayGraphicsManager.reveal_parent_overlay_annotations"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.reveal_parent_overlay_annotations()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.OverlayGraphicsManager.reveal_proxy_overlay_annotations"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.reveal_proxy_overlay_annotations()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.OverlayGraphicsManager.rotate_overlay_image"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.rotate_overlay_image()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.OverlayGraphicsManager.scale_overlay_image"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.scale_overlay_image()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.OverlayGraphicsManager.select_canvas_item"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.select_canvas_item()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.OverlayGraphicsManager.select_overlay_image"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.select_overlay_image()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.OverlayGraphicsManager.set_overlay_image_drag_offset"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.set_overlay_image_drag_offset()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.OverlayGraphicsManager.update_overlay_image_coordinates"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.update_overlay_image_coordinates()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.OverlayGraphicsManager.width_to_image_size"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.width_to_image_size()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.OverlayGraphicsManager.wipe_current_annotations"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.wipe_current_annotations()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="graphics_manager.html#graphics_manager.OverlayImageCache"><code class="docutils literal notranslate"><span class="pre">OverlayImageCache</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.OverlayImageCache.angle"><code class="docutils literal notranslate"><span class="pre">OverlayImageCache.angle</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.OverlayImageCache.coordinates"><code class="docutils literal notranslate"><span class="pre">OverlayImageCache.coordinates</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.OverlayImageCache.image_object"><code class="docutils literal notranslate"><span class="pre">OverlayImageCache.image_object</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.OverlayImageCache.image_path"><code class="docutils literal notranslate"><span class="pre">OverlayImageCache.image_path</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.OverlayImageCache.max_coordinates"><code class="docutils literal notranslate"><span class="pre">OverlayImageCache.max_coordinates</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.OverlayImageCache.max_size"><code class="docutils literal notranslate"><span class="pre">OverlayImageCache.max_size</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.OverlayImageCache.opacity"><code class="docutils literal notranslate"><span class="pre">OverlayImageCache.opacity</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.OverlayImageCache.proxy_coordinates"><code class="docutils literal notranslate"><span class="pre">OverlayImageCache.proxy_coordinates</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.OverlayImageCache.proxy_size"><code class="docutils literal notranslate"><span class="pre">OverlayImageCache.proxy_size</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.OverlayImageCache.size"><code class="docutils literal notranslate"><span class="pre">OverlayImageCache.size</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphics_manager.html#graphics_manager.OverlayImageCache.tags"><code class="docutils literal notranslate"><span class="pre">OverlayImageCache.tags</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="image_processor.html">image_processor module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="image_processor.html#image_processor.ImageProcessor"><code class="docutils literal notranslate"><span class="pre">ImageProcessor</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_processor.html#image_processor.ImageProcessor.generate_sequence_code_image"><code class="docutils literal notranslate"><span class="pre">ImageProcessor.generate_sequence_code_image()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_processor.html#image_processor.ImageProcessor.get_highlight_color"><code class="docutils literal notranslate"><span class="pre">ImageProcessor.get_highlight_color()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_processor.html#image_processor.ImageProcessor.get_resized_coordinates"><code class="docutils literal notranslate"><span class="pre">ImageProcessor.get_resized_coordinates()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_processor.html#image_processor.ImageProcessor.get_values_for_overlay_layer_from_overlaycache"><code class="docutils literal notranslate"><span class="pre">ImageProcessor.get_values_for_overlay_layer_from_overlaycache()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_processor.html#image_processor.ImageProcessor.insert_overlay_image_element"><code class="docutils literal notranslate"><span class="pre">ImageProcessor.insert_overlay_image_element()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_processor.html#image_processor.ImageProcessor.insert_text"><code class="docutils literal notranslate"><span class="pre">ImageProcessor.insert_text()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_processor.html#image_processor.ImageProcessor.plot_brush_stroke"><code class="docutils literal notranslate"><span class="pre">ImageProcessor.plot_brush_stroke()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_processor.html#image_processor.ImageProcessor.plot_graphic_element"><code class="docutils literal notranslate"><span class="pre">ImageProcessor.plot_graphic_element()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_processor.html#image_processor.ImageProcessor.plot_line"><code class="docutils literal notranslate"><span class="pre">ImageProcessor.plot_line()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_processor.html#image_processor.ImageProcessor.plot_oval"><code class="docutils literal notranslate"><span class="pre">ImageProcessor.plot_oval()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_processor.html#image_processor.ImageProcessor.plot_rectangle"><code class="docutils literal notranslate"><span class="pre">ImageProcessor.plot_rectangle()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_processor.html#image_processor.ImageProcessor.prepare_overlay_layer"><code class="docutils literal notranslate"><span class="pre">ImageProcessor.prepare_overlay_layer()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_processor.html#image_processor.ImageProcessor.render_images"><code class="docutils literal notranslate"><span class="pre">ImageProcessor.render_images()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_processor.html#image_processor.ImageProcessor.round_cap"><code class="docutils literal notranslate"><span class="pre">ImageProcessor.round_cap()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="keybinds.html">keybinds module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="keybinds.html#keybinds.CanvasKeybinds"><code class="docutils literal notranslate"><span class="pre">CanvasKeybinds</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="keybinds.html#keybinds.CanvasKeybinds.canvas_keybinds"><code class="docutils literal notranslate"><span class="pre">CanvasKeybinds.canvas_keybinds()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="keybinds.html#keybinds.CanvasKeybinds.key_press_handler"><code class="docutils literal notranslate"><span class="pre">CanvasKeybinds.key_press_handler()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="keybinds.html#keybinds.CanvasKeybinds.mouse_button1_motion_handler"><code class="docutils literal notranslate"><span class="pre">CanvasKeybinds.mouse_button1_motion_handler()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="keybinds.html#keybinds.CanvasKeybinds.mouse_button1_pressed_handler"><code class="docutils literal notranslate"><span class="pre">CanvasKeybinds.mouse_button1_pressed_handler()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="keybinds.html#keybinds.CanvasKeybinds.mouse_button1_release_handler"><code class="docutils literal notranslate"><span class="pre">CanvasKeybinds.mouse_button1_release_handler()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="keybinds.html#keybinds.CanvasKeybinds.mouse_button2_motion_handler"><code class="docutils literal notranslate"><span class="pre">CanvasKeybinds.mouse_button2_motion_handler()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="keybinds.html#keybinds.CanvasKeybinds.mouse_button2_pressed_handler"><code class="docutils literal notranslate"><span class="pre">CanvasKeybinds.mouse_button2_pressed_handler()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="keybinds.html#keybinds.CanvasKeybinds.mouse_button2_release_handler"><code class="docutils literal notranslate"><span class="pre">CanvasKeybinds.mouse_button2_release_handler()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="keybinds.html#keybinds.CanvasKeybinds.mouse_scroll_handler"><code class="docutils literal notranslate"><span class="pre">CanvasKeybinds.mouse_scroll_handler()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="keybinds.html#keybinds.CanvasKeybinds.on_space_pressed"><code class="docutils literal notranslate"><span class="pre">CanvasKeybinds.on_space_pressed()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="keybinds.html#keybinds.CanvasKeybinds.on_space_released"><code class="docutils literal notranslate"><span class="pre">CanvasKeybinds.on_space_released()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="keybinds.html#keybinds.CanvasKeybinds.text_insert_window_hotkey"><code class="docutils literal notranslate"><span class="pre">CanvasKeybinds.text_insert_window_hotkey()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="keybinds.html#keybinds.KeyBinds"><code class="docutils literal notranslate"><span class="pre">KeyBinds</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="keybinds.html#keybinds.KeyBinds.app_escape_pressed"><code class="docutils literal notranslate"><span class="pre">KeyBinds.app_escape_pressed()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="keybinds.html#keybinds.KeyBinds.app_key_released"><code class="docutils literal notranslate"><span class="pre">KeyBinds.app_key_released()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="keybinds.html#keybinds.KeyBinds.image_control_slider_binds"><code class="docutils literal notranslate"><span class="pre">KeyBinds.image_control_slider_binds()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="keybinds.html#keybinds.KeyBinds.main_app_binds"><code class="docutils literal notranslate"><span class="pre">KeyBinds.main_app_binds()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="keybinds.html#keybinds.KeyBinds.rgb_color_input_binds"><code class="docutils literal notranslate"><span class="pre">KeyBinds.rgb_color_input_binds()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="keybinds.html#keybinds.KeyBinds.rgb_picker_canvas_binds"><code class="docutils literal notranslate"><span class="pre">KeyBinds.rgb_picker_canvas_binds()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="keybinds.html#keybinds.OverlayKeyBinds"><code class="docutils literal notranslate"><span class="pre">OverlayKeyBinds</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="keybinds.html#keybinds.OverlayKeyBinds.mouse_button1_motion_handler"><code class="docutils literal notranslate"><span class="pre">OverlayKeyBinds.mouse_button1_motion_handler()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="keybinds.html#keybinds.OverlayKeyBinds.mouse_button1_release_handler"><code class="docutils literal notranslate"><span class="pre">OverlayKeyBinds.mouse_button1_release_handler()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="keybinds.html#keybinds.OverlayKeyBinds.mouse_scroll_handler"><code class="docutils literal notranslate"><span class="pre">OverlayKeyBinds.mouse_scroll_handler()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="keybinds.html#keybinds.OverlayKeyBinds.text_insert_window_hotkey"><code class="docutils literal notranslate"><span class="pre">OverlayKeyBinds.text_insert_window_hotkey()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="main.html">main module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="main.html#main.App"><code class="docutils literal notranslate"><span class="pre">App</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.add_to_queue"><code class="docutils literal notranslate"><span class="pre">App.add_to_queue()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.blue_entry_event"><code class="docutils literal notranslate"><span class="pre">App.blue_entry_event()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.blue_slider_event"><code class="docutils literal notranslate"><span class="pre">App.blue_slider_event()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.cache_data"><code class="docutils literal notranslate"><span class="pre">App.cache_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.call_display_mode_func"><code class="docutils literal notranslate"><span class="pre">App.call_display_mode_func()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.cel_opacity_slider_event_handler"><code class="docutils literal notranslate"><span class="pre">App.cel_opacity_slider_event_handler()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.change_stroke_width"><code class="docutils literal notranslate"><span class="pre">App.change_stroke_width()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.close_all"><code class="docutils literal notranslate"><span class="pre">App.close_all()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.configure_button_functionality"><code class="docutils literal notranslate"><span class="pre">App.configure_button_functionality()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.create_canvas"><code class="docutils literal notranslate"><span class="pre">App.create_canvas()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.create_graphics_data_dict"><code class="docutils literal notranslate"><span class="pre">App.create_graphics_data_dict()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.create_image_tools_panel"><code class="docutils literal notranslate"><span class="pre">App.create_image_tools_panel()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.create_outliner"><code class="docutils literal notranslate"><span class="pre">App.create_outliner()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.create_overlay_canvas"><code class="docutils literal notranslate"><span class="pre">App.create_overlay_canvas()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.create_render_menu"><code class="docutils literal notranslate"><span class="pre">App.create_render_menu()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.create_settings_dict"><code class="docutils literal notranslate"><span class="pre">App.create_settings_dict()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.create_tools"><code class="docutils literal notranslate"><span class="pre">App.create_tools()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.decimate_slider_event"><code class="docutils literal notranslate"><span class="pre">App.decimate_slider_event()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.drag_canvas"><code class="docutils literal notranslate"><span class="pre">App.drag_canvas()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.edit_data"><code class="docutils literal notranslate"><span class="pre">App.edit_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.fetch_from_outline"><code class="docutils literal notranslate"><span class="pre">App.fetch_from_outline()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.fetch_slider_color"><code class="docutils literal notranslate"><span class="pre">App.fetch_slider_color()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.flush_image_objects_from_overlaycache"><code class="docutils literal notranslate"><span class="pre">App.flush_image_objects_from_overlaycache()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.generate_placeholder_image"><code class="docutils literal notranslate"><span class="pre">App.generate_placeholder_image()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.get_queue_status"><code class="docutils literal notranslate"><span class="pre">App.get_queue_status()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.get_rel_height"><code class="docutils literal notranslate"><span class="pre">App.get_rel_height()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.get_rel_width"><code class="docutils literal notranslate"><span class="pre">App.get_rel_width()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.green_entry_event"><code class="docutils literal notranslate"><span class="pre">App.green_entry_event()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.green_slider_event"><code class="docutils literal notranslate"><span class="pre">App.green_slider_event()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.handle_actual_scale_btn"><code class="docutils literal notranslate"><span class="pre">App.handle_actual_scale_btn()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.handle_hide_annotations_btn"><code class="docutils literal notranslate"><span class="pre">App.handle_hide_annotations_btn()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.handle_hq_view_btn"><code class="docutils literal notranslate"><span class="pre">App.handle_hq_view_btn()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.handle_lock_zoom_btn"><code class="docutils literal notranslate"><span class="pre">App.handle_lock_zoom_btn()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.handle_queue"><code class="docutils literal notranslate"><span class="pre">App.handle_queue()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.has_annotation"><code class="docutils literal notranslate"><span class="pre">App.has_annotation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.import_overlay_image"><code class="docutils literal notranslate"><span class="pre">App.import_overlay_image()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.kill_app"><code class="docutils literal notranslate"><span class="pre">App.kill_app()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.load_images"><code class="docutils literal notranslate"><span class="pre">App.load_images()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.load_project"><code class="docutils literal notranslate"><span class="pre">App.load_project()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.load_user_settings"><code class="docutils literal notranslate"><span class="pre">App.load_user_settings()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.main_layout"><code class="docutils literal notranslate"><span class="pre">App.main_layout()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.modify_previous_color_list"><code class="docutils literal notranslate"><span class="pre">App.modify_previous_color_list()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.on_mouse_enter"><code class="docutils literal notranslate"><span class="pre">App.on_mouse_enter()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.on_mouse_leave"><code class="docutils literal notranslate"><span class="pre">App.on_mouse_leave()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.on_right_click"><code class="docutils literal notranslate"><span class="pre">App.on_right_click()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.opacity_slider_event_handler"><code class="docutils literal notranslate"><span class="pre">App.opacity_slider_event_handler()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.open_file_window"><code class="docutils literal notranslate"><span class="pre">App.open_file_window()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.open_user_settings_window"><code class="docutils literal notranslate"><span class="pre">App.open_user_settings_window()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.pick_color"><code class="docutils literal notranslate"><span class="pre">App.pick_color()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.red_entry_event"><code class="docutils literal notranslate"><span class="pre">App.red_entry_event()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.red_slider_event"><code class="docutils literal notranslate"><span class="pre">App.red_slider_event()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.remove_from_queue"><code class="docutils literal notranslate"><span class="pre">App.remove_from_queue()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.rescale_tools_panel"><code class="docutils literal notranslate"><span class="pre">App.rescale_tools_panel()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.reset_scale_slider"><code class="docutils literal notranslate"><span class="pre">App.reset_scale_slider()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.rotation_slider_event_handler"><code class="docutils literal notranslate"><span class="pre">App.rotation_slider_event_handler()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.save_data"><code class="docutils literal notranslate"><span class="pre">App.save_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.scale_slider_event_handler"><code class="docutils literal notranslate"><span class="pre">App.scale_slider_event_handler()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.scroll_to_view"><code class="docutils literal notranslate"><span class="pre">App.scroll_to_view()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.set_active_color"><code class="docutils literal notranslate"><span class="pre">App.set_active_color()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.set_drag"><code class="docutils literal notranslate"><span class="pre">App.set_drag()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.set_opacity_slider"><code class="docutils literal notranslate"><span class="pre">App.set_opacity_slider()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.set_rotation_slider"><code class="docutils literal notranslate"><span class="pre">App.set_rotation_slider()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.show_actual_scale"><code class="docutils literal notranslate"><span class="pre">App.show_actual_scale()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.show_first_img"><code class="docutils literal notranslate"><span class="pre">App.show_first_img()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.show_last_img"><code class="docutils literal notranslate"><span class="pre">App.show_last_img()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.show_next_img"><code class="docutils literal notranslate"><span class="pre">App.show_next_img()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.show_previous_img"><code class="docutils literal notranslate"><span class="pre">App.show_previous_img()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.toggle_image_control_buttons"><code class="docutils literal notranslate"><span class="pre">App.toggle_image_control_buttons()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.toggle_image_tools_buttons"><code class="docutils literal notranslate"><span class="pre">App.toggle_image_tools_buttons()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.toggle_image_tools_sliders"><code class="docutils literal notranslate"><span class="pre">App.toggle_image_tools_sliders()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.toggle_media_buttons"><code class="docutils literal notranslate"><span class="pre">App.toggle_media_buttons()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.toggle_overlay_canvas"><code class="docutils literal notranslate"><span class="pre">App.toggle_overlay_canvas()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.update_colors"><code class="docutils literal notranslate"><span class="pre">App.update_colors()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.update_filename"><code class="docutils literal notranslate"><span class="pre">App.update_filename()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.update_image_canvas"><code class="docutils literal notranslate"><span class="pre">App.update_image_canvas()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.update_outliner_color"><code class="docutils literal notranslate"><span class="pre">App.update_outliner_color()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.update_outliner_selection"><code class="docutils literal notranslate"><span class="pre">App.update_outliner_selection()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.update_queue_switch"><code class="docutils literal notranslate"><span class="pre">App.update_queue_switch()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.update_user_settings"><code class="docutils literal notranslate"><span class="pre">App.update_user_settings()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.validate_rgb_input_values"><code class="docutils literal notranslate"><span class="pre">App.validate_rgb_input_values()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.width_slider_event"><code class="docutils literal notranslate"><span class="pre">App.width_slider_event()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.window_resize"><code class="docutils literal notranslate"><span class="pre">App.window_resize()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.App.zoom_image"><code class="docutils literal notranslate"><span class="pre">App.zoom_image()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="main.html#main.ErrorPrompt"><code class="docutils literal notranslate"><span class="pre">ErrorPrompt</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.ErrorPrompt.animate_error_prompt"><code class="docutils literal notranslate"><span class="pre">ErrorPrompt.animate_error_prompt()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.ErrorPrompt.display_error_prompt"><code class="docutils literal notranslate"><span class="pre">ErrorPrompt.display_error_prompt()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.ErrorPrompt.hide_error_prompt"><code class="docutils literal notranslate"><span class="pre">ErrorPrompt.hide_error_prompt()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="main.html#main.ExitPrompt"><code class="docutils literal notranslate"><span class="pre">ExitPrompt</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.ExitPrompt.exit_main_app"><code class="docutils literal notranslate"><span class="pre">ExitPrompt.exit_main_app()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.ExitPrompt.save_and_exit"><code class="docutils literal notranslate"><span class="pre">ExitPrompt.save_and_exit()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="main.html#main.FileLoadWindow"><code class="docutils literal notranslate"><span class="pre">FileLoadWindow</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.FileLoadWindow.browse_images"><code class="docutils literal notranslate"><span class="pre">FileLoadWindow.browse_images()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.FileLoadWindow.browse_project"><code class="docutils literal notranslate"><span class="pre">FileLoadWindow.browse_project()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.FileLoadWindow.call_load_files"><code class="docutils literal notranslate"><span class="pre">FileLoadWindow.call_load_files()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.FileLoadWindow.change_protocol"><code class="docutils literal notranslate"><span class="pre">FileLoadWindow.change_protocol()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.FileLoadWindow.clear_file_list"><code class="docutils literal notranslate"><span class="pre">FileLoadWindow.clear_file_list()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.FileLoadWindow.disable_buttons"><code class="docutils literal notranslate"><span class="pre">FileLoadWindow.disable_buttons()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.FileLoadWindow.enable_buttons"><code class="docutils literal notranslate"><span class="pre">FileLoadWindow.enable_buttons()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.FileLoadWindow.enable_input_buttons"><code class="docutils literal notranslate"><span class="pre">FileLoadWindow.enable_input_buttons()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.FileLoadWindow.folder_override_entrybox_updated"><code class="docutils literal notranslate"><span class="pre">FileLoadWindow.folder_override_entrybox_updated()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.FileLoadWindow.get_rel_width"><code class="docutils literal notranslate"><span class="pre">FileLoadWindow.get_rel_width()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.FileLoadWindow.kill_app"><code class="docutils literal notranslate"><span class="pre">FileLoadWindow.kill_app()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.FileLoadWindow.pick_override_path_btn_handler"><code class="docutils literal notranslate"><span class="pre">FileLoadWindow.pick_override_path_btn_handler()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.FileLoadWindow.set_sequence_search_mode"><code class="docutils literal notranslate"><span class="pre">FileLoadWindow.set_sequence_search_mode()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.FileLoadWindow.update_file_list_box"><code class="docutils literal notranslate"><span class="pre">FileLoadWindow.update_file_list_box()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.FileLoadWindow.update_file_window_progressbar"><code class="docutils literal notranslate"><span class="pre">FileLoadWindow.update_file_window_progressbar()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="main.html#main.RenderMenu"><code class="docutils literal notranslate"><span class="pre">RenderMenu</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.RenderMenu.anti_alias_checkbox_handler"><code class="docutils literal notranslate"><span class="pre">RenderMenu.anti_alias_checkbox_handler()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.RenderMenu.include_blanks_checkbox_handler"><code class="docutils literal notranslate"><span class="pre">RenderMenu.include_blanks_checkbox_handler()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.RenderMenu.jpeg_quality_slider_event_handler"><code class="docutils literal notranslate"><span class="pre">RenderMenu.jpeg_quality_slider_event_handler()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.RenderMenu.kill_window"><code class="docutils literal notranslate"><span class="pre">RenderMenu.kill_window()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.RenderMenu.overlay_trim_checkbox_handler"><code class="docutils literal notranslate"><span class="pre">RenderMenu.overlay_trim_checkbox_handler()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.RenderMenu.pick_path"><code class="docutils literal notranslate"><span class="pre">RenderMenu.pick_path()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.RenderMenu.png_compression_slider_event_handler"><code class="docutils literal notranslate"><span class="pre">RenderMenu.png_compression_slider_event_handler()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.RenderMenu.render_overlay_checkbox_handler"><code class="docutils literal notranslate"><span class="pre">RenderMenu.render_overlay_checkbox_handler()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.RenderMenu.sequence_code_checkbox_handler"><code class="docutils literal notranslate"><span class="pre">RenderMenu.sequence_code_checkbox_handler()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.RenderMenu.sequence_code_position_dropdown_handler"><code class="docutils literal notranslate"><span class="pre">RenderMenu.sequence_code_position_dropdown_handler()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.RenderMenu.start_render"><code class="docutils literal notranslate"><span class="pre">RenderMenu.start_render()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.RenderMenu.update_progress_bar"><code class="docutils literal notranslate"><span class="pre">RenderMenu.update_progress_bar()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="main.html#main.UserSettingsWindow"><code class="docutils literal notranslate"><span class="pre">UserSettingsWindow</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.UserSettingsWindow.reset_user_settings"><code class="docutils literal notranslate"><span class="pre">UserSettingsWindow.reset_user_settings()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html#main.UserSettingsWindow.save_user_settings"><code class="docutils literal notranslate"><span class="pre">UserSettingsWindow.save_user_settings()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="main.html#main.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="outliner.html">outliner module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="outliner.html#outliner.Outliner"><code class="docutils literal notranslate"><span class="pre">Outliner</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="outliner.html#outliner.Outliner.create_file_index"><code class="docutils literal notranslate"><span class="pre">Outliner.create_file_index()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="outliner.html#outliner.Outliner.outline_scroll_handler"><code class="docutils literal notranslate"><span class="pre">Outliner.outline_scroll_handler()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="outliner.html#outliner.Outliner.toggle_sequence_naming"><code class="docutils literal notranslate"><span class="pre">Outliner.toggle_sequence_naming()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tools.html">tools module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tools.html#tools.TextInsertWindow"><code class="docutils literal notranslate"><span class="pre">TextInsertWindow</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tools.html#tools.TextInsertWindow.check_if_overlay"><code class="docutils literal notranslate"><span class="pre">TextInsertWindow.check_if_overlay()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tools.html#tools.TextInsertWindow.handle_insert_text_btn"><code class="docutils literal notranslate"><span class="pre">TextInsertWindow.handle_insert_text_btn()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tools.html#tools.TextInsertWindow.hide_text_insert_window"><code class="docutils literal notranslate"><span class="pre">TextInsertWindow.hide_text_insert_window()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tools.html#tools.TextInsertWindow.new_font_pixel_size"><code class="docutils literal notranslate"><span class="pre">TextInsertWindow.new_font_pixel_size</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tools.html#tools.TextInsertWindow.on_combobox_select"><code class="docutils literal notranslate"><span class="pre">TextInsertWindow.on_combobox_select()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tools.html#tools.TextInsertWindow.on_listbox_select"><code class="docutils literal notranslate"><span class="pre">TextInsertWindow.on_listbox_select()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tools.html#tools.TextInsertWindow.populate_listbox"><code class="docutils literal notranslate"><span class="pre">TextInsertWindow.populate_listbox()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tools.html#tools.TextInsertWindow.reset_font_size"><code class="docutils literal notranslate"><span class="pre">TextInsertWindow.reset_font_size()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tools.html#tools.TextInsertWindow.reveal_text_insert_window"><code class="docutils literal notranslate"><span class="pre">TextInsertWindow.reveal_text_insert_window()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tools.html#tools.TextInsertWindow.selected_font"><code class="docutils literal notranslate"><span class="pre">TextInsertWindow.selected_font</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tools.html#tools.TextInsertWindow.selected_font_file"><code class="docutils literal notranslate"><span class="pre">TextInsertWindow.selected_font_file</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tools.html#tools.TextInsertWindow.selected_font_index"><code class="docutils literal notranslate"><span class="pre">TextInsertWindow.selected_font_index</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tools.html#tools.TextInsertWindow.selected_font_size"><code class="docutils literal notranslate"><span class="pre">TextInsertWindow.selected_font_size</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tools.html#tools.TextInsertWindow.stored_text_position"><code class="docutils literal notranslate"><span class="pre">TextInsertWindow.stored_text_position</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tools.html#tools.TextInsertWindow.stored_text_size"><code class="docutils literal notranslate"><span class="pre">TextInsertWindow.stored_text_size</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tools.html#tools.TextInsertWindow.text_insert_layout"><code class="docutils literal notranslate"><span class="pre">TextInsertWindow.text_insert_layout()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tools.html#tools.Tools"><code class="docutils literal notranslate"><span class="pre">Tools</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tools.html#tools.Tools.brush_tool"><code class="docutils literal notranslate"><span class="pre">Tools.brush_tool()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tools.html#tools.Tools.color_picker_tool"><code class="docutils literal notranslate"><span class="pre">Tools.color_picker_tool()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tools.html#tools.Tools.create_tool_button_dict"><code class="docutils literal notranslate"><span class="pre">Tools.create_tool_button_dict()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tools.html#tools.Tools.current_tool"><code class="docutils literal notranslate"><span class="pre">Tools.current_tool</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tools.html#tools.Tools.cursor_tool"><code class="docutils literal notranslate"><span class="pre">Tools.cursor_tool()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tools.html#tools.Tools.decimate_factor"><code class="docutils literal notranslate"><span class="pre">Tools.decimate_factor</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tools.html#tools.Tools.disable_all_modifiers"><code class="docutils literal notranslate"><span class="pre">Tools.disable_all_modifiers()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tools.html#tools.Tools.disable_all_tool_buttons"><code class="docutils literal notranslate"><span class="pre">Tools.disable_all_tool_buttons()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tools.html#tools.Tools.enable_all_tool_buttons"><code class="docutils literal notranslate"><span class="pre">Tools.enable_all_tool_buttons()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tools.html#tools.Tools.endcap"><code class="docutils literal notranslate"><span class="pre">Tools.endcap</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tools.html#tools.Tools.eraser_tool"><code class="docutils literal notranslate"><span class="pre">Tools.eraser_tool()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tools.html#tools.Tools.fill_color"><code class="docutils literal notranslate"><span class="pre">Tools.fill_color</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tools.html#tools.Tools.fill_color_checkbox_handler"><code class="docutils literal notranslate"><span class="pre">Tools.fill_color_checkbox_handler()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tools.html#tools.Tools.flat_cap_checkbox_handler"><code class="docutils literal notranslate"><span class="pre">Tools.flat_cap_checkbox_handler()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tools.html#tools.Tools.highlight_checkbox_handler"><code class="docutils literal notranslate"><span class="pre">Tools.highlight_checkbox_handler()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tools.html#tools.Tools.line_tool"><code class="docutils literal notranslate"><span class="pre">Tools.line_tool()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tools.html#tools.Tools.oval_tool"><code class="docutils literal notranslate"><span class="pre">Tools.oval_tool()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tools.html#tools.Tools.pan_tool"><code class="docutils literal notranslate"><span class="pre">Tools.pan_tool()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tools.html#tools.Tools.previous_tool"><code class="docutils literal notranslate"><span class="pre">Tools.previous_tool</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tools.html#tools.Tools.rectangle_tool"><code class="docutils literal notranslate"><span class="pre">Tools.rectangle_tool()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tools.html#tools.Tools.reset_tool_variables"><code class="docutils literal notranslate"><span class="pre">Tools.reset_tool_variables()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tools.html#tools.Tools.select_tool_button"><code class="docutils literal notranslate"><span class="pre">Tools.select_tool_button()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tools.html#tools.Tools.shape_constraint"><code class="docutils literal notranslate"><span class="pre">Tools.shape_constraint</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tools.html#tools.Tools.shape_fill"><code class="docutils literal notranslate"><span class="pre">Tools.shape_fill</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tools.html#tools.Tools.stipple"><code class="docutils literal notranslate"><span class="pre">Tools.stipple</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tools.html#tools.Tools.stroke_width"><code class="docutils literal notranslate"><span class="pre">Tools.stroke_width</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tools.html#tools.Tools.text_color_tool"><code class="docutils literal notranslate"><span class="pre">Tools.text_color_tool()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tools.html#tools.Tools.text_tool"><code class="docutils literal notranslate"><span class="pre">Tools.text_tool()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tools.html#tools.Tools.uniform_shape_checkbox_handler"><code class="docutils literal notranslate"><span class="pre">Tools.uniform_shape_checkbox_handler()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="docs_home.html" class="btn btn-neutral float-left" title="Welcome to R-View Tool’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="file_handler.html" class="btn btn-neutral float-right" title="file_handler module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Agnivesh S P.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

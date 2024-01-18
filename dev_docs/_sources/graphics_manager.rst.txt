@@ -1,0 +1,7 @@
+graphics\_manager module
+========================
+
+.. automodule:: graphics_manager
+   :members:
+   :undoc-members:
+   :show-inheritance:

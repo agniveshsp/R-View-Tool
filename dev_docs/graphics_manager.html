@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>graphics_manager module &mdash; R-View Tool v1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=76e2d817"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="image_processor module" href="image_processor.html" />
+    <link rel="prev" title="file_handler module" href="file_handler.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="docs_home.html" class="icon icon-home">
+            R-View Tool
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">R-View Tool</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="file_handler.html">file_handler module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">graphics_manager module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#graphics_manager.GraphicsCache"><code class="docutils literal notranslate"><span class="pre">GraphicsCache</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsCache.capstyle"><code class="docutils literal notranslate"><span class="pre">GraphicsCache.capstyle</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsCache.coordinates"><code class="docutils literal notranslate"><span class="pre">GraphicsCache.coordinates</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsCache.fill_color"><code class="docutils literal notranslate"><span class="pre">GraphicsCache.fill_color</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsCache.font_file"><code class="docutils literal notranslate"><span class="pre">GraphicsCache.font_file</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsCache.font_name"><code class="docutils literal notranslate"><span class="pre">GraphicsCache.font_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsCache.font_size"><code class="docutils literal notranslate"><span class="pre">GraphicsCache.font_size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsCache.interior_fill_color"><code class="docutils literal notranslate"><span class="pre">GraphicsCache.interior_fill_color</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsCache.joinstyle"><code class="docutils literal notranslate"><span class="pre">GraphicsCache.joinstyle</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsCache.outline_fill_color"><code class="docutils literal notranslate"><span class="pre">GraphicsCache.outline_fill_color</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsCache.shape_fill"><code class="docutils literal notranslate"><span class="pre">GraphicsCache.shape_fill</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsCache.stipple"><code class="docutils literal notranslate"><span class="pre">GraphicsCache.stipple</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsCache.tags"><code class="docutils literal notranslate"><span class="pre">GraphicsCache.tags</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsCache.text"><code class="docutils literal notranslate"><span class="pre">GraphicsCache.text</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsCache.tool"><code class="docutils literal notranslate"><span class="pre">GraphicsCache.tool</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsCache.width"><code class="docutils literal notranslate"><span class="pre">GraphicsCache.width</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#graphics_manager.GraphicsManager"><code class="docutils literal notranslate"><span class="pre">GraphicsManager</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsManager.annotation_visibility_checker"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.annotation_visibility_checker()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsManager.check_if_overlay"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.check_if_overlay()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsManager.convert_width_to_max_size"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.convert_width_to_max_size()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsManager.coordinates_to_image_size"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.coordinates_to_image_size()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsManager.create_proxy_annotation"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.create_proxy_annotation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsManager.create_text_selection_border"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.create_text_selection_border()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsManager.delete_item"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.delete_item()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsManager.draw_graphic_elements_from_project_file"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.draw_graphic_elements_from_project_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsManager.draw_graphics"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.draw_graphics()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsManager.draw_release"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.draw_release()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsManager.erase_graphic"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.erase_graphic()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsManager.find_item"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.find_item()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsManager.flush_mouse_events"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.flush_mouse_events()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsManager.force_hide_all_canvas_annotations"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.force_hide_all_canvas_annotations()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsManager.get_dynamic_coordinates"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.get_dynamic_coordinates()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsManager.get_dynamic_stroke_width"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.get_dynamic_stroke_width()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsManager.get_proxy_stroke_width"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.get_proxy_stroke_width()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsManager.get_selection_color"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.get_selection_color()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsManager.hex_to_rgb"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.hex_to_rgb()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsManager.hide_current_text_items"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.hide_current_text_items()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsManager.hide_parent_annotations"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.hide_parent_annotations()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsManager.hide_proxy_annotations"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.hide_proxy_annotations()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsManager.hide_text_item_selection_border"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.hide_text_item_selection_border()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsManager.image_coordinates_to_max_size"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.image_coordinates_to_max_size()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsManager.initial_canvas_click"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.initial_canvas_click()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsManager.peucker_algorithm"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.peucker_algorithm()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsManager.remove_text_item_selection"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.remove_text_item_selection()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsManager.reposition_text_item"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.reposition_text_item()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsManager.reset_actual_size"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.reset_actual_size()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsManager.reset_zoomed_size"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.reset_zoomed_size()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsManager.reveal_parent_annotations"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.reveal_parent_annotations()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsManager.reveal_proxy_annotations"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.reveal_proxy_annotations()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsManager.reveal_text_item_selection_border"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.reveal_text_item_selection_border()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsManager.scale_coordinates"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.scale_coordinates()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsManager.scale_item_to_current_scale"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.scale_item_to_current_scale()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsManager.scale_to_actual_size"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.scale_to_actual_size()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsManager.scale_to_zoomed_size"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.scale_to_zoomed_size()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsManager.select_canvas_item"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.select_canvas_item()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsManager.select_text_item"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.select_text_item()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsManager.set_text_drag_offset"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.set_text_drag_offset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsManager.update_text_color"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.update_text_color()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsManager.update_text_item_coords"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.update_text_item_coords()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsManager.update_text_item_scale"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.update_text_item_scale()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsManager.width_to_image_size"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.width_to_image_size()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.GraphicsManager.wipe_current_annotations"><code class="docutils literal notranslate"><span class="pre">GraphicsManager.wipe_current_annotations()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#graphics_manager.OverlayGraphicsManager"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.OverlayGraphicsManager.add_image_to_overlay_canvas"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.add_image_to_overlay_canvas()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.OverlayGraphicsManager.change_overlay_image_opacity"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.change_overlay_image_opacity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.OverlayGraphicsManager.convert_width_to_max_size"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.convert_width_to_max_size()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.OverlayGraphicsManager.coordinates_to_image_size"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.coordinates_to_image_size()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.OverlayGraphicsManager.create_overlay_image_selection_border"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.create_overlay_image_selection_border()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.OverlayGraphicsManager.delete_item"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.delete_item()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.OverlayGraphicsManager.draw_graphic_elements_from_project_file"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.draw_graphic_elements_from_project_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.OverlayGraphicsManager.get_viewport_size_from_absolute_overlay_size"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.get_viewport_size_from_absolute_overlay_size()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.OverlayGraphicsManager.hide_overlay_image_selection_border"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.hide_overlay_image_selection_border()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.OverlayGraphicsManager.hide_parent_overlay_annotations"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.hide_parent_overlay_annotations()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.OverlayGraphicsManager.hide_proxy_overlay_annotations"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.hide_proxy_overlay_annotations()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.OverlayGraphicsManager.image_coordinates_to_max_size"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.image_coordinates_to_max_size()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.OverlayGraphicsManager.redraw_selected_image"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.redraw_selected_image()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.OverlayGraphicsManager.remove_overlay_image_selection"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.remove_overlay_image_selection()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.OverlayGraphicsManager.reposition_overlay_image"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.reposition_overlay_image()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.OverlayGraphicsManager.rescale_overlay_elements_to_absolute_overlay_size"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.rescale_overlay_elements_to_absolute_overlay_size()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.OverlayGraphicsManager.rescale_overlay_images_to_view"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.rescale_overlay_images_to_view()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.OverlayGraphicsManager.reset_selected_image"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.reset_selected_image()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.OverlayGraphicsManager.reveal_overlay_image_selection_border"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.reveal_overlay_image_selection_border()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.OverlayGraphicsManager.reveal_parent_overlay_annotations"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.reveal_parent_overlay_annotations()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.OverlayGraphicsManager.reveal_proxy_overlay_annotations"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.reveal_proxy_overlay_annotations()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.OverlayGraphicsManager.rotate_overlay_image"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.rotate_overlay_image()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.OverlayGraphicsManager.scale_overlay_image"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.scale_overlay_image()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.OverlayGraphicsManager.select_canvas_item"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.select_canvas_item()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.OverlayGraphicsManager.select_overlay_image"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.select_overlay_image()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.OverlayGraphicsManager.set_overlay_image_drag_offset"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.set_overlay_image_drag_offset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.OverlayGraphicsManager.update_overlay_image_coordinates"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.update_overlay_image_coordinates()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.OverlayGraphicsManager.width_to_image_size"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.width_to_image_size()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.OverlayGraphicsManager.wipe_current_annotations"><code class="docutils literal notranslate"><span class="pre">OverlayGraphicsManager.wipe_current_annotations()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#graphics_manager.OverlayImageCache"><code class="docutils literal notranslate"><span class="pre">OverlayImageCache</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.OverlayImageCache.angle"><code class="docutils literal notranslate"><span class="pre">OverlayImageCache.angle</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.OverlayImageCache.coordinates"><code class="docutils literal notranslate"><span class="pre">OverlayImageCache.coordinates</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.OverlayImageCache.image_object"><code class="docutils literal notranslate"><span class="pre">OverlayImageCache.image_object</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.OverlayImageCache.image_path"><code class="docutils literal notranslate"><span class="pre">OverlayImageCache.image_path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.OverlayImageCache.max_coordinates"><code class="docutils literal notranslate"><span class="pre">OverlayImageCache.max_coordinates</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.OverlayImageCache.max_size"><code class="docutils literal notranslate"><span class="pre">OverlayImageCache.max_size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.OverlayImageCache.opacity"><code class="docutils literal notranslate"><span class="pre">OverlayImageCache.opacity</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.OverlayImageCache.proxy_coordinates"><code class="docutils literal notranslate"><span class="pre">OverlayImageCache.proxy_coordinates</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.OverlayImageCache.proxy_size"><code class="docutils literal notranslate"><span class="pre">OverlayImageCache.proxy_size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.OverlayImageCache.size"><code class="docutils literal notranslate"><span class="pre">OverlayImageCache.size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphics_manager.OverlayImageCache.tags"><code class="docutils literal notranslate"><span class="pre">OverlayImageCache.tags</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="image_processor.html">image_processor module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keybinds.html">keybinds module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="main.html">main module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="outliner.html">outliner module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools.html">tools module</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="docs_home.html">R-View Tool</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="docs_home.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">R-View Tool</a></li>
+      <li class="breadcrumb-item active">graphics_manager module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/graphics_manager.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-graphics_manager">
+<span id="graphics-manager-module"></span><h1>graphics_manager module<a class="headerlink" href="#module-graphics_manager" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsCache">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">graphics_manager.</span></span><span class="sig-name descname"><span class="pre">GraphicsCache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coordinates</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tuple</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fill_color</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape_fill</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interior_fill_color</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outline_fill_color</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stipple</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">joinstyle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'round'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">capstyle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'round'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#GraphicsCache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.GraphicsCache" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Object that stores the coordinates and attributes of the plotted 2d graphic elements.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsCache.capstyle">
+<span class="sig-name descname"><span class="pre">capstyle</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'round'</span></em><a class="headerlink" href="#graphics_manager.GraphicsCache.capstyle" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsCache.coordinates">
+<span class="sig-name descname"><span class="pre">coordinates</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span></em><a class="headerlink" href="#graphics_manager.GraphicsCache.coordinates" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsCache.fill_color">
+<span class="sig-name descname"><span class="pre">fill_color</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#graphics_manager.GraphicsCache.fill_color" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsCache.font_file">
+<span class="sig-name descname"><span class="pre">font_file</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#graphics_manager.GraphicsCache.font_file" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsCache.font_name">
+<span class="sig-name descname"><span class="pre">font_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#graphics_manager.GraphicsCache.font_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsCache.font_size">
+<span class="sig-name descname"><span class="pre">font_size</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#graphics_manager.GraphicsCache.font_size" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsCache.interior_fill_color">
+<span class="sig-name descname"><span class="pre">interior_fill_color</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#graphics_manager.GraphicsCache.interior_fill_color" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsCache.joinstyle">
+<span class="sig-name descname"><span class="pre">joinstyle</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'round'</span></em><a class="headerlink" href="#graphics_manager.GraphicsCache.joinstyle" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsCache.outline_fill_color">
+<span class="sig-name descname"><span class="pre">outline_fill_color</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#graphics_manager.GraphicsCache.outline_fill_color" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsCache.shape_fill">
+<span class="sig-name descname"><span class="pre">shape_fill</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#graphics_manager.GraphicsCache.shape_fill" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsCache.stipple">
+<span class="sig-name descname"><span class="pre">stipple</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#graphics_manager.GraphicsCache.stipple" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsCache.tags">
+<span class="sig-name descname"><span class="pre">tags</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tuple</span></em><a class="headerlink" href="#graphics_manager.GraphicsCache.tags" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsCache.text">
+<span class="sig-name descname"><span class="pre">text</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#graphics_manager.GraphicsCache.text" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsCache.tool">
+<span class="sig-name descname"><span class="pre">tool</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#graphics_manager.GraphicsCache.tool" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsCache.width">
+<span class="sig-name descname"><span class="pre">width</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#graphics_manager.GraphicsCache.width" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsManager">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">graphics_manager.</span></span><span class="sig-name descname"><span class="pre">GraphicsManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">canvas</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_overlay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#GraphicsManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.GraphicsManager" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>GraphicsManager Class manages the drawing and display of annotations(graphics) that gets drawn onto the images.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsManager.annotation_visibility_checker">
+<span class="sig-name descname"><span class="pre">annotation_visibility_checker</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#GraphicsManager.annotation_visibility_checker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.GraphicsManager.annotation_visibility_checker" title="Link to this definition"></a></dt>
+<dd><p>Checks if annotations are allowed to be displayed on the screen.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsManager.check_if_overlay">
+<span class="sig-name descname"><span class="pre">check_if_overlay</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#GraphicsManager.check_if_overlay"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.GraphicsManager.check_if_overlay" title="Link to this definition"></a></dt>
+<dd><p>Checks if current operations are being done on the overlay canvas.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsManager.convert_width_to_max_size">
+<span class="sig-name descname"><span class="pre">convert_width_to_max_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stroke_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#GraphicsManager.convert_width_to_max_size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.GraphicsManager.convert_width_to_max_size" title="Link to this definition"></a></dt>
+<dd><p>Converts the width of the canvas item from the actual image size to maximized window mode. Used with Load and Save.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>stroke_width</strong> (<em>float</em><em>|</em><em>int</em><em>,</em><em>optional</em>) – Width or font size to be converted to the size of the image.</p></li>
+<li><p><strong>item</strong> (<em>str</em><em>, </em><em>optional</em>) – Canvas item type. “font” if the item type is text, else None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Width that matches the image size in the maximized windowed mode.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsManager.coordinates_to_image_size">
+<span class="sig-name descname"><span class="pre">coordinates_to_image_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coordinate_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">round_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#GraphicsManager.coordinates_to_image_size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.GraphicsManager.coordinates_to_image_size" title="Link to this definition"></a></dt>
+<dd><p>Scales the coordinates to match the actual image size. Coordinates are stored in the original image size for file saving and loading purposes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>coordinate_list</strong> (<em>tuple</em><em>|</em><em>list</em>) – Coordinates to be converted to the size of the image.</p></li>
+<li><p><strong>item</strong> (<em>str</em><em>, </em><em>optional</em>) – Canvas item type. “text” if the item type is text, else None.</p></li>
+<li><p><strong>round</strong> (<em>bool</em><em>,</em><em>optional</em>) – Ignored in this method, Used in childclass to round floats to integer.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Coordinates that matches the size of the loaded image.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsManager.create_proxy_annotation">
+<span class="sig-name descname"><span class="pre">create_proxy_annotation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tags</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fill_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coordinates</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">joinstyle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'round'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stipple</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">capstyle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_override</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#GraphicsManager.create_proxy_annotation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.GraphicsManager.create_proxy_annotation" title="Link to this definition"></a></dt>
+<dd><p>Creates a proxy version of the drawing to be displayed on the windowed mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tags</strong> – </p></li>
+<li><p><strong>fill_color</strong> – </p></li>
+<li><p><strong>coordinates</strong> – </p></li>
+<li><p><strong>width</strong> – </p></li>
+<li><p><strong>joinstyle</strong> – </p></li>
+<li><p><strong>stipple</strong> – </p></li>
+<li><p><strong>capstyle</strong> – </p></li>
+<li><p><strong>text</strong> – </p></li>
+<li><p><strong>tool</strong> – </p></li>
+<li><p><strong>project_override</strong> (<em>bool</em>) – True if method being called from load project protocol.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsManager.create_text_selection_border">
+<span class="sig-name descname"><span class="pre">create_text_selection_border</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#GraphicsManager.create_text_selection_border"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.GraphicsManager.create_text_selection_border" title="Link to this definition"></a></dt>
+<dd><p>Creates four line segments on the canvas to act as a selection border.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsManager.delete_item">
+<span class="sig-name descname"><span class="pre">delete_item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#GraphicsManager.delete_item"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.GraphicsManager.delete_item" title="Link to this definition"></a></dt>
+<dd><p>Calls the erase_graphic method with an item id passed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>event</strong> (<em>tkinter.Event</em>) – Keypress event.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsManager.draw_graphic_elements_from_project_file">
+<span class="sig-name descname"><span class="pre">draw_graphic_elements_from_project_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">is_overlay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#GraphicsManager.draw_graphic_elements_from_project_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.GraphicsManager.draw_graphic_elements_from_project_file" title="Link to this definition"></a></dt>
+<dd><p>Unpacks the loaded_graphics_data_dict and based on the tool used, mimics the events that happens during the normal drawing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>is_overlay</strong> – If True, the graphic elements from OVERLAY_GRAPHICS_INDEX([-1])gets drawn on the overlay_canvas. Default False.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsManager.draw_graphics">
+<span class="sig-name descname"><span class="pre">draw_graphics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#GraphicsManager.draw_graphics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.GraphicsManager.draw_graphics" title="Link to this definition"></a></dt>
+<dd><p>Called on Mouse drag event. Plots a temporary shape using the raw mouse coordinates. Erases the item instantly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>event</strong> (<em>tkinter.Event</em>) – Mouse Drag event.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsManager.draw_release">
+<span class="sig-name descname"><span class="pre">draw_release</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_override</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_sized_coordinates</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#GraphicsManager.draw_release"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.GraphicsManager.draw_release" title="Link to this definition"></a></dt>
+<dd><dl class="simple">
+<dt>Called on Mouse release. Fetches the raw coordinates, cleans it scales it to the maximized and windowed size and plots the shape.</dt><dd><p>The coordinates and width are also scaled to match the actual image before saving the graphics_cache object to the dictionary.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>event</strong> (<em>tkinter.Event</em>) – Mouse click release event.</p></li>
+<li><p><strong>text</strong> (<em>str</em><em>,</em><em>optional</em>) – Text, if using the text insert tool.</p></li>
+<li><p><strong>project_override</strong> (<em>bool</em>) – True if the method is being called from a loaded project protocol. Default False.</p></li>
+<li><p><strong>image_sized_coordinates</strong> (<em>list</em><em>|</em><em>tuple</em><em>,</em><em>optional</em>) – Pre-generated coordinates relative to the actual image size.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsManager.erase_graphic">
+<span class="sig-name descname"><span class="pre">erase_graphic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_item</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#GraphicsManager.erase_graphic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.GraphicsManager.erase_graphic" title="Link to this definition"></a></dt>
+<dd><p>Removes an item from the canvas and deletes the object from the dictionaries.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>event</strong> (<em>tkinter.Event</em>) – Mouse event.</p></li>
+<li><p><strong>radius</strong> (<em>int</em>) – Search radius.</p></li>
+<li><p><strong>current_item</strong> (<em>int</em><em>,</em><em>optional</em>) – Item id of the element in the canvas to remove.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsManager.find_item">
+<span class="sig-name descname"><span class="pre">find_item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#GraphicsManager.find_item"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.GraphicsManager.find_item" title="Link to this definition"></a></dt>
+<dd><blockquote>
+<div><p>Returns the canvas item closest to the Mouse Click event.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>event</strong> (<em>tkinter.Event</em>) – Mouse click event</p></li>
+<li><p><strong>radius</strong> (<em>int</em>) – Radius to search for. Default 0</p></li>
+<li><p><strong>filter</strong> (<em>str</em>) – Specific item to look for. eg- “text”</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Id of the canvas item.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsManager.flush_mouse_events">
+<span class="sig-name descname"><span class="pre">flush_mouse_events</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#GraphicsManager.flush_mouse_events"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.GraphicsManager.flush_mouse_events" title="Link to this definition"></a></dt>
+<dd><p>Clears the stored mouse events and temporary coordinates, and sets the state of ready_to_draw to False.
+:returns: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsManager.force_hide_all_canvas_annotations">
+<span class="sig-name descname"><span class="pre">force_hide_all_canvas_annotations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#GraphicsManager.force_hide_all_canvas_annotations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.GraphicsManager.force_hide_all_canvas_annotations" title="Link to this definition"></a></dt>
+<dd><p>Hides all drawing and text annotations on the image canvas.
+:returns: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsManager.get_dynamic_coordinates">
+<span class="sig-name descname"><span class="pre">get_dynamic_coordinates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coordinate_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#GraphicsManager.get_dynamic_coordinates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.GraphicsManager.get_dynamic_coordinates" title="Link to this definition"></a></dt>
+<dd><p>Returns the scaled coordinates that matches the  size of the zoomed image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mode</strong> (<em>str</em>) – Mode of the displayed image. “actual” or “zoomed”.</p></li>
+<li><p><strong>coordinate_list</strong> (<em>list</em><em>|</em><em>tuple</em><em>, </em><em>optional</em>) – Coordinates to scale.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Scaled Coordinates that matches the zoomed image size.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsManager.get_dynamic_stroke_width">
+<span class="sig-name descname"><span class="pre">get_dynamic_stroke_width</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#GraphicsManager.get_dynamic_stroke_width"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.GraphicsManager.get_dynamic_stroke_width" title="Link to this definition"></a></dt>
+<dd><p>Returns a stroke width that matches the zoomed image size.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>mode</strong> (<em>str</em>) – Type of zoom, “actual”, “zoomed”.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Scaled width size that matches the zoomed image size.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsManager.get_proxy_stroke_width">
+<span class="sig-name descname"><span class="pre">get_proxy_stroke_width</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stroke_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_font_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#GraphicsManager.get_proxy_stroke_width"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.GraphicsManager.get_proxy_stroke_width" title="Link to this definition"></a></dt>
+<dd><p>Calculates the Canvas size difference between maximized and windowed mode and uses that value to adjust the stroke width/font size accordingly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>stroke_width</strong> (<em>float</em><em>, </em><em>optional</em>) – Width of the stroke to be converted to match the proxy window.</p></li>
+<li><p><strong>is_font_size</strong> (<em>bool</em>) – True when the passed coordinates represent the font size.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsManager.get_selection_color">
+<span class="sig-name descname"><span class="pre">get_selection_color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hex_color</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#GraphicsManager.get_selection_color"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.GraphicsManager.get_selection_color" title="Link to this definition"></a></dt>
+<dd><blockquote>
+<div><p>Checks the given hex value to see if it’s on the brighter or darker side, then returns a contrasting color close to the given color range.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>hex_color</strong> – Hex color.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsManager.hex_to_rgb">
+<span class="sig-name descname"><span class="pre">hex_to_rgb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hex_color</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#GraphicsManager.hex_to_rgb"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.GraphicsManager.hex_to_rgb" title="Link to this definition"></a></dt>
+<dd><p>Converts a color from Hex to RGB values</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>hex_color</strong> (<em>str</em>) – Hex Color code to be converted into RGB values</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>RGB values as a tuple.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsManager.hide_current_text_items">
+<span class="sig-name descname"><span class="pre">hide_current_text_items</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#GraphicsManager.hide_current_text_items"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.GraphicsManager.hide_current_text_items" title="Link to this definition"></a></dt>
+<dd><p>Hides the text items on the canvas.
+:returns: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsManager.hide_parent_annotations">
+<span class="sig-name descname"><span class="pre">hide_parent_annotations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hide_current</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#GraphicsManager.hide_parent_annotations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.GraphicsManager.hide_parent_annotations" title="Link to this definition"></a></dt>
+<dd><p>Hides the annotations displayed on the maximized display mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>hide_current</strong> (<em>bool</em>) – If True hide the annotations on the currently displayed image index too. Default False.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsManager.hide_proxy_annotations">
+<span class="sig-name descname"><span class="pre">hide_proxy_annotations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hide_current</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#GraphicsManager.hide_proxy_annotations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.GraphicsManager.hide_proxy_annotations" title="Link to this definition"></a></dt>
+<dd><p>Hides the annotations displayed on the windowed display mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>hide_current</strong> (<em>bool</em>) – If True hide the annotations on the currently displayed image index too. Default False.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsManager.hide_text_item_selection_border">
+<span class="sig-name descname"><span class="pre">hide_text_item_selection_border</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#GraphicsManager.hide_text_item_selection_border"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.GraphicsManager.hide_text_item_selection_border" title="Link to this definition"></a></dt>
+<dd><p>Hides the selection border around the selected text item.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsManager.image_coordinates_to_max_size">
+<span class="sig-name descname"><span class="pre">image_coordinates_to_max_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coordinate_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">round_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#GraphicsManager.image_coordinates_to_max_size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.GraphicsManager.image_coordinates_to_max_size" title="Link to this definition"></a></dt>
+<dd><p>Converts the coordinates of the canvas item from the actual image size to maximized window mode. Used with Load and Save.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>coordinate_list</strong> (<em>tuple</em><em>|</em><em>list</em>) – Coordinates to be converted to the size of the image.</p></li>
+<li><p><strong>item</strong> (<em>str</em><em>, </em><em>optional</em>) – Canvas item type. “text” if the item type is text, else None.</p></li>
+<li><p><strong>round</strong> (<em>bool</em>) – True rounds the values to the closest integer. Default False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Coordinates that matches the image size in the maximized windowed mode.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsManager.initial_canvas_click">
+<span class="sig-name descname"><span class="pre">initial_canvas_click</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#GraphicsManager.initial_canvas_click"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.GraphicsManager.initial_canvas_click" title="Link to this definition"></a></dt>
+<dd><p>Called on the initial mouse click on the canvas. Stores the mouse coordinates and sets the stroke width based on the display mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>event</strong> (<em>tkinter.Event</em>) – Mouse click event.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsManager.peucker_algorithm">
+<span class="sig-name descname"><span class="pre">peucker_algorithm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tolerance</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#GraphicsManager.peucker_algorithm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.GraphicsManager.peucker_algorithm" title="Link to this definition"></a></dt>
+<dd><p>An algorithm that decimates a curve composed of line segments to a similar curve with fewer points.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>points</strong> (<em>tuple</em><em>|</em><em>list</em>) – Points to decimate.</p></li>
+<li><p><strong>tolerance</strong> (<em>float</em>) – A float number to control the decimation.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of simplified coordinates.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsManager.remove_text_item_selection">
+<span class="sig-name descname"><span class="pre">remove_text_item_selection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#GraphicsManager.remove_text_item_selection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.GraphicsManager.remove_text_item_selection" title="Link to this definition"></a></dt>
+<dd><p>Removes the current text item as the selected_text_item.
+:returns: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsManager.reposition_text_item">
+<span class="sig-name descname"><span class="pre">reposition_text_item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#GraphicsManager.reposition_text_item"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.GraphicsManager.reposition_text_item" title="Link to this definition"></a></dt>
+<dd><p>Reposition the text item based on coordinates from the mouse drag event.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>event</strong> (<em>tkinter.Event</em>) – Mouse Drag event.</p></li>
+<li><p><strong>constraint</strong> (<em>bool</em>) – True constraints the text to an axis. False allows free repositioning.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsManager.reset_actual_size">
+<span class="sig-name descname"><span class="pre">reset_actual_size</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#GraphicsManager.reset_actual_size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.GraphicsManager.reset_actual_size" title="Link to this definition"></a></dt>
+<dd><p>Resets the visual scale of items on the canvas from actual scale to the default scale of the image in the viewport.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsManager.reset_zoomed_size">
+<span class="sig-name descname"><span class="pre">reset_zoomed_size</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#GraphicsManager.reset_zoomed_size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.GraphicsManager.reset_zoomed_size" title="Link to this definition"></a></dt>
+<dd><p>Resets the visual scale of items on the canvas from the zoomed size to the default scale of the image in the viewport.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsManager.reveal_parent_annotations">
+<span class="sig-name descname"><span class="pre">reveal_parent_annotations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#GraphicsManager.reveal_parent_annotations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.GraphicsManager.reveal_parent_annotations" title="Link to this definition"></a></dt>
+<dd><p>Displays the annotations of the current image index displayed on the maximized display mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsManager.reveal_proxy_annotations">
+<span class="sig-name descname"><span class="pre">reveal_proxy_annotations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#GraphicsManager.reveal_proxy_annotations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.GraphicsManager.reveal_proxy_annotations" title="Link to this definition"></a></dt>
+<dd><p>Displays the annotations of the current image index displayed on the windowed display mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsManager.reveal_text_item_selection_border">
+<span class="sig-name descname"><span class="pre">reveal_text_item_selection_border</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#GraphicsManager.reveal_text_item_selection_border"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.GraphicsManager.reveal_text_item_selection_border" title="Link to this definition"></a></dt>
+<dd><p>Shows the selection border around the selected text item.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsManager.scale_coordinates">
+<span class="sig-name descname"><span class="pre">scale_coordinates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coordinate_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale_mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale_item</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">round_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#GraphicsManager.scale_coordinates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.GraphicsManager.scale_coordinates" title="Link to this definition"></a></dt>
+<dd><p>Scale the coordinates of the canvas item to match the specified display mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>coordinate_list</strong> (<em>list</em><em>|</em><em>tuple</em><em>,</em><em>optional</em>) – Coordinates to be scaled.</p></li>
+<li><p><strong>scale_mode</strong> (<em>str</em>) – “+” Scales the coordinates from window size to maximized size. “-” Scales the other way.</p></li>
+<li><p><strong>scale_item</strong> (<em>str</em>) – Item to be scaled, items like “text”,”images” have only a single x,y coordinate and require different calculations.</p></li>
+<li><p><strong>round</strong> (<em>bool</em>) – True rounds the output into an integer. Default False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The scaled coordinates.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>(list|tuple)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsManager.scale_item_to_current_scale">
+<span class="sig-name descname"><span class="pre">scale_item_to_current_scale</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#GraphicsManager.scale_item_to_current_scale"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.GraphicsManager.scale_item_to_current_scale" title="Link to this definition"></a></dt>
+<dd><p>Scale an item in the canvas to match the current zoom level of the image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>item_id</strong> (<em>int</em>) – id of the canvas item to be scaled to match the zoomed image size.
+mode (str): Mode of the displayed image. “actual” or “zoomed”.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsManager.scale_to_actual_size">
+<span class="sig-name descname"><span class="pre">scale_to_actual_size</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#GraphicsManager.scale_to_actual_size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.GraphicsManager.scale_to_actual_size" title="Link to this definition"></a></dt>
+<dd><p>Scales the visible items on the canvas visually to match the Actual Image size in viewport.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsManager.scale_to_zoomed_size">
+<span class="sig-name descname"><span class="pre">scale_to_zoomed_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lock_zoom</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#GraphicsManager.scale_to_zoomed_size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.GraphicsManager.scale_to_zoomed_size" title="Link to this definition"></a></dt>
+<dd><p>Scales the visible items on the canvas visually to match the Zoomed image size in viewport.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsManager.select_canvas_item">
+<span class="sig-name descname"><span class="pre">select_canvas_item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#GraphicsManager.select_canvas_item"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.GraphicsManager.select_canvas_item" title="Link to this definition"></a></dt>
+<dd><p>Fetches the clicked item on the canvas. If the item is a text, draw the surrounding border.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>event</strong> (<em>tkinter.Event</em>) – Mouse Click event</p></li>
+<li><p><strong>item_id</strong> (<em>int</em>) – id of the canvas item.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsManager.select_text_item">
+<span class="sig-name descname"><span class="pre">select_text_item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable_scale_slider</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#GraphicsManager.select_text_item"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.GraphicsManager.select_text_item" title="Link to this definition"></a></dt>
+<dd><p>Assigns the text item  as the selected_text_item and draws the selection border around it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>text_id</strong> (<em>int</em>) – id of the text item on the canvas.</p></li>
+<li><p><strong>enable_scale_slider</strong> – True enables the scale slider that controls the scale of the text. Default True.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsManager.set_text_drag_offset">
+<span class="sig-name descname"><span class="pre">set_text_drag_offset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#GraphicsManager.set_text_drag_offset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.GraphicsManager.set_text_drag_offset" title="Link to this definition"></a></dt>
+<dd><p>Sets the initial position of the text item before repositioning.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>event</strong> (<em>tkinter.Event</em>) – Mouse click event.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsManager.update_text_color">
+<span class="sig-name descname"><span class="pre">update_text_color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#GraphicsManager.update_text_color"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.GraphicsManager.update_text_color" title="Link to this definition"></a></dt>
+<dd><p>Updates the color of the clicked text item.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>event</strong> (<em>tkinter.Event</em>) – Mouse click event</p>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsManager.update_text_item_coords">
+<span class="sig-name descname"><span class="pre">update_text_item_coords</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#GraphicsManager.update_text_item_coords"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.GraphicsManager.update_text_item_coords" title="Link to this definition"></a></dt>
+<dd><p>Updates the text item coordinates in the data dictionaries after conversion.</p>
+<p>Args:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsManager.update_text_item_scale">
+<span class="sig-name descname"><span class="pre">update_text_item_scale</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">increment</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#GraphicsManager.update_text_item_scale"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.GraphicsManager.update_text_item_scale" title="Link to this definition"></a></dt>
+<dd><p>Updates the scale of the selected text item using the provided value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>value</strong> (<em>float</em><em>, </em><em>optional</em>) – A multiplier number.</p></li>
+<li><p><strong>increment</strong> (<em>str</em><em>, </em><em>optional</em>) – “+” adds +1 to the current scale, “-” subtracts -1 from the current scale., optional</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsManager.width_to_image_size">
+<span class="sig-name descname"><span class="pre">width_to_image_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stroke_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#GraphicsManager.width_to_image_size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.GraphicsManager.width_to_image_size" title="Link to this definition"></a></dt>
+<dd><p>Scales the width to match the actual image size. Width is saved in the original image size for file saving and loading purposes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>stroke_width</strong> (<em>float</em><em>|</em><em>int</em><em>,</em><em>optional</em>) – Stroke to be converted to match the actual size of the image.</p></li>
+<li><p><strong>item</strong> (<em>str</em><em>, </em><em>optional</em>) – Canvas item type. “font” if the item type is text, else None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Width or Font size that matches the size of the loaded image.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.GraphicsManager.wipe_current_annotations">
+<span class="sig-name descname"><span class="pre">wipe_current_annotations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#GraphicsManager.wipe_current_annotations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.GraphicsManager.wipe_current_annotations" title="Link to this definition"></a></dt>
+<dd><p>Wipes all annotations (including text) drawn on the currently loaded image.
+Returns:</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="graphics_manager.OverlayGraphicsManager">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">graphics_manager.</span></span><span class="sig-name descname"><span class="pre">OverlayGraphicsManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">canvas</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_overlay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#OverlayGraphicsManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.OverlayGraphicsManager" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#graphics_manager.GraphicsManager" title="graphics_manager.GraphicsManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">GraphicsManager</span></code></a></p>
+<p>Child Class that handles the creation and display of graphic elements and overlay images on the Overlay Canvas.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.OverlayGraphicsManager.add_image_to_overlay_canvas">
+<span class="sig-name descname"><span class="pre">add_image_to_overlay_canvas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#OverlayGraphicsManager.add_image_to_overlay_canvas"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.OverlayGraphicsManager.add_image_to_overlay_canvas" title="Link to this definition"></a></dt>
+<dd><p>Places the imported image in the overlay canvas. If the imported image and the currently viewed image size is the same, the imported image is scaled to fit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>image_path</strong> (<em>str</em>) – File path for the imported image.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.OverlayGraphicsManager.change_overlay_image_opacity">
+<span class="sig-name descname"><span class="pre">change_overlay_image_opacity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">opacity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#OverlayGraphicsManager.change_overlay_image_opacity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.OverlayGraphicsManager.change_overlay_image_opacity" title="Link to this definition"></a></dt>
+<dd><p>Controls the opacity of the selected overlay image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>opacity</strong> (<em>float</em>) – Float range from 0 to 1.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.OverlayGraphicsManager.convert_width_to_max_size">
+<span class="sig-name descname"><span class="pre">convert_width_to_max_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stroke_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#OverlayGraphicsManager.convert_width_to_max_size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.OverlayGraphicsManager.convert_width_to_max_size" title="Link to this definition"></a></dt>
+<dd><blockquote>
+<div><p>Converts the width from Ghost Overlay Image to match the maximized display mode. Used while loading a project file.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>stroke_width</strong> – </p></li>
+<li><p><strong>item</strong> – Canvas item.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.OverlayGraphicsManager.coordinates_to_image_size">
+<span class="sig-name descname"><span class="pre">coordinates_to_image_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coordinate_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">round_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#OverlayGraphicsManager.coordinates_to_image_size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.OverlayGraphicsManager.coordinates_to_image_size" title="Link to this definition"></a></dt>
+<dd><p>Route method that calls the rescale_overlay_elements_to_absolute_overlay_size.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>coordinate_list</strong> – Coordinates to be scaled to match the size of the Ghost Overlay image.</p></li>
+<li><p><strong>item</strong> (<em>str</em>) – Item in the canvas.</p></li>
+<li><p><strong>round</strong> (<em>bool</em>) – True rounds the float to an integer. Default False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Rescaled coordinates that matches the Ghost Image size of the Overlay Canvas (1920x1080).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.OverlayGraphicsManager.create_overlay_image_selection_border">
+<span class="sig-name descname"><span class="pre">create_overlay_image_selection_border</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#OverlayGraphicsManager.create_overlay_image_selection_border"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.OverlayGraphicsManager.create_overlay_image_selection_border" title="Link to this definition"></a></dt>
+<dd><p>Plots a six segmented line segment to act as a selection border while selecting the overlay images.
+:returns: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.OverlayGraphicsManager.delete_item">
+<span class="sig-name descname"><span class="pre">delete_item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#OverlayGraphicsManager.delete_item"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.OverlayGraphicsManager.delete_item" title="Link to this definition"></a></dt>
+<dd><p>Removes the selected overlay image or text item from the canvas, and deletes the data from the dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>event</strong> (<em>tkinter.Event</em>) – Keypress event.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.OverlayGraphicsManager.draw_graphic_elements_from_project_file">
+<span class="sig-name descname"><span class="pre">draw_graphic_elements_from_project_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">is_overlay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#OverlayGraphicsManager.draw_graphic_elements_from_project_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.OverlayGraphicsManager.draw_graphic_elements_from_project_file" title="Link to this definition"></a></dt>
+<dd><p>Checks the Overlay image index in the project file for any overlay images and adds the images and applies the saved transformations to it.
+Unpacks the loaded_graphics_data_dict and based on the tool used, mimics the events that happens during the normal drawing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>is_overlay</strong> (<em>bool</em>) – True, Argument has no use in child method.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.OverlayGraphicsManager.get_viewport_size_from_absolute_overlay_size">
+<span class="sig-name descname"><span class="pre">get_viewport_size_from_absolute_overlay_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coordinate_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">round_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#OverlayGraphicsManager.get_viewport_size_from_absolute_overlay_size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.OverlayGraphicsManager.get_viewport_size_from_absolute_overlay_size" title="Link to this definition"></a></dt>
+<dd><p>Route method that calls the image_coordinates_to_max_size.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>coordinate_list</strong> (<em>tuple</em><em>|</em><em>list</em>) – Coordinates to be scaled from the absolute size to match the maximized display mode.</p></li>
+<li><p><strong>item</strong> (<em>str</em>) – Canvas item.</p></li>
+<li><p><strong>round</strong> (<em>bool</em>) – True rounds the float to an integer. Default False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Rescaled coordinates that matches the maximized display mode of the overlay canvas.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.OverlayGraphicsManager.hide_overlay_image_selection_border">
+<span class="sig-name descname"><span class="pre">hide_overlay_image_selection_border</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#OverlayGraphicsManager.hide_overlay_image_selection_border"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.OverlayGraphicsManager.hide_overlay_image_selection_border" title="Link to this definition"></a></dt>
+<dd><p>Hides the selection border of the overlay image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.OverlayGraphicsManager.hide_parent_overlay_annotations">
+<span class="sig-name descname"><span class="pre">hide_parent_overlay_annotations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#OverlayGraphicsManager.hide_parent_overlay_annotations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.OverlayGraphicsManager.hide_parent_overlay_annotations" title="Link to this definition"></a></dt>
+<dd><p>Hides the annotations displayed on maximized display mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.OverlayGraphicsManager.hide_proxy_overlay_annotations">
+<span class="sig-name descname"><span class="pre">hide_proxy_overlay_annotations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#OverlayGraphicsManager.hide_proxy_overlay_annotations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.OverlayGraphicsManager.hide_proxy_overlay_annotations" title="Link to this definition"></a></dt>
+<dd><p>Hides the annotations displayed on windowed display mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.OverlayGraphicsManager.image_coordinates_to_max_size">
+<span class="sig-name descname"><span class="pre">image_coordinates_to_max_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coordinate_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">round_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#OverlayGraphicsManager.image_coordinates_to_max_size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.OverlayGraphicsManager.image_coordinates_to_max_size" title="Link to this definition"></a></dt>
+<dd><p>Converts the coordinates from Ghost Overlay Image to match the maximized display mode. Used while loading a project file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>coordinate_list</strong> – Coordinates to rescale.</p></li>
+<li><p><strong>item</strong> (<em>str</em>) – Canvas item.</p></li>
+<li><p><strong>round</strong> (<em>bool</em>) – True rounds the float to an integer. Default False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Coordinates that match the maximzed display mode.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.OverlayGraphicsManager.redraw_selected_image">
+<span class="sig-name descname"><span class="pre">redraw_selected_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">redraw_opacity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">redraw_rotation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#OverlayGraphicsManager.redraw_selected_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.OverlayGraphicsManager.redraw_selected_image" title="Link to this definition"></a></dt>
+<dd><p>Redraws the selected overlay image by loading it from disk and applying the re applying the transformations and opacity.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>redraw_opacity</strong> (<em>bool</em>) – True updates the image opacity using the stored value. False skips the operation. Default False</p></li>
+<li><p><strong>redraw_rotation</strong> (<em>bool</em>) – True updates the image rotation using the stored value. False skips the operation. Default False</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.OverlayGraphicsManager.remove_overlay_image_selection">
+<span class="sig-name descname"><span class="pre">remove_overlay_image_selection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#OverlayGraphicsManager.remove_overlay_image_selection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.OverlayGraphicsManager.remove_overlay_image_selection" title="Link to this definition"></a></dt>
+<dd><p>Removes the selection of the selected overlay image, and resets the image control sliders.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.OverlayGraphicsManager.reposition_overlay_image">
+<span class="sig-name descname"><span class="pre">reposition_overlay_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraint</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#OverlayGraphicsManager.reposition_overlay_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.OverlayGraphicsManager.reposition_overlay_image" title="Link to this definition"></a></dt>
+<dd><p>Repositions the overlay image using the mouse drag cordinates or a set of predefined coordinates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>event</strong> (<em>tkinter.Event</em>) – Mouse Drag event.</p></li>
+<li><p><strong>position</strong> (<em>tuple</em><em>,</em><em>optional</em>) – New Coordinates for the image.</p></li>
+<li><p><strong>constraint</strong> (<em>bool</em>) – True constraints the live positioning to a single axis.Default False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.OverlayGraphicsManager.rescale_overlay_elements_to_absolute_overlay_size">
+<span class="sig-name descname"><span class="pre">rescale_overlay_elements_to_absolute_overlay_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">element</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">round_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#OverlayGraphicsManager.rescale_overlay_elements_to_absolute_overlay_size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.OverlayGraphicsManager.rescale_overlay_elements_to_absolute_overlay_size" title="Link to this definition"></a></dt>
+<dd><p>Converts the attributes of the overlay elements to match the size of the overlay ghost image (1920x1080).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>element</strong> – Coordinates, width , fontsize to rescale to the absolute size of the overlay.</p></li>
+<li><p><strong>item</strong> (<em>str</em>) – Type of item.</p></li>
+<li><p><strong>round</strong> (<em>bool</em>) – True rounds the float to an integer. Default False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Rescaled element data that matches the size of the Overlay ghost image size.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.OverlayGraphicsManager.rescale_overlay_images_to_view">
+<span class="sig-name descname"><span class="pre">rescale_overlay_images_to_view</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#OverlayGraphicsManager.rescale_overlay_images_to_view"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.OverlayGraphicsManager.rescale_overlay_images_to_view" title="Link to this definition"></a></dt>
+<dd><p>Iterates through the overlay images and scales them to match the current display mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.OverlayGraphicsManager.reset_selected_image">
+<span class="sig-name descname"><span class="pre">reset_selected_image</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#OverlayGraphicsManager.reset_selected_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.OverlayGraphicsManager.reset_selected_image" title="Link to this definition"></a></dt>
+<dd><p>Resets the loaded overlay image to the size and position during import by reloading it from disk.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.OverlayGraphicsManager.reveal_overlay_image_selection_border">
+<span class="sig-name descname"><span class="pre">reveal_overlay_image_selection_border</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#OverlayGraphicsManager.reveal_overlay_image_selection_border"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.OverlayGraphicsManager.reveal_overlay_image_selection_border" title="Link to this definition"></a></dt>
+<dd><p>Displays the selection border of the selected overlay image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.OverlayGraphicsManager.reveal_parent_overlay_annotations">
+<span class="sig-name descname"><span class="pre">reveal_parent_overlay_annotations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#OverlayGraphicsManager.reveal_parent_overlay_annotations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.OverlayGraphicsManager.reveal_parent_overlay_annotations" title="Link to this definition"></a></dt>
+<dd><p>Reveals the annotations displayed on maximized display mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.OverlayGraphicsManager.reveal_proxy_overlay_annotations">
+<span class="sig-name descname"><span class="pre">reveal_proxy_overlay_annotations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#OverlayGraphicsManager.reveal_proxy_overlay_annotations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.OverlayGraphicsManager.reveal_proxy_overlay_annotations" title="Link to this definition"></a></dt>
+<dd><p>Reveals the annotations displayed on windowed display mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.OverlayGraphicsManager.rotate_overlay_image">
+<span class="sig-name descname"><span class="pre">rotate_overlay_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#OverlayGraphicsManager.rotate_overlay_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.OverlayGraphicsManager.rotate_overlay_image" title="Link to this definition"></a></dt>
+<dd><p>Rotates the selected overlay image by the given value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>int</em>) – Integer of range 0 to 360.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.OverlayGraphicsManager.scale_overlay_image">
+<span class="sig-name descname"><span class="pre">scale_overlay_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">factor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">increment</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#OverlayGraphicsManager.scale_overlay_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.OverlayGraphicsManager.scale_overlay_image" title="Link to this definition"></a></dt>
+<dd><p>Scales the selected overlay image by a multiplier value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>factor</strong> (<em>float</em>) – Value that multiplies the scale of the current selected overlay image.</p></li>
+<li><p><strong>size</strong> (<em>tuple</em><em>,</em><em>optional</em>) – Predefined size for the selected overlay image.</p></li>
+<li><p><strong>increment</strong> (<em>str</em><em>,</em><em>optional</em>) – “+” Increments image scale by +1 and “-” decrements the scale by 1.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.OverlayGraphicsManager.select_canvas_item">
+<span class="sig-name descname"><span class="pre">select_canvas_item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#OverlayGraphicsManager.select_canvas_item"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.OverlayGraphicsManager.select_canvas_item" title="Link to this definition"></a></dt>
+<dd><p>Fetches the clicked item on the canvas. If the item is an image or text, draw the surrounding border.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>event</strong> (<em>tkinter.Event</em>) – Mouse Click event</p></li>
+<li><p><strong>item_id</strong> (<em>int</em>) – id of the canvas item.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.OverlayGraphicsManager.select_overlay_image">
+<span class="sig-name descname"><span class="pre">select_overlay_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#OverlayGraphicsManager.select_overlay_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.OverlayGraphicsManager.select_overlay_image" title="Link to this definition"></a></dt>
+<dd><p>Assigns the overlay image item as the selected_overlay_image and draws the selection border around it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>image_id</strong> (<em>int</em>) – id of the text item on the canvas.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.OverlayGraphicsManager.set_overlay_image_drag_offset">
+<span class="sig-name descname"><span class="pre">set_overlay_image_drag_offset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#OverlayGraphicsManager.set_overlay_image_drag_offset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.OverlayGraphicsManager.set_overlay_image_drag_offset" title="Link to this definition"></a></dt>
+<dd><p>Sets the initial position for overlay image repositioning.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>event</strong> (<em>tkinter.Event</em>) – Mouse click event.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.OverlayGraphicsManager.update_overlay_image_coordinates">
+<span class="sig-name descname"><span class="pre">update_overlay_image_coordinates</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#OverlayGraphicsManager.update_overlay_image_coordinates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.OverlayGraphicsManager.update_overlay_image_coordinates" title="Link to this definition"></a></dt>
+<dd><p>Converts the updated overlay image coordinates into multiple display modes and updates them in the dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.OverlayGraphicsManager.width_to_image_size">
+<span class="sig-name descname"><span class="pre">width_to_image_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stroke_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#OverlayGraphicsManager.width_to_image_size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.OverlayGraphicsManager.width_to_image_size" title="Link to this definition"></a></dt>
+<dd><p>Scales the width to match the size of the Overlay Ghost Image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>stroke_width</strong> – Width to scale.</p></li>
+<li><p><strong>item</strong> (<em>str</em>) – canvas item</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Scaled width matching the overlay canvas size.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>(float|int)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphics_manager.OverlayGraphicsManager.wipe_current_annotations">
+<span class="sig-name descname"><span class="pre">wipe_current_annotations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#OverlayGraphicsManager.wipe_current_annotations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.OverlayGraphicsManager.wipe_current_annotations" title="Link to this definition"></a></dt>
+<dd><p>Wipes all overlay images added to the Overlay canvas.
+:returns: None</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="graphics_manager.OverlayImageCache">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">graphics_manager.</span></span><span class="sig-name descname"><span class="pre">OverlayImageCache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image_object:</span> <span class="pre">&lt;module</span> <span class="pre">'PIL.Image'</span> <span class="pre">from</span> <span class="pre">'F:\\Python</span> <span class="pre">Projects\\R-View</span> <span class="pre">Tool</span> <span class="pre">Project</span> <span class="pre">Folder\\R-View</span> <span class="pre">Tool\\venv\\Lib\\site-packages\\PIL\\Image.py'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_path:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coordinates:</span> <span class="pre">list</span> <span class="pre">|</span> <span class="pre">tuple</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_coordinates:</span> <span class="pre">list</span> <span class="pre">|</span> <span class="pre">tuple</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">proxy_coordinates:</span> <span class="pre">list</span> <span class="pre">|</span> <span class="pre">tuple</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size:</span> <span class="pre">tuple</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_size:</span> <span class="pre">tuple</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">proxy_size:</span> <span class="pre">tuple</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opacity:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angle:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">tuple</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphics_manager.html#OverlayImageCache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphics_manager.OverlayImageCache" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Object that stores the filepath and transformation values for the imported overlay image elements.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="graphics_manager.OverlayImageCache.angle">
+<span class="sig-name descname"><span class="pre">angle</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#graphics_manager.OverlayImageCache.angle" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="graphics_manager.OverlayImageCache.coordinates">
+<span class="sig-name descname"><span class="pre">coordinates</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tuple</span></em><a class="headerlink" href="#graphics_manager.OverlayImageCache.coordinates" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="graphics_manager.OverlayImageCache.image_object">
+<span class="sig-name descname"><span class="pre">image_object</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">&lt;module</span> <span class="pre">'PIL.Image'</span> <span class="pre">from</span> <span class="pre">'F:\\Python</span> <span class="pre">Projects\\R-View</span> <span class="pre">Tool</span> <span class="pre">Project</span> <span class="pre">Folder\\R-View</span> <span class="pre">Tool\\venv\\Lib\\site-packages\\PIL\\Image.py'&gt;</span></em><a class="headerlink" href="#graphics_manager.OverlayImageCache.image_object" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="graphics_manager.OverlayImageCache.image_path">
+<span class="sig-name descname"><span class="pre">image_path</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#graphics_manager.OverlayImageCache.image_path" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="graphics_manager.OverlayImageCache.max_coordinates">
+<span class="sig-name descname"><span class="pre">max_coordinates</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tuple</span></em><a class="headerlink" href="#graphics_manager.OverlayImageCache.max_coordinates" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="graphics_manager.OverlayImageCache.max_size">
+<span class="sig-name descname"><span class="pre">max_size</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">tuple</span></em><a class="headerlink" href="#graphics_manager.OverlayImageCache.max_size" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="graphics_manager.OverlayImageCache.opacity">
+<span class="sig-name descname"><span class="pre">opacity</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#graphics_manager.OverlayImageCache.opacity" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="graphics_manager.OverlayImageCache.proxy_coordinates">
+<span class="sig-name descname"><span class="pre">proxy_coordinates</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tuple</span></em><a class="headerlink" href="#graphics_manager.OverlayImageCache.proxy_coordinates" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="graphics_manager.OverlayImageCache.proxy_size">
+<span class="sig-name descname"><span class="pre">proxy_size</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">tuple</span></em><a class="headerlink" href="#graphics_manager.OverlayImageCache.proxy_size" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="graphics_manager.OverlayImageCache.size">
+<span class="sig-name descname"><span class="pre">size</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">tuple</span></em><a class="headerlink" href="#graphics_manager.OverlayImageCache.size" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="graphics_manager.OverlayImageCache.tags">
+<span class="sig-name descname"><span class="pre">tags</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tuple</span></em><a class="headerlink" href="#graphics_manager.OverlayImageCache.tags" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="file_handler.html" class="btn btn-neutral float-left" title="file_handler module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="image_processor.html" class="btn btn-neutral float-right" title="image_processor module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Agnivesh S P.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

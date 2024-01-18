@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>keybinds module &mdash; R-View Tool v1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=76e2d817"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="main module" href="main.html" />
+    <link rel="prev" title="image_processor module" href="image_processor.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="docs_home.html" class="icon icon-home">
+            R-View Tool
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">R-View Tool</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="file_handler.html">file_handler module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="graphics_manager.html">graphics_manager module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="image_processor.html">image_processor module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">keybinds module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#keybinds.CanvasKeybinds"><code class="docutils literal notranslate"><span class="pre">CanvasKeybinds</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#keybinds.CanvasKeybinds.canvas_keybinds"><code class="docutils literal notranslate"><span class="pre">CanvasKeybinds.canvas_keybinds()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#keybinds.CanvasKeybinds.key_press_handler"><code class="docutils literal notranslate"><span class="pre">CanvasKeybinds.key_press_handler()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#keybinds.CanvasKeybinds.mouse_button1_motion_handler"><code class="docutils literal notranslate"><span class="pre">CanvasKeybinds.mouse_button1_motion_handler()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#keybinds.CanvasKeybinds.mouse_button1_pressed_handler"><code class="docutils literal notranslate"><span class="pre">CanvasKeybinds.mouse_button1_pressed_handler()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#keybinds.CanvasKeybinds.mouse_button1_release_handler"><code class="docutils literal notranslate"><span class="pre">CanvasKeybinds.mouse_button1_release_handler()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#keybinds.CanvasKeybinds.mouse_button2_motion_handler"><code class="docutils literal notranslate"><span class="pre">CanvasKeybinds.mouse_button2_motion_handler()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#keybinds.CanvasKeybinds.mouse_button2_pressed_handler"><code class="docutils literal notranslate"><span class="pre">CanvasKeybinds.mouse_button2_pressed_handler()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#keybinds.CanvasKeybinds.mouse_button2_release_handler"><code class="docutils literal notranslate"><span class="pre">CanvasKeybinds.mouse_button2_release_handler()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#keybinds.CanvasKeybinds.mouse_scroll_handler"><code class="docutils literal notranslate"><span class="pre">CanvasKeybinds.mouse_scroll_handler()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#keybinds.CanvasKeybinds.on_space_pressed"><code class="docutils literal notranslate"><span class="pre">CanvasKeybinds.on_space_pressed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#keybinds.CanvasKeybinds.on_space_released"><code class="docutils literal notranslate"><span class="pre">CanvasKeybinds.on_space_released()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#keybinds.CanvasKeybinds.text_insert_window_hotkey"><code class="docutils literal notranslate"><span class="pre">CanvasKeybinds.text_insert_window_hotkey()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#keybinds.KeyBinds"><code class="docutils literal notranslate"><span class="pre">KeyBinds</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#keybinds.KeyBinds.app_escape_pressed"><code class="docutils literal notranslate"><span class="pre">KeyBinds.app_escape_pressed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#keybinds.KeyBinds.app_key_released"><code class="docutils literal notranslate"><span class="pre">KeyBinds.app_key_released()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#keybinds.KeyBinds.image_control_slider_binds"><code class="docutils literal notranslate"><span class="pre">KeyBinds.image_control_slider_binds()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#keybinds.KeyBinds.main_app_binds"><code class="docutils literal notranslate"><span class="pre">KeyBinds.main_app_binds()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#keybinds.KeyBinds.rgb_color_input_binds"><code class="docutils literal notranslate"><span class="pre">KeyBinds.rgb_color_input_binds()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#keybinds.KeyBinds.rgb_picker_canvas_binds"><code class="docutils literal notranslate"><span class="pre">KeyBinds.rgb_picker_canvas_binds()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#keybinds.OverlayKeyBinds"><code class="docutils literal notranslate"><span class="pre">OverlayKeyBinds</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#keybinds.OverlayKeyBinds.mouse_button1_motion_handler"><code class="docutils literal notranslate"><span class="pre">OverlayKeyBinds.mouse_button1_motion_handler()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#keybinds.OverlayKeyBinds.mouse_button1_release_handler"><code class="docutils literal notranslate"><span class="pre">OverlayKeyBinds.mouse_button1_release_handler()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#keybinds.OverlayKeyBinds.mouse_scroll_handler"><code class="docutils literal notranslate"><span class="pre">OverlayKeyBinds.mouse_scroll_handler()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#keybinds.OverlayKeyBinds.text_insert_window_hotkey"><code class="docutils literal notranslate"><span class="pre">OverlayKeyBinds.text_insert_window_hotkey()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="main.html">main module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="outliner.html">outliner module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools.html">tools module</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="docs_home.html">R-View Tool</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="docs_home.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">R-View Tool</a></li>
+      <li class="breadcrumb-item active">keybinds module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/keybinds.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-keybinds">
+<span id="keybinds-module"></span><h1>keybinds module<a class="headerlink" href="#module-keybinds" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="keybinds.CanvasKeybinds">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">keybinds.</span></span><span class="sig-name descname"><span class="pre">CanvasKeybinds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graphics_manager</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">canvas</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/keybinds.html#CanvasKeybinds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#keybinds.CanvasKeybinds" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Handles all user inputs while the Canvas widget is in focus.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="keybinds.CanvasKeybinds.canvas_keybinds">
+<span class="sig-name descname"><span class="pre">canvas_keybinds</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/keybinds.html#CanvasKeybinds.canvas_keybinds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#keybinds.CanvasKeybinds.canvas_keybinds" title="Link to this definition"></a></dt>
+<dd><p>Activating the keybinds that are used while Canvas is in focus.
+:returns: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keybinds.CanvasKeybinds.key_press_handler">
+<span class="sig-name descname"><span class="pre">key_press_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/keybinds.html#CanvasKeybinds.key_press_handler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#keybinds.CanvasKeybinds.key_press_handler" title="Link to this definition"></a></dt>
+<dd><p>Handles all key press event while the canvas is in focus.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>event</strong> (<em>tkinter.Event</em>) – Keypress event.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keybinds.CanvasKeybinds.mouse_button1_motion_handler">
+<span class="sig-name descname"><span class="pre">mouse_button1_motion_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/keybinds.html#CanvasKeybinds.mouse_button1_motion_handler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#keybinds.CanvasKeybinds.mouse_button1_motion_handler" title="Link to this definition"></a></dt>
+<dd><p>Handles the Mouse Drag even while left button pressed.</p>
+<blockquote>
+<div><dl class="simple">
+<dt>Args:</dt><dd><p>event (tkinter.Event): Mouse Click event.</p>
+</dd>
+</dl>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keybinds.CanvasKeybinds.mouse_button1_pressed_handler">
+<span class="sig-name descname"><span class="pre">mouse_button1_pressed_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/keybinds.html#CanvasKeybinds.mouse_button1_pressed_handler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#keybinds.CanvasKeybinds.mouse_button1_pressed_handler" title="Link to this definition"></a></dt>
+<dd><p>Handles Mouse Left button press events.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>event</strong> (<em>tkinter.Event</em>) – Mouse Click event.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keybinds.CanvasKeybinds.mouse_button1_release_handler">
+<span class="sig-name descname"><span class="pre">mouse_button1_release_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/keybinds.html#CanvasKeybinds.mouse_button1_release_handler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#keybinds.CanvasKeybinds.mouse_button1_release_handler" title="Link to this definition"></a></dt>
+<dd><p>Handles the Left Mouse button Release events.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>event</strong> (<em>tkinter.Event</em>) – Mouse click release event.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keybinds.CanvasKeybinds.mouse_button2_motion_handler">
+<span class="sig-name descname"><span class="pre">mouse_button2_motion_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/keybinds.html#CanvasKeybinds.mouse_button2_motion_handler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#keybinds.CanvasKeybinds.mouse_button2_motion_handler" title="Link to this definition"></a></dt>
+<dd><p>Handles the Middle Mouse button drag event.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>event</strong> (<em>tkinter.Event</em>) – Mouse drag event.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keybinds.CanvasKeybinds.mouse_button2_pressed_handler">
+<span class="sig-name descname"><span class="pre">mouse_button2_pressed_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/keybinds.html#CanvasKeybinds.mouse_button2_pressed_handler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#keybinds.CanvasKeybinds.mouse_button2_pressed_handler" title="Link to this definition"></a></dt>
+<dd><p>Handles the Middle Mouse button click event.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>event</strong> (<em>tkinter.Event</em>) – Mouse click event.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keybinds.CanvasKeybinds.mouse_button2_release_handler">
+<span class="sig-name descname"><span class="pre">mouse_button2_release_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/keybinds.html#CanvasKeybinds.mouse_button2_release_handler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#keybinds.CanvasKeybinds.mouse_button2_release_handler" title="Link to this definition"></a></dt>
+<dd><p>Handles the Middle Mouse button release event.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>event</strong> (<em>tkinter.Event</em>) – Mouse click release event.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keybinds.CanvasKeybinds.mouse_scroll_handler">
+<span class="sig-name descname"><span class="pre">mouse_scroll_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/keybinds.html#CanvasKeybinds.mouse_scroll_handler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#keybinds.CanvasKeybinds.mouse_scroll_handler" title="Link to this definition"></a></dt>
+<dd><p>Handles the Mouse wheel scroll events.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>event</strong> (<em>tkinter.Event</em>) – Mouse wheel scroll event.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keybinds.CanvasKeybinds.on_space_pressed">
+<span class="sig-name descname"><span class="pre">on_space_pressed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/keybinds.html#CanvasKeybinds.on_space_pressed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#keybinds.CanvasKeybinds.on_space_pressed" title="Link to this definition"></a></dt>
+<dd><p>Checks if the Spacebar key is pressed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>event</strong> (<em>tkinter.Event</em>) – Key pressed event.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keybinds.CanvasKeybinds.on_space_released">
+<span class="sig-name descname"><span class="pre">on_space_released</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/keybinds.html#CanvasKeybinds.on_space_released"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#keybinds.CanvasKeybinds.on_space_released" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keybinds.CanvasKeybinds.text_insert_window_hotkey">
+<span class="sig-name descname"><span class="pre">text_insert_window_hotkey</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/keybinds.html#CanvasKeybinds.text_insert_window_hotkey"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#keybinds.CanvasKeybinds.text_insert_window_hotkey" title="Link to this definition"></a></dt>
+<dd><p>Handles the display of the text_insert_window and the text insertions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>event</strong> (<em>tkinter.Event</em><em>,</em><em>Optional</em>) – Mouse Click event.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="keybinds.KeyBinds">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">keybinds.</span></span><span class="sig-name descname"><span class="pre">KeyBinds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/keybinds.html#KeyBinds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#keybinds.KeyBinds" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Keybinds Class that handles the user inputs while the widgets of the main app window is focused.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="keybinds.KeyBinds.app_escape_pressed">
+<span class="sig-name descname"><span class="pre">app_escape_pressed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/keybinds.html#KeyBinds.app_escape_pressed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#keybinds.KeyBinds.app_escape_pressed" title="Link to this definition"></a></dt>
+<dd><p>Handles the event of ‘Escape’ key being pressed while the main app is in focus.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>event</strong> (<em>tkinter.Event</em>) – Keypress event.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keybinds.KeyBinds.app_key_released">
+<span class="sig-name descname"><span class="pre">app_key_released</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/keybinds.html#KeyBinds.app_key_released"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#keybinds.KeyBinds.app_key_released" title="Link to this definition"></a></dt>
+<dd><p>Handles all key release events while the main app is in focus.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>event</strong> (<em>tkinter.Event</em>) – Key Release event.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keybinds.KeyBinds.image_control_slider_binds">
+<span class="sig-name descname"><span class="pre">image_control_slider_binds</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/keybinds.html#KeyBinds.image_control_slider_binds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#keybinds.KeyBinds.image_control_slider_binds" title="Link to this definition"></a></dt>
+<dd><p>Handles the Click Release event after updating the scale slider.
+:returns: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keybinds.KeyBinds.main_app_binds">
+<span class="sig-name descname"><span class="pre">main_app_binds</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/keybinds.html#KeyBinds.main_app_binds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#keybinds.KeyBinds.main_app_binds" title="Link to this definition"></a></dt>
+<dd><p>Keybind inputs handler while the main app window is in focus.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keybinds.KeyBinds.rgb_color_input_binds">
+<span class="sig-name descname"><span class="pre">rgb_color_input_binds</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/keybinds.html#KeyBinds.rgb_color_input_binds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#keybinds.KeyBinds.rgb_color_input_binds" title="Link to this definition"></a></dt>
+<dd><p>Handles the keypress  on the entry boxes of the RGB inputs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keybinds.KeyBinds.rgb_picker_canvas_binds">
+<span class="sig-name descname"><span class="pre">rgb_picker_canvas_binds</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/keybinds.html#KeyBinds.rgb_picker_canvas_binds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#keybinds.KeyBinds.rgb_picker_canvas_binds" title="Link to this definition"></a></dt>
+<dd><p>Handles the mouse events of the mouse on the rgb_picker_canvas.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="keybinds.OverlayKeyBinds">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">keybinds.</span></span><span class="sig-name descname"><span class="pre">OverlayKeyBinds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graphics_manager</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">canvas</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/keybinds.html#OverlayKeyBinds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#keybinds.OverlayKeyBinds" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#keybinds.CanvasKeybinds" title="keybinds.CanvasKeybinds"><code class="xref py py-class docutils literal notranslate"><span class="pre">CanvasKeybinds</span></code></a></p>
+<p>Handles the user inputs while the OverlayCanvas is in focus.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="keybinds.OverlayKeyBinds.mouse_button1_motion_handler">
+<span class="sig-name descname"><span class="pre">mouse_button1_motion_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/keybinds.html#OverlayKeyBinds.mouse_button1_motion_handler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#keybinds.OverlayKeyBinds.mouse_button1_motion_handler" title="Link to this definition"></a></dt>
+<dd><blockquote>
+<div><p>Handles the Mouse Drag even while left button pressed.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>event</strong> (<em>tkinter.Event</em>) – Mouse Click event.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keybinds.OverlayKeyBinds.mouse_button1_release_handler">
+<span class="sig-name descname"><span class="pre">mouse_button1_release_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/keybinds.html#OverlayKeyBinds.mouse_button1_release_handler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#keybinds.OverlayKeyBinds.mouse_button1_release_handler" title="Link to this definition"></a></dt>
+<dd><p>Handles the Left Mouse button Release events.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>event</strong> (<em>tkinter.Event</em>) – Mouse click release event.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keybinds.OverlayKeyBinds.mouse_scroll_handler">
+<span class="sig-name descname"><span class="pre">mouse_scroll_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/keybinds.html#OverlayKeyBinds.mouse_scroll_handler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#keybinds.OverlayKeyBinds.mouse_scroll_handler" title="Link to this definition"></a></dt>
+<dd><p>Handles the Mouse wheel scroll events.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>event</strong> (<em>tkinter.Event</em>) – Mouse wheel scroll event.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keybinds.OverlayKeyBinds.text_insert_window_hotkey">
+<span class="sig-name descname"><span class="pre">text_insert_window_hotkey</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/keybinds.html#OverlayKeyBinds.text_insert_window_hotkey"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#keybinds.OverlayKeyBinds.text_insert_window_hotkey" title="Link to this definition"></a></dt>
+<dd><p>Handles the display of the text_insert_window and the text insertions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>event</strong> (<em>tkinter.Event</em><em>,</em><em>Optional</em>) – Mouse Click event.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="image_processor.html" class="btn btn-neutral float-left" title="image_processor module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="main.html" class="btn btn-neutral float-right" title="main module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Agnivesh S P.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

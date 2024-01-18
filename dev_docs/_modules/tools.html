@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>tools &mdash; R-View Tool v1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=76e2d817"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../docs_home.html" class="icon icon-home">
+            R-View Tool
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">R-View Tool</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../docs_home.html">R-View Tool</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../docs_home.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Module code</a></li>
+      <li class="breadcrumb-item active">tools</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for tools</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">import</span> <span class="nn">customtkinter</span> <span class="k">as</span> <span class="nn">ctk</span>
+<span class="kn">import</span> <span class="nn">tkinter</span> <span class="k">as</span> <span class="nn">tk</span>
+<span class="kn">from</span> <span class="nn">fontTools.ttLib</span> <span class="kn">import</span> <span class="n">TTFont</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
+
+
+<div class="viewcode-block" id="TextInsertWindow">
+<a class="viewcode-back" href="../tools.html#tools.TextInsertWindow">[docs]</a>
+<span class="k">class</span> <span class="nc">TextInsertWindow</span><span class="p">(</span><span class="n">ctk</span><span class="o">.</span><span class="n">CTkFrame</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Custom Widget that handles the insertion of text items into the canvas.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">selected_font</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">new_font_pixel_size</span> <span class="o">=</span> <span class="o">-</span><span class="mi">50</span>
+    <span class="n">selected_font_index</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">selected_font_size</span> <span class="o">=</span> <span class="o">-</span><span class="mi">50</span>
+    <span class="n">selected_font_file</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+    <span class="n">stored_text_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">stored_text_position</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            app: tkinter Main app</span>
+<span class="sd">            *args:</span>
+<span class="sd">            **kwargs:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span> <span class="o">=</span> <span class="n">app</span>
+        <span class="n">width</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">image_frame_width_maxed</span> <span class="o">*</span> <span class="mf">.32</span><span class="p">)</span>
+        <span class="n">height</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">image_frame_height_maxed</span> <span class="o">*</span> <span class="mf">.30</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span> <span class="n">fg_color</span><span class="o">=</span><span class="s2">&quot;#43356B&quot;</span><span class="p">,</span> <span class="n">corner_radius</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pack_propagate</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">top_frame</span> <span class="o">=</span> <span class="n">ctk</span><span class="o">.</span><span class="n">CTkFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fg_color</span><span class="o">=</span><span class="s2">&quot;#43356B&quot;</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">corner_radius</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">top_frame</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s2">&quot;top&quot;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s2">&quot;both&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">reset_font_size_btn</span> <span class="o">=</span> <span class="n">ctk</span><span class="o">.</span><span class="n">CTkButton</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">top_frame</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Reset Font Size&quot;</span><span class="p">,</span> <span class="n">fg_color</span><span class="o">=</span><span class="s2">&quot;#851936&quot;</span><span class="p">,</span>
+                                                 <span class="n">hover_color</span><span class="o">=</span><span class="s2">&quot;#75143b&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">reset_font_size</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reset_font_size_btn</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">highlight_warning</span> <span class="o">=</span> <span class="n">ctk</span><span class="o">.</span><span class="n">CTkLabel</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">top_frame</span><span class="p">,</span> <span class="n">text_color</span><span class="o">=</span><span class="s2">&quot;#FFF500&quot;</span><span class="p">,</span>
+                                              <span class="n">text</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+                                              <span class="n">font</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;Arial Bold&quot;</span><span class="p">,</span> <span class="mi">13</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">highlight_warning</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">main_frame</span> <span class="o">=</span> <span class="n">ctk</span><span class="o">.</span><span class="n">CTkFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fg_color</span><span class="o">=</span><span class="s2">&quot;#43356B&quot;</span><span class="p">,</span> <span class="n">corner_radius</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">main_frame</span><span class="o">.</span><span class="n">grid_columnconfigure</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">main_frame</span><span class="o">.</span><span class="n">grid_columnconfigure</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">main_frame</span><span class="o">.</span><span class="n">grid_rowconfigure</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">main_frame</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s2">&quot;bottom&quot;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s2">&quot;both&quot;</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">pady</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">text_insert_layout</span><span class="p">()</span>
+        <span class="c1"># Binding the Return key to insert the text from the widget onto the canvas.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">insert_textbox</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;Return&gt;&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_insert_text_btn</span><span class="p">)</span>
+
+<div class="viewcode-block" id="TextInsertWindow.reset_font_size">
+<a class="viewcode-back" href="../tools.html#tools.TextInsertWindow.reset_font_size">[docs]</a>
+    <span class="k">def</span> <span class="nf">reset_font_size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Resets the current font size to the default size.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">TextInsertWindow</span><span class="o">.</span><span class="n">selected_font_size</span> <span class="o">=</span> <span class="o">-</span><span class="mi">50</span></div>
+
+
+<div class="viewcode-block" id="TextInsertWindow.text_insert_layout">
+<a class="viewcode-back" href="../tools.html#tools.TextInsertWindow.text_insert_layout">[docs]</a>
+    <span class="k">def</span> <span class="nf">text_insert_layout</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates the text insert widget.</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Colors to visualize the frame layout. (debug purpose)</span>
+        <span class="k">if</span> <span class="mi">1</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lavender_col</span> <span class="o">=</span> <span class="s2">&quot;lavender&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">violet_col</span> <span class="o">=</span> <span class="s2">&quot;violet&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">indigo_col</span> <span class="o">=</span> <span class="s2">&quot;indigo&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">maroon_col</span> <span class="o">=</span> <span class="s2">&quot;maroon&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">olive_col</span> <span class="o">=</span> <span class="s2">&quot;olive&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">navy_col</span> <span class="o">=</span> <span class="s2">&quot;navy&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">TEXT_WINDOW_COL</span> <span class="o">=</span> <span class="s2">&quot;#6C59A1&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lavender_col</span> <span class="o">=</span> <span class="n">TEXT_WINDOW_COL</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">violet_col</span> <span class="o">=</span> <span class="n">TEXT_WINDOW_COL</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">indigo_col</span> <span class="o">=</span> <span class="n">TEXT_WINDOW_COL</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">maroon_col</span> <span class="o">=</span> <span class="n">TEXT_WINDOW_COL</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">olive_col</span> <span class="o">=</span> <span class="n">TEXT_WINDOW_COL</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">navy_col</span> <span class="o">=</span> <span class="n">TEXT_WINDOW_COL</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">TEXT_BOX_FONT_SIZE</span> <span class="o">=</span> <span class="mi">20</span>
+        <span class="c1"># self.configure(bg=&quot;#332A50&quot;)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">left_frame</span> <span class="o">=</span> <span class="n">ctk</span><span class="o">.</span><span class="n">CTkFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">main_frame</span><span class="p">,</span> <span class="n">fg_color</span><span class="o">=</span><span class="s2">&quot;#553C9E&quot;</span><span class="p">,</span> <span class="n">corner_radius</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">left_frame</span><span class="o">.</span><span class="n">columnconfigure</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">left_frame</span><span class="o">.</span><span class="n">columnconfigure</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">left_frame</span><span class="o">.</span><span class="n">rowconfigure</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">left_frame</span><span class="o">.</span><span class="n">rowconfigure</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">left_frame</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="s2">&quot;news&quot;</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">right_frame</span> <span class="o">=</span> <span class="n">ctk</span><span class="o">.</span><span class="n">CTkFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">main_frame</span><span class="p">,</span> <span class="n">fg_color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">indigo_col</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">right_frame</span><span class="o">.</span><span class="n">columnconfigure</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">right_frame</span><span class="o">.</span><span class="n">rowconfigure</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">right_frame</span><span class="o">.</span><span class="n">rowconfigure</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">right_frame</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="s2">&quot;news&quot;</span><span class="p">,</span> <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">font_refresh_btn</span> <span class="o">=</span> <span class="n">ctk</span><span class="o">.</span><span class="n">CTkButton</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">left_frame</span><span class="p">,</span> <span class="n">fg_color</span><span class="o">=</span><span class="s2">&quot;#553C9E&quot;</span><span class="p">,</span>
+                                              <span class="n">border_color</span><span class="o">=</span><span class="s2">&quot;#4A338D&quot;</span><span class="p">,</span>
+                                              <span class="n">text_color</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Refresh&quot;</span><span class="p">,</span>
+                                              <span class="n">hover</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">populate_listbox</span><span class="p">,</span>
+                                              <span class="n">corner_radius</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">font_refresh_btn</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">columnspan</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="s2">&quot;news&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">font_list_box</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Listbox</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">left_frame</span><span class="p">,</span> <span class="n">background</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">lavender_col</span><span class="p">,</span>
+                                        <span class="n">fg</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="n">borderwidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">selectbackground</span><span class="o">=</span><span class="s2">&quot;#352D4D&quot;</span><span class="p">,</span>
+                                        <span class="n">highlightthickness</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                                        <span class="n">font</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;Arial&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">exportselection</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">font_list_box</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="s2">&quot;news&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">font_list_box_scrollbar_y</span> <span class="o">=</span> <span class="n">ctk</span><span class="o">.</span><span class="n">CTkScrollbar</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">left_frame</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">font_list_box</span><span class="o">.</span><span class="n">yview</span><span class="p">,</span>
+                                                          <span class="n">bg_color</span><span class="o">=</span><span class="s2">&quot;#43356B&quot;</span><span class="p">,</span> <span class="n">button_color</span><span class="o">=</span><span class="s2">&quot;#E4DEF5&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">font_list_box</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">yscrollcommand</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">font_list_box_scrollbar_y</span><span class="o">.</span><span class="n">set</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">font_list_box_scrollbar_y</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="s2">&quot;nws&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">font_list_box</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;&lt;ListboxSelect&gt;&gt;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">on_listbox_select</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">text_top_frame</span> <span class="o">=</span> <span class="n">ctk</span><span class="o">.</span><span class="n">CTkFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">right_frame</span><span class="p">,</span> <span class="n">fg_color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">maroon_col</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text_top_frame</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="s2">&quot;news&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">text_bottom_frame</span> <span class="o">=</span> <span class="n">ctk</span><span class="o">.</span><span class="n">CTkFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">right_frame</span><span class="p">,</span> <span class="n">fg_color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">olive_col</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text_bottom_frame</span><span class="o">.</span><span class="n">columnconfigure</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">weight</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text_bottom_frame</span><span class="o">.</span><span class="n">rowconfigure</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">weight</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text_bottom_frame</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="s2">&quot;news&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">insert_textbox</span> <span class="o">=</span> <span class="n">ctk</span><span class="o">.</span><span class="n">CTkTextbox</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">text_top_frame</span><span class="p">,</span> <span class="n">corner_radius</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+                                             <span class="n">fg_color</span><span class="o">=</span><span class="s2">&quot;#E4DEF5&quot;</span><span class="p">,</span> <span class="n">border_color</span><span class="o">=</span><span class="s2">&quot;#352D4D&quot;</span><span class="p">,</span>
+                                             <span class="n">border_width</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">text_color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">wrap</span><span class="o">=</span><span class="s2">&quot;word&quot;</span><span class="p">,</span>
+                                             <span class="n">activate_scrollbars</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exportselection</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                                             <span class="n">font</span><span class="o">=</span><span class="p">(</span><span class="n">TextInsertWindow</span><span class="o">.</span><span class="n">selected_font</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">TEXT_BOX_FONT_SIZE</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">insert_textbox</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s2">&quot;top&quot;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s2">&quot;both&quot;</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">font_warning_label</span> <span class="o">=</span> <span class="n">ctk</span><span class="o">.</span><span class="n">CTkLabel</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">text_bottom_frame</span><span class="p">,</span> <span class="n">text_color</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span>
+                                               <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Use the Dropdown only if the font update fails.&quot;</span><span class="p">,</span>
+                                               <span class="n">font</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;Arial&quot;</span><span class="p">,</span> <span class="mi">15</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">font_warning_label</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">columnspan</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">cancel_btn</span> <span class="o">=</span> <span class="n">ctk</span><span class="o">.</span><span class="n">CTkButton</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">text_bottom_frame</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Cancel&quot;</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;Arial&quot;</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+                                        <span class="n">fg_color</span><span class="o">=</span><span class="s2">&quot;#A53A4D&quot;</span><span class="p">,</span> <span class="n">hover_color</span><span class="o">=</span><span class="s2">&quot;#C71616&quot;</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                                        <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">hide_text_insert_window</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cancel_btn</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">font_variation_combobox</span> <span class="o">=</span> <span class="n">ctk</span><span class="o">.</span><span class="n">CTkComboBox</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">text_bottom_frame</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="s2">&quot;readonly&quot;</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;Arial&quot;</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span>
+                                                       <span class="n">border_width</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">button_color</span><span class="o">=</span><span class="s2">&quot;#5A4499&quot;</span><span class="p">,</span>
+                                                       <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">on_combobox_select</span><span class="p">,</span>
+                                                       <span class="n">fg_color</span><span class="o">=</span><span class="s2">&quot;#BDB1DF&quot;</span><span class="p">,</span> <span class="n">text_color</span><span class="o">=</span><span class="s2">&quot;#2B2528&quot;</span><span class="p">,</span>
+                                                       <span class="n">dropdown_fg_color</span><span class="o">=</span><span class="s2">&quot;#504080&quot;</span><span class="p">,</span> <span class="n">dropdown_text_color</span><span class="o">=</span><span class="s2">&quot;#E4E4E4&quot;</span><span class="p">,</span>
+                                                       <span class="n">border_color</span><span class="o">=</span><span class="s2">&quot;#504080&quot;</span><span class="p">,</span> <span class="n">dropdown_hover_color</span><span class="o">=</span><span class="s2">&quot;#352D4D&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">font_variation_combobox</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">font_variation_combobox</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">TextInsertWindow</span><span class="o">.</span><span class="n">selected_font</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">insert_text_btn</span> <span class="o">=</span> <span class="n">ctk</span><span class="o">.</span><span class="n">CTkButton</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">text_bottom_frame</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Insert&quot;</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;Arial&quot;</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+                                             <span class="n">fg_color</span><span class="o">=</span><span class="s2">&quot;#1C54A7&quot;</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">hover_color</span><span class="o">=</span><span class="s2">&quot;#213552&quot;</span><span class="p">,</span>
+                                             <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">handle_insert_text_btn</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">insert_text_btn</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">populate_listbox</span><span class="p">()</span>  <span class="c1"># Loads and lists the fonts on the sidebar.</span></div>
+
+
+<div class="viewcode-block" id="TextInsertWindow.populate_listbox">
+<a class="viewcode-back" href="../tools.html#tools.TextInsertWindow.populate_listbox">[docs]</a>
+    <span class="k">def</span> <span class="nf">populate_listbox</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Loads the fonts from the &#39;fonts&#39; folder in the program directory and lists the fonts in the widget list box.</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">FONT_FOLDER</span> <span class="o">=</span> <span class="s2">&quot;fonts&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">font_list_box</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">tk</span><span class="o">.</span><span class="n">END</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">FONT_FOLDER</span><span class="p">)</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">FONT_FOLDER</span><span class="p">):</span>
+            <span class="n">files</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">FONT_FOLDER</span><span class="p">)</span>
+            <span class="n">font_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">file</span> <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span> <span class="k">if</span> <span class="n">file</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">((</span><span class="s1">&#39;.ttf&#39;</span><span class="p">,</span> <span class="s1">&#39;.otf&#39;</span><span class="p">))]</span>
+            <span class="k">for</span> <span class="n">font_file</span> <span class="ow">in</span> <span class="n">font_files</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">font_list_box</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">tk</span><span class="o">.</span><span class="n">END</span><span class="p">,</span> <span class="n">font_file</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">font_list_box</span><span class="o">.</span><span class="n">selection_set</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">font_name</span> <span class="o">=</span> <span class="n">font_files</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">on_listbox_select</span><span class="p">(</span><span class="n">file_name</span><span class="o">=</span><span class="n">font_name</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">error_prompt</span><span class="o">.</span><span class="n">display_error_prompt</span><span class="p">(</span><span class="n">error_msg</span><span class="o">=</span><span class="s2">&quot;fonts folder not Found&quot;</span><span class="p">,</span> <span class="n">priority</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">font_list_box</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">tk</span><span class="o">.</span><span class="n">END</span><span class="p">,</span> <span class="s2">&quot;fonts folder not Found!&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TextInsertWindow.check_if_overlay">
+<a class="viewcode-back" href="../tools.html#tools.TextInsertWindow.check_if_overlay">[docs]</a>
+    <span class="k">def</span> <span class="nf">check_if_overlay</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Decorator that checks if the current active canvas is the base canvas or the overlay canvas.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="c1"># If the overlay canvas is visible, reassigning  the variables accordingly.</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">overlay_canvas_visible</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">gm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">overlay_gm</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">active_canvas</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">overlay_canvas</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">gm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">canvas_gm</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">active_canvas</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">image_canvas</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">result</span>
+
+        <span class="k">return</span> <span class="n">wrapper</span></div>
+
+
+<div class="viewcode-block" id="TextInsertWindow.on_listbox_select">
+<a class="viewcode-back" href="../tools.html#tools.TextInsertWindow.on_listbox_select">[docs]</a>
+    <span class="nd">@check_if_overlay</span>
+    <span class="k">def</span> <span class="nf">on_listbox_select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">file_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Called on selecting a font name from the listbox. Assigns the Text font as the selected font.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            event(tkinter.Event,optional):Mouse click event.</span>
+<span class="sd">            file_name (str,optional): Font filename to use.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">file_name</span><span class="p">:</span>
+            <span class="c1"># Get the selected item in the listbox</span>
+            <span class="n">font_file_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">font_list_box</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">font_list_box</span><span class="o">.</span><span class="n">curselection</span><span class="p">())</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">font_file_name</span> <span class="o">=</span> <span class="n">file_name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">font_variation_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># TextInsertWindow.selected_font = self.font_list_box.get(self.font_list_box.curselection())</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">font</span> <span class="o">=</span> <span class="n">TTFont</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;fonts&quot;</span><span class="p">,</span> <span class="n">font_file_name</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">font</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">names</span><span class="p">:</span>
+                <span class="c1"># 95% of time The Full font name comes just before the Version.</span>
+                <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">record</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Version&quot;</span><span class="p">:</span>
+                    <span class="k">break</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">try</span><span class="p">:</span>  <span class="c1"># Sometimes it won&#39;t have &#39;Version&#39; and will only be the version numbers.</span>
+                        <span class="n">float_value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">record</span><span class="p">))</span>
+                    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                        <span class="k">pass</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">break</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">font_variation_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">record</span><span class="p">))</span>
+
+            <span class="n">font</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">font_variation_combobox</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s2">&quot;normal&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">font_variation_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">font_variation_list</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">font_variation_list</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">font_variation_combobox</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">font_variation_list</span><span class="p">)</span>
+            <span class="c1"># Usually the full font name comes just before version.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">font_variation_combobox</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">font_variation_list</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">font_variation_combobox</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s2">&quot;readonly&quot;</span><span class="p">)</span>
+            <span class="n">selected_font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">font_variation_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">insert_textbox</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">font</span><span class="o">=</span><span class="p">(</span><span class="n">selected_font</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">TEXT_BOX_FONT_SIZE</span><span class="p">))</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">error_prompt</span><span class="o">.</span><span class="n">display_error_prompt</span><span class="p">(</span><span class="n">error_msg</span><span class="o">=</span><span class="n">e</span><span class="p">,</span> <span class="n">priority</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TextInsertWindow.on_combobox_select">
+<a class="viewcode-back" href="../tools.html#tools.TextInsertWindow.on_combobox_select">[docs]</a>
+    <span class="nd">@check_if_overlay</span>
+    <span class="k">def</span> <span class="nf">on_combobox_select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">choice</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Called on selecting an option from the dropdown combobox.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            choice(str): Name of the font.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">font_variation_combobox</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s2">&quot;normal&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">font_variation_combobox</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">choice</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">font_variation_combobox</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s2">&quot;readonly&quot;</span><span class="p">)</span>
+        <span class="n">selected_font</span> <span class="o">=</span> <span class="n">choice</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">insert_textbox</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">font</span><span class="o">=</span><span class="p">(</span><span class="n">selected_font</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">TEXT_BOX_FONT_SIZE</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="TextInsertWindow.handle_insert_text_btn">
+<a class="viewcode-back" href="../tools.html#tools.TextInsertWindow.handle_insert_text_btn">[docs]</a>
+    <span class="nd">@check_if_overlay</span>
+    <span class="k">def</span> <span class="nf">handle_insert_text_btn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Inserts the text from the widget onto the canvas.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            event (tkinter.Event):</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">insert_textbox</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;0.0&quot;</span><span class="p">,</span> <span class="s2">&quot;end&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)</span>  <span class="c1"># remove all linebreaks before text insertion.</span>
+        <span class="k">if</span> <span class="n">text</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">text</span><span class="o">.</span><span class="n">isspace</span><span class="p">():</span>
+            <span class="n">TextInsertWindow</span><span class="o">.</span><span class="n">selected_font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">font_variation_combobox</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+            <span class="n">TextInsertWindow</span><span class="o">.</span><span class="n">selected_font_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">font_list_box</span><span class="o">.</span><span class="n">curselection</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">TextInsertWindow</span><span class="o">.</span><span class="n">selected_font_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">font_list_box</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">TextInsertWindow</span><span class="o">.</span><span class="n">selected_font_index</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">gm</span><span class="o">.</span><span class="n">draw_release</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">text</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">hide_text_insert_window</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">active_canvas</span><span class="o">.</span><span class="n">focus_set</span><span class="p">()</span>
+
+        <span class="k">elif</span> <span class="n">text</span><span class="o">.</span><span class="n">isspace</span><span class="p">():</span>  <span class="c1"># If there is no text hide the widget.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">hide_text_insert_window</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="TextInsertWindow.hide_text_insert_window">
+<a class="viewcode-back" href="../tools.html#tools.TextInsertWindow.hide_text_insert_window">[docs]</a>
+    <span class="nd">@check_if_overlay</span>
+    <span class="k">def</span> <span class="nf">hide_text_insert_window</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Hides the text_insert_window widget.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Clear the initial click Coordinates on closing the main window.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">insert_textbox</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="s2">&quot;0.0&quot;</span><span class="p">,</span> <span class="s2">&quot;end&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">grab_release</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">place_forget</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">active_canvas</span><span class="o">.</span><span class="n">focus_set</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="TextInsertWindow.reveal_text_insert_window">
+<a class="viewcode-back" href="../tools.html#tools.TextInsertWindow.reveal_text_insert_window">[docs]</a>
+    <span class="nd">@check_if_overlay</span>
+    <span class="k">def</span> <span class="nf">reveal_text_insert_window</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Displays the text_insert_window widget.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            event(tkinter.Event,optional):</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">highlight_checkbox</span><span class="o">.</span><span class="n">get</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>  <span class="c1"># If highlight box is checked.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">highlight_warning</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s2">&quot;Highlight Mode ENABLED&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">highlight_warning</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">in_</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">image_frame</span><span class="p">,</span> <span class="n">relx</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">rely</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">wait_visibility</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">grab_set</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">insert_textbox</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="s2">&quot;0.0&quot;</span><span class="p">,</span> <span class="s2">&quot;end&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">after</span><span class="p">(</span><span class="mi">150</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">insert_textbox</span><span class="o">.</span><span class="n">focus_set</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="Tools">
+<a class="viewcode-back" href="../tools.html#tools.Tools">[docs]</a>
+<span class="k">class</span> <span class="nc">Tools</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class that handles the different tools in the main app.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">current_tool</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">previous_tool</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">stroke_width</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="n">fill_color</span> <span class="o">=</span> <span class="s2">&quot;#FF0000&quot;</span>
+    <span class="n">decimate_factor</span> <span class="o">=</span> <span class="mf">1.5</span>
+    <span class="n">shape_fill</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">stipple</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">shape_constraint</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">endcap</span> <span class="o">=</span> <span class="s2">&quot;round&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app</span><span class="p">,</span> <span class="n">canvas</span><span class="p">,</span> <span class="n">graphics_manager</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializer for the tool class.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            app: Main app</span>
+<span class="sd">            canvas: Canvas the tool is being used in.</span>
+<span class="sd">            graphics_manager: GraphicManager or OverlayGraphicsManager.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="p">:</span> <span class="n">ctk</span> <span class="o">=</span> <span class="n">app</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">active_canvas</span> <span class="o">=</span> <span class="n">canvas</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gm</span> <span class="o">=</span> <span class="n">graphics_manager</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default_tool_button_col</span> <span class="o">=</span> <span class="s2">&quot;#4A4A4A&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">active_tool_button_col</span> <span class="o">=</span> <span class="s2">&quot;black&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">enabled_checkbox_col</span> <span class="o">=</span> <span class="s2">&quot;#1F6AA5&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">disabled_checkbox_col</span> <span class="o">=</span> <span class="s2">&quot;grey&quot;</span>
+
+    <span class="c1"># -------Decorator------------------</span>
+<div class="viewcode-block" id="Tools.select_tool_button">
+<a class="viewcode-back" href="../tools.html#tools.Tools.select_tool_button">[docs]</a>
+    <span class="k">def</span> <span class="nf">select_tool_button</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Decorator that handles the switch to a new tool.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">wrapper_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="c1"># &quot;Before executing wrapped function&quot;</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">overlay_canvas_visible</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">active_canvas</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">overlay_canvas</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">active_canvas</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">image_canvas</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">tool_buttons</span><span class="p">[</span><span class="n">Tools</span><span class="o">.</span><span class="n">current_tool</span><span class="p">]</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">fg_color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">default_tool_button_col</span><span class="p">,</span> <span class="n">border_width</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">Tools</span><span class="o">.</span><span class="n">previous_tool</span> <span class="o">=</span> <span class="n">Tools</span><span class="o">.</span><span class="n">current_tool</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">error_prompt</span><span class="o">.</span><span class="n">error_prompt_in_display</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">error_prompt</span><span class="o">.</span><span class="n">hide_error_prompt</span><span class="p">(</span><span class="n">animate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+            <span class="n">main_func</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">active_canvas</span><span class="o">.</span><span class="n">focus_set</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tool_buttons</span><span class="p">[</span><span class="n">Tools</span><span class="o">.</span><span class="n">current_tool</span><span class="p">]</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">fg_color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">active_tool_button_col</span><span class="p">,</span> <span class="n">border_width</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                                                            <span class="n">border_color</span><span class="o">=</span><span class="s2">&quot;#B2B2B2&quot;</span><span class="p">)</span>
+
+            <span class="c1"># Removes all item selections if any.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">canvas_gm</span><span class="o">.</span><span class="n">remove_text_item_selection</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">overlay_gm</span><span class="o">.</span><span class="n">remove_text_item_selection</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">overlay_gm</span><span class="o">.</span><span class="n">remove_overlay_image_selection</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="n">Tools</span><span class="o">.</span><span class="n">current_tool</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">gm</span><span class="o">.</span><span class="n">annotation_visibility</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">Tools</span><span class="o">.</span><span class="n">current_tool</span> <span class="o">==</span> <span class="mi">7</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">display_mode</span> <span class="o">==</span> <span class="s2">&quot;default&quot;</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">handle_hide_annotations_btn</span><span class="p">(</span><span class="n">enable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">handle_hide_annotations_btn</span><span class="p">(</span><span class="n">enable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">main_func</span>
+
+        <span class="k">return</span> <span class="n">wrapper_function</span></div>
+
+
+    <span class="c1"># ------------------------------------</span>
+<div class="viewcode-block" id="Tools.color_picker_tool">
+<a class="viewcode-back" href="../tools.html#tools.Tools.color_picker_tool">[docs]</a>
+    <span class="nd">@select_tool_button</span>
+    <span class="k">def</span> <span class="nf">color_picker_tool</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Activates the Color Picker tool.</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">Tools</span><span class="o">.</span><span class="n">current_tool</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">active_canvas</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">cursor</span><span class="o">=</span><span class="s2">&quot;dotbox&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">disable_all_modifiers</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Tools.cursor_tool">
+<a class="viewcode-back" href="../tools.html#tools.Tools.cursor_tool">[docs]</a>
+    <span class="nd">@select_tool_button</span>
+    <span class="k">def</span> <span class="nf">cursor_tool</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  <span class="c1"># 1</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Activates the Cursor tool.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">Tools</span><span class="o">.</span><span class="n">current_tool</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># 1 for cursor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">active_canvas</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">cursor</span><span class="o">=</span><span class="s2">&quot;arrow&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">canvas_text_insert</span><span class="o">.</span><span class="n">hide_text_insert_window</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">disable_all_modifiers</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Tools.brush_tool">
+<a class="viewcode-back" href="../tools.html#tools.Tools.brush_tool">[docs]</a>
+    <span class="nd">@select_tool_button</span>
+    <span class="k">def</span> <span class="nf">brush_tool</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  <span class="c1"># 2</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Activates the brush tool.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">              None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">Tools</span><span class="o">.</span><span class="n">current_tool</span> <span class="o">=</span> <span class="mi">2</span>  <span class="c1"># 2 for brush</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">active_canvas</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">cursor</span><span class="o">=</span><span class="s2">&quot;dot&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">disable_all_modifiers</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">highlight_checkbox</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s2">&quot;normal&quot;</span><span class="p">,</span> <span class="n">fg_color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">enabled_checkbox_col</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Tools.eraser_tool">
+<a class="viewcode-back" href="../tools.html#tools.Tools.eraser_tool">[docs]</a>
+    <span class="nd">@select_tool_button</span>
+    <span class="k">def</span> <span class="nf">eraser_tool</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Activates the Eraser tool.</span>
+
+<span class="sd">      Returns:</span>
+<span class="sd">          None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">Tools</span><span class="o">.</span><span class="n">current_tool</span> <span class="o">=</span> <span class="mi">3</span>  <span class="c1"># 3 for eraser</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">active_canvas</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">cursor</span><span class="o">=</span><span class="s2">&quot;x_cursor&quot;</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>  <span class="c1"># For Linux.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">active_canvas</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">cursor</span><span class="o">=</span><span class="s2">&quot;star&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">Tools</span><span class="o">.</span><span class="n">stroke_width</span> <span class="o">==</span> <span class="mi">50</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">error_prompt</span><span class="o">.</span><span class="n">display_error_prompt</span><span class="p">(</span><span class="n">error_msg</span><span class="o">=</span><span class="s2">&quot;Eraser set to &#39;Wipe Current&#39;(50).&quot;</span><span class="p">,</span> <span class="n">priority</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">disable_all_modifiers</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Tools.line_tool">
+<a class="viewcode-back" href="../tools.html#tools.Tools.line_tool">[docs]</a>
+    <span class="nd">@select_tool_button</span>
+    <span class="k">def</span> <span class="nf">line_tool</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">          Activates the Line tool.</span>
+
+<span class="sd">          Returns:</span>
+<span class="sd">              None</span>
+
+<span class="sd">          &quot;&quot;&quot;</span>
+        <span class="n">Tools</span><span class="o">.</span><span class="n">current_tool</span> <span class="o">=</span> <span class="mi">4</span>  <span class="c1"># 4 for line</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">active_canvas</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">cursor</span><span class="o">=</span><span class="s2">&quot;target&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">disable_all_modifiers</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">flat_cap_checkbox</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s2">&quot;normal&quot;</span><span class="p">,</span> <span class="n">fg_color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">enabled_checkbox_col</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">highlight_checkbox</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s2">&quot;normal&quot;</span><span class="p">,</span> <span class="n">fg_color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">enabled_checkbox_col</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Tools.rectangle_tool">
+<a class="viewcode-back" href="../tools.html#tools.Tools.rectangle_tool">[docs]</a>
+    <span class="nd">@select_tool_button</span>
+    <span class="k">def</span> <span class="nf">rectangle_tool</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  <span class="c1"># 5</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Activates the Rectangle tool.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">Tools</span><span class="o">.</span><span class="n">current_tool</span> <span class="o">=</span> <span class="mi">5</span>  <span class="c1"># 5 for rectangle</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">highlight_checkbox</span><span class="o">.</span><span class="n">get</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">Tools</span><span class="o">.</span><span class="n">shape_fill</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">fill_color_checkbox</span><span class="o">.</span><span class="n">select</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">fill_color_checkbox</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s2">&quot;disabled&quot;</span><span class="p">,</span> <span class="n">fg_color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">enabled_checkbox_col</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">disable_all_modifiers</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">highlight_checkbox</span><span class="o">.</span><span class="n">get</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">fill_color_checkbox</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s2">&quot;normal&quot;</span><span class="p">,</span> <span class="n">fg_color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">enabled_checkbox_col</span><span class="p">)</span>
+        <span class="c1"># self.app.fill_color_checkbox.configure(state=&quot;normal&quot;,fg_color=self.enabled_checkbox_col)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">uniform_checkbox</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s2">&quot;normal&quot;</span><span class="p">,</span> <span class="n">fg_color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">enabled_checkbox_col</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">highlight_checkbox</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s2">&quot;normal&quot;</span><span class="p">,</span> <span class="n">fg_color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">enabled_checkbox_col</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">active_canvas</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">cursor</span><span class="o">=</span><span class="s2">&quot;sizing&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Tools.oval_tool">
+<a class="viewcode-back" href="../tools.html#tools.Tools.oval_tool">[docs]</a>
+    <span class="nd">@select_tool_button</span>
+    <span class="k">def</span> <span class="nf">oval_tool</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  <span class="c1"># 5</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Activates the Oval tool.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">Tools</span><span class="o">.</span><span class="n">current_tool</span> <span class="o">=</span> <span class="mi">6</span>  <span class="c1"># 5 for circle</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">disable_all_modifiers</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">uniform_checkbox</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s2">&quot;normal&quot;</span><span class="p">,</span> <span class="n">fg_color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">enabled_checkbox_col</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">fill_color_checkbox</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s2">&quot;normal&quot;</span><span class="p">,</span> <span class="n">fg_color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">enabled_checkbox_col</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;win&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">active_canvas</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">cursor</span><span class="o">=</span><span class="s2">&quot;circle&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">active_canvas</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">cursor</span><span class="o">=</span><span class="s2">&quot;target&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Tools.pan_tool">
+<a class="viewcode-back" href="../tools.html#tools.Tools.pan_tool">[docs]</a>
+    <span class="nd">@select_tool_button</span>
+    <span class="k">def</span> <span class="nf">pan_tool</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Activates the Pan tool.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">Tools</span><span class="o">.</span><span class="n">current_tool</span> <span class="o">=</span> <span class="mi">7</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">active_canvas</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">cursor</span><span class="o">=</span><span class="s2">&quot;fleur&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">disable_all_modifiers</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Tools.text_tool">
+<a class="viewcode-back" href="../tools.html#tools.Tools.text_tool">[docs]</a>
+    <span class="nd">@select_tool_button</span>
+    <span class="k">def</span> <span class="nf">text_tool</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">         Activates the Text tool.</span>
+
+<span class="sd">         Returns:</span>
+<span class="sd">             None</span>
+
+<span class="sd">         &quot;&quot;&quot;</span>
+        <span class="n">Tools</span><span class="o">.</span><span class="n">current_tool</span> <span class="o">=</span> <span class="mi">8</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">active_canvas</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">cursor</span><span class="o">=</span><span class="s2">&quot;cross&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">disable_all_modifiers</span><span class="p">()</span>
+        <span class="n">Tools</span><span class="o">.</span><span class="n">stipple</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">highlight_checkbox</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s2">&quot;normal&quot;</span><span class="p">,</span> <span class="n">fg_color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">enabled_checkbox_col</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">highlight_checkbox</span><span class="o">.</span><span class="n">deselect</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Tools.text_color_tool">
+<a class="viewcode-back" href="../tools.html#tools.Tools.text_color_tool">[docs]</a>
+    <span class="nd">@select_tool_button</span>
+    <span class="k">def</span> <span class="nf">text_color_tool</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">         Activates the Text color tool.</span>
+
+<span class="sd">         Returns:</span>
+<span class="sd">             None</span>
+
+<span class="sd">         &quot;&quot;&quot;</span>
+        <span class="n">Tools</span><span class="o">.</span><span class="n">current_tool</span> <span class="o">=</span> <span class="mi">9</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">active_canvas</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">cursor</span><span class="o">=</span><span class="s2">&quot;plus&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Tools.create_tool_button_dict">
+<a class="viewcode-back" href="../tools.html#tools.Tools.create_tool_button_dict">[docs]</a>
+    <span class="k">def</span> <span class="nf">create_tool_button_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates a dictionary consisting of the tool index as keys and the buttons as values. For ease of configuring the buttons.</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tool_buttons</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">color_picker_btn</span><span class="p">,</span>
+                             <span class="mi">1</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">cursor_btn</span><span class="p">,</span>
+                             <span class="mi">2</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">brush_btn</span><span class="p">,</span>
+                             <span class="mi">3</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">eraser_btn</span><span class="p">,</span>
+                             <span class="mi">4</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">line_btn</span><span class="p">,</span>
+                             <span class="mi">5</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">rectangle_btn</span><span class="p">,</span>
+                             <span class="mi">6</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">oval_btn</span><span class="p">,</span>
+                             <span class="mi">7</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">pan_btn</span><span class="p">,</span>
+                             <span class="mi">8</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">text_btn</span><span class="p">,</span>
+                             <span class="mi">9</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">text_color_btn</span><span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="Tools.enable_all_tool_buttons">
+<a class="viewcode-back" href="../tools.html#tools.Tools.enable_all_tool_buttons">[docs]</a>
+    <span class="k">def</span> <span class="nf">enable_all_tool_buttons</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the state of all tool buttons to normal.</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">button</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tool_buttons</span><span class="p">:</span>
+            <span class="n">button</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s2">&quot;normal&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Tools.disable_all_tool_buttons">
+<a class="viewcode-back" href="../tools.html#tools.Tools.disable_all_tool_buttons">[docs]</a>
+    <span class="k">def</span> <span class="nf">disable_all_tool_buttons</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the state of all tool buttons to &#39;disabled&#39;.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">button</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tool_buttons</span><span class="p">:</span>
+            <span class="n">button</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s2">&quot;disabled&quot;</span><span class="p">)</span></div>
+
+
+    <span class="c1"># -----Modifier checkboxes--------------------------</span>
+<div class="viewcode-block" id="Tools.uniform_shape_checkbox_handler">
+<a class="viewcode-back" href="../tools.html#tools.Tools.uniform_shape_checkbox_handler">[docs]</a>
+    <span class="k">def</span> <span class="nf">uniform_shape_checkbox_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gets the state of the uniform checkbox and sets the shape_constraint variable accordingly.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">uniform_checkbox</span><span class="o">.</span><span class="n">get</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>  <span class="c1"># If checked.</span>
+            <span class="n">Tools</span><span class="o">.</span><span class="n">shape_constraint</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">Tools</span><span class="o">.</span><span class="n">shape_constraint</span> <span class="o">=</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="Tools.fill_color_checkbox_handler">
+<a class="viewcode-back" href="../tools.html#tools.Tools.fill_color_checkbox_handler">[docs]</a>
+    <span class="k">def</span> <span class="nf">fill_color_checkbox_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gets the state of the fill checkbox and sets the shape_fill variable accordingly.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">                 None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">fill_color_checkbox</span><span class="o">.</span><span class="n">get</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>  <span class="c1"># if checked.</span>
+            <span class="n">Tools</span><span class="o">.</span><span class="n">shape_fill</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">Tools</span><span class="o">.</span><span class="n">shape_fill</span> <span class="o">=</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="Tools.flat_cap_checkbox_handler">
+<a class="viewcode-back" href="../tools.html#tools.Tools.flat_cap_checkbox_handler">[docs]</a>
+    <span class="k">def</span> <span class="nf">flat_cap_checkbox_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gets the state of the flatcap checkbox and sets the endcap variable accordingly.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">                 None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">flat_cap_checkbox</span><span class="o">.</span><span class="n">get</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>  <span class="c1"># If enabled the ends of the line segments are flat.</span>
+            <span class="n">Tools</span><span class="o">.</span><span class="n">endcap</span> <span class="o">=</span> <span class="s2">&quot;butt&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">Tools</span><span class="o">.</span><span class="n">endcap</span> <span class="o">=</span> <span class="s2">&quot;round&quot;</span></div>
+
+
+<div class="viewcode-block" id="Tools.highlight_checkbox_handler">
+<a class="viewcode-back" href="../tools.html#tools.Tools.highlight_checkbox_handler">[docs]</a>
+    <span class="k">def</span> <span class="nf">highlight_checkbox_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">           Gets the state of the highlight checkbox and sets the stipple variable accordingly.</span>
+
+<span class="sd">           Returns:</span>
+<span class="sd">                    None</span>
+
+<span class="sd">           &quot;&quot;&quot;</span>
+
+        <span class="c1"># For better Ux sets the fill color to a highlight color when highight box is enabled.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">highlight_checkbox</span><span class="o">.</span><span class="n">get</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">Tools</span><span class="o">.</span><span class="n">stipple</span> <span class="o">=</span> <span class="s2">&quot;gray25&quot;</span>
+            <span class="c1"># Set fill color to yellow.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">pick_color</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;#FFFF00&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">Tools</span><span class="o">.</span><span class="n">current_tool</span> <span class="o">==</span> <span class="mi">4</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">flat_cap_checkbox</span><span class="o">.</span><span class="n">get</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># If line set endcap to flat</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">flat_cap_checkbox</span><span class="o">.</span><span class="n">toggle</span><span class="p">()</span>
+
+            <span class="k">elif</span> <span class="n">Tools</span><span class="o">.</span><span class="n">current_tool</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>
+                <span class="n">Tools</span><span class="o">.</span><span class="n">shape_fill</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">fill_color_checkbox</span><span class="o">.</span><span class="n">select</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">fill_color_checkbox</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s2">&quot;disabled&quot;</span><span class="p">,</span> <span class="n">fg_color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">disabled_checkbox_col</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">Tools</span><span class="o">.</span><span class="n">stipple</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="k">if</span> <span class="n">Tools</span><span class="o">.</span><span class="n">current_tool</span> <span class="o">==</span> <span class="mi">5</span> <span class="ow">or</span> <span class="n">Tools</span><span class="o">.</span><span class="n">current_tool</span> <span class="o">==</span> <span class="mi">6</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">fill_color_checkbox</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s2">&quot;normal&quot;</span><span class="p">,</span> <span class="n">fg_color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">enabled_checkbox_col</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Tools.disable_all_modifiers">
+<a class="viewcode-back" href="../tools.html#tools.Tools.disable_all_modifiers">[docs]</a>
+    <span class="k">def</span> <span class="nf">disable_all_modifiers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the state of all modifier checkbox to &#39;disabled&#39;.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">uniform_checkbox</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s2">&quot;disabled&quot;</span><span class="p">,</span> <span class="n">fg_color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">disabled_checkbox_col</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">fill_color_checkbox</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s2">&quot;disabled&quot;</span><span class="p">,</span> <span class="n">fg_color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">disabled_checkbox_col</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">flat_cap_checkbox</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s2">&quot;disabled&quot;</span><span class="p">,</span> <span class="n">fg_color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">disabled_checkbox_col</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">highlight_checkbox</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s2">&quot;disabled&quot;</span><span class="p">,</span> <span class="n">fg_color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">disabled_checkbox_col</span><span class="p">)</span></div>
+
+
+    <span class="c1"># ----------------------------------------------</span>
+<div class="viewcode-block" id="Tools.reset_tool_variables">
+<a class="viewcode-back" href="../tools.html#tools.Tools.reset_tool_variables">[docs]</a>
+    <span class="k">def</span> <span class="nf">reset_tool_variables</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Resets all tool variables like width, fill, constraint to the default state.</span>
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">Tools</span><span class="o">.</span><span class="n">current_tool</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">Tools</span><span class="o">.</span><span class="n">previous_tool</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">Tools</span><span class="o">.</span><span class="n">stroke_width</span> <span class="o">=</span> <span class="mi">10</span>
+        <span class="n">Tools</span><span class="o">.</span><span class="n">fill_color</span> <span class="o">=</span> <span class="s2">&quot;#FF0000&quot;</span>
+        <span class="n">Tools</span><span class="o">.</span><span class="n">decimate_factor</span> <span class="o">=</span> <span class="mf">1.5</span>
+        <span class="n">Tools</span><span class="o">.</span><span class="n">shape_fill</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">Tools</span><span class="o">.</span><span class="n">stipple</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">Tools</span><span class="o">.</span><span class="n">shape_constraint</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">Tools</span><span class="o">.</span><span class="n">endcap</span> <span class="o">=</span> <span class="s2">&quot;round&quot;</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Agnivesh S P.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

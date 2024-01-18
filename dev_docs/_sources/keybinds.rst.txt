@@ -1,0 +1,7 @@
+keybinds module
+===============
+
+.. automodule:: keybinds
+   :members:
+   :undoc-members:
+   :show-inheritance:

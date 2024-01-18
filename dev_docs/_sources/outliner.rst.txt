@@ -1,0 +1,7 @@
+outliner module
+===============
+
+.. automodule:: outliner
+   :members:
+   :undoc-members:
+   :show-inheritance:

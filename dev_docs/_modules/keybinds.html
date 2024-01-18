@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>keybinds &mdash; R-View Tool v1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=76e2d817"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../docs_home.html" class="icon icon-home">
+            R-View Tool
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">R-View Tool</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../docs_home.html">R-View Tool</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../docs_home.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Module code</a></li>
+      <li class="breadcrumb-item active">keybinds</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for keybinds</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">tools</span> <span class="kn">import</span> <span class="n">Tools</span><span class="p">,</span> <span class="n">TextInsertWindow</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+
+<div class="viewcode-block" id="KeyBinds">
+<a class="viewcode-back" href="../keybinds.html#keybinds.KeyBinds">[docs]</a>
+<span class="k">class</span> <span class="nc">KeyBinds</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Keybinds Class that handles the user inputs while the widgets of the main app window is focused.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calls all method during creation.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            app: Tkinter main app.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span> <span class="o">=</span> <span class="n">app</span>
+
+        <span class="c1"># activating the keybinds.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rgb_picker_canvas_binds</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rgb_color_input_binds</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">main_app_binds</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image_control_slider_binds</span><span class="p">()</span>
+
+<div class="viewcode-block" id="KeyBinds.main_app_binds">
+<a class="viewcode-back" href="../keybinds.html#keybinds.KeyBinds.main_app_binds">[docs]</a>
+    <span class="k">def</span> <span class="nf">main_app_binds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Keybind inputs handler while the main app window is in focus.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;Escape&gt;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">app_escape_pressed</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;KeyRelease&gt;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">app_key_released</span><span class="p">)</span></div>
+
+
+        <span class="c1"># To avoid bugs,</span>
+        <span class="c1"># self.app.bind(&quot;&lt;ButtonRelease-2&gt;&quot;,self.app.reset_scale_slider)</span>
+        <span class="c1"># self.app.bind(&quot;&lt;ButtonRelease-3&gt;&quot;, self.app.reset_scale_slider)</span>
+
+<div class="viewcode-block" id="KeyBinds.image_control_slider_binds">
+<a class="viewcode-back" href="../keybinds.html#keybinds.KeyBinds.image_control_slider_binds">[docs]</a>
+    <span class="k">def</span> <span class="nf">image_control_slider_binds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handles the Click Release event after updating the scale slider.</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">scale_slider</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;ButtonRelease-1&gt;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">reset_scale_slider</span><span class="p">)</span></div>
+
+
+    <span class="c1"># ---------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="KeyBinds.rgb_picker_canvas_binds">
+<a class="viewcode-back" href="../keybinds.html#keybinds.KeyBinds.rgb_picker_canvas_binds">[docs]</a>
+    <span class="k">def</span> <span class="nf">rgb_picker_canvas_binds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handles the mouse events of the mouse on the rgb_picker_canvas.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">rgb_picker_canvas</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;ButtonPress-1&gt;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">pick_color</span><span class="p">,</span> <span class="s2">&quot;+&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">rgb_picker_canvas</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;B1-Motion&gt;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">pick_color</span><span class="p">,</span> <span class="s2">&quot;+&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="KeyBinds.rgb_color_input_binds">
+<a class="viewcode-back" href="../keybinds.html#keybinds.KeyBinds.rgb_color_input_binds">[docs]</a>
+    <span class="k">def</span> <span class="nf">rgb_color_input_binds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handles the keypress  on the entry boxes of the RGB inputs.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">red_slider_value_entry</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;KeyRelease&gt;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">red_entry_event</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">red_slider_value_entry</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;FocusOut&gt;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">red_slider_event</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">green_slider_value_entry</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;KeyRelease&gt;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">green_entry_event</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">green_slider_value_entry</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;FocusOut&gt;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">green_slider_event</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">blue_slider_value_entry</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;KeyRelease&gt;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">blue_entry_event</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">blue_slider_value_entry</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;FocusOut&gt;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">blue_slider_event</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="KeyBinds.app_escape_pressed">
+<a class="viewcode-back" href="../keybinds.html#keybinds.KeyBinds.app_escape_pressed">[docs]</a>
+    <span class="k">def</span> <span class="nf">app_escape_pressed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handles the event of &#39;Escape&#39; key being pressed while the main app is in focus.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            event (tkinter.Event): Keypress event.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Hides the text_insert_text_window.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">canvas_text_insert</span><span class="o">.</span><span class="n">hide_text_insert_window</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="KeyBinds.app_key_released">
+<a class="viewcode-back" href="../keybinds.html#keybinds.KeyBinds.app_key_released">[docs]</a>
+    <span class="k">def</span> <span class="nf">app_key_released</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handles all key release events while the main app is in focus.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            event (tkinter.Event): Key Release event.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># If shift key is pressed and mouse hovered over the outliner, display the full filename.</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">keysym</span> <span class="o">==</span> <span class="s2">&quot;Shift_R&quot;</span> <span class="ow">or</span> <span class="n">event</span><span class="o">.</span><span class="n">keysym</span> <span class="o">==</span> <span class="s2">&quot;Shift_L&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">current_hovered_btn_index</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">on_mouse_leave</span><span class="p">(</span><span class="n">override</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="CanvasKeybinds">
+<a class="viewcode-back" href="../keybinds.html#keybinds.CanvasKeybinds">[docs]</a>
+<span class="k">class</span> <span class="nc">CanvasKeybinds</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Handles all user inputs while the Canvas widget is in focus.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app</span><span class="p">,</span> <span class="n">graphics_manager</span><span class="p">,</span> <span class="n">canvas</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializer</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            app: Tkinter main app</span>
+<span class="sd">            graphics_manager :GraphicsManager or OverlayGraphicsManager object</span>
+<span class="sd">            canvas: Tkinter Canvas item.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span> <span class="o">=</span> <span class="n">app</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gm</span> <span class="o">=</span> <span class="n">graphics_manager</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">active_canvas</span> <span class="o">=</span> <span class="n">canvas</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">canvas_keybinds</span><span class="p">()</span>
+
+<div class="viewcode-block" id="CanvasKeybinds.canvas_keybinds">
+<a class="viewcode-back" href="../keybinds.html#keybinds.CanvasKeybinds.canvas_keybinds">[docs]</a>
+    <span class="k">def</span> <span class="nf">canvas_keybinds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Activating the keybinds that are used while Canvas is in focus.</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">image_frame</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;ButtonPress-1&gt;&quot;</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">event</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">active_canvas</span><span class="o">.</span><span class="n">focus_set</span><span class="p">(),</span> <span class="s2">&quot;+&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">image_canvas</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;ButtonPress-1&gt;&quot;</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">event</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">active_canvas</span><span class="o">.</span><span class="n">focus_set</span><span class="p">(),</span> <span class="s2">&quot;+&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">active_canvas</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;Shift-Return&gt;&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">text_insert_window_hotkey</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">active_canvas</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;Return&gt;&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">text_insert_window_hotkey</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">active_canvas</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;KeyPress&gt;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">key_press_handler</span><span class="p">,</span> <span class="s2">&quot;+&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">active_canvas</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;ButtonPress-1&gt;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mouse_button1_pressed_handler</span><span class="p">,</span> <span class="s2">&quot;+&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">active_canvas</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;B1-Motion&gt;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mouse_button1_motion_handler</span><span class="p">,</span> <span class="s2">&quot;+&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">active_canvas</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;B1-Motion&gt;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">gm</span><span class="o">.</span><span class="n">draw_graphics</span><span class="p">,</span> <span class="s2">&quot;+&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">active_canvas</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;ButtonRelease-1&gt;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mouse_button1_release_handler</span><span class="p">,</span> <span class="s2">&quot;+&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">active_canvas</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;ButtonPress-3&gt;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">gm</span><span class="o">.</span><span class="n">erase_graphic</span><span class="p">,</span> <span class="s2">&quot;+&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">active_canvas</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;B3-Motion&gt;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">gm</span><span class="o">.</span><span class="n">erase_graphic</span><span class="p">,</span> <span class="s2">&quot;+&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">active_canvas</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;Right&gt;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">show_next_img</span><span class="p">,</span> <span class="s2">&quot;+&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">active_canvas</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;Left&gt;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">show_previous_img</span><span class="p">,</span> <span class="s2">&quot;+&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">active_canvas</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;Control-Right&gt;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">show_last_img</span><span class="p">,</span> <span class="s2">&quot;+&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">active_canvas</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;Control-Left&gt;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">show_first_img</span><span class="p">,</span> <span class="s2">&quot;+&quot;</span><span class="p">)</span>
+
+        <span class="c1"># --Image zoom-------------------------------</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">active_canvas</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;MouseWheel&gt;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mouse_scroll_handler</span><span class="p">,</span> <span class="s2">&quot;+&quot;</span><span class="p">)</span>
+
+        <span class="c1"># For linux, Button-4 Scrollup. Button-5 Scrolldown</span>
+        <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;linux&#39;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">active_canvas</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;Button-4&gt;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mouse_scroll_handler</span><span class="p">,</span> <span class="s2">&quot;+&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">active_canvas</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;Button-5&gt;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mouse_scroll_handler</span><span class="p">,</span> <span class="s2">&quot;+&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">active_canvas</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;KeyPress-plus&gt;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mouse_scroll_handler</span><span class="p">,</span> <span class="s2">&quot;+&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">active_canvas</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mouse_scroll_handler</span><span class="p">,</span> <span class="s2">&quot;+&quot;</span><span class="p">)</span>  <span class="c1"># pressing shift and + is confusing.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">active_canvas</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;KeyPress-minus&gt;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mouse_scroll_handler</span><span class="p">,</span> <span class="s2">&quot;+&quot;</span><span class="p">)</span>
+
+        <span class="c1"># --Canvas Drag----------------------------</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">active_canvas</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;KeyPress-space&gt;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">on_space_pressed</span><span class="p">,</span> <span class="s2">&quot;+&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">active_canvas</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;KeyRelease-space&gt;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">on_space_released</span><span class="p">,</span> <span class="s2">&quot;+&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">active_canvas</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;ButtonPress-2&gt;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mouse_button2_pressed_handler</span><span class="p">,</span> <span class="s2">&quot;+&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">active_canvas</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;B2-Motion&gt;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mouse_button2_motion_handler</span><span class="p">,</span> <span class="s2">&quot;+&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">active_canvas</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;ButtonRelease-2&gt;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mouse_button2_release_handler</span><span class="p">,</span> <span class="s2">&quot;+&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Removing the text item or image item from the canvas.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">active_canvas</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;Delete&gt;&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">gm</span><span class="o">.</span><span class="n">delete_item</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">active_canvas</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;BackSpace&gt;&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">gm</span><span class="o">.</span><span class="n">delete_item</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CanvasKeybinds.text_insert_window_hotkey">
+<a class="viewcode-back" href="../keybinds.html#keybinds.CanvasKeybinds.text_insert_window_hotkey">[docs]</a>
+    <span class="k">def</span> <span class="nf">text_insert_window_hotkey</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handles the display of the text_insert_window and the text insertions.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            event (tkinter.Event,Optional): Mouse Click event.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">display_mode</span> <span class="o">==</span> <span class="s2">&quot;default&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">text_tool</span><span class="p">()</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">TextInsertWindow</span><span class="o">.</span><span class="n">stored_text_position</span><span class="p">:</span>
+                <span class="n">center_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">resized_ld_img</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="mi">2</span>
+                <span class="n">center_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">resized_ld_img</span><span class="o">.</span><span class="n">height</span> <span class="o">/</span> <span class="mi">2</span>
+                <span class="c1"># if text tool wasn&#39;t used manually,Initial text via hotkeys is added to center of the image.</span>
+                <span class="n">event</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">center_x</span>
+                <span class="n">event</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">center_y</span>
+                <span class="n">TextInsertWindow</span><span class="o">.</span><span class="n">stored_text_position</span> <span class="o">=</span> <span class="n">event</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">gm</span><span class="o">.</span><span class="n">initial_canvas_click</span><span class="p">(</span><span class="n">TextInsertWindow</span><span class="o">.</span><span class="n">stored_text_position</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CanvasKeybinds.key_press_handler">
+<a class="viewcode-back" href="../keybinds.html#keybinds.CanvasKeybinds.key_press_handler">[docs]</a>
+    <span class="k">def</span> <span class="nf">key_press_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handles all key press event while the canvas is in focus.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">           event (tkinter.Event): Keypress event.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Hotkey that activates the assigned tool.</span>
+        <span class="n">num</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">keysym</span>
+        <span class="k">if</span> <span class="n">num</span> <span class="o">==</span> <span class="s2">&quot;0&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">color_picker_tool</span><span class="p">()</span>
+
+        <span class="k">elif</span> <span class="n">num</span> <span class="o">==</span> <span class="s2">&quot;1&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">cursor_tool</span><span class="p">()</span>
+
+        <span class="k">elif</span> <span class="n">num</span> <span class="o">==</span> <span class="s2">&quot;2&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">brush_tool</span><span class="p">()</span>
+
+        <span class="k">elif</span> <span class="n">num</span> <span class="o">==</span> <span class="s2">&quot;3&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">eraser_tool</span><span class="p">()</span>
+
+        <span class="k">elif</span> <span class="n">num</span> <span class="o">==</span> <span class="s2">&quot;4&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">line_tool</span><span class="p">()</span>
+
+        <span class="k">elif</span> <span class="n">num</span> <span class="o">==</span> <span class="s2">&quot;5&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">rectangle_tool</span><span class="p">()</span>
+
+        <span class="k">elif</span> <span class="n">num</span> <span class="o">==</span> <span class="s2">&quot;6&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">oval_tool</span><span class="p">()</span>
+
+        <span class="k">elif</span> <span class="n">num</span> <span class="o">==</span> <span class="s2">&quot;7&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">pan_tool</span><span class="p">()</span>
+
+        <span class="k">elif</span> <span class="n">num</span> <span class="o">==</span> <span class="s2">&quot;8&quot;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">display_mode</span> <span class="o">==</span> <span class="s2">&quot;default&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">text_tool</span><span class="p">()</span>
+
+        <span class="k">elif</span> <span class="n">num</span> <span class="o">==</span> <span class="s2">&quot;9&quot;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">display_mode</span> <span class="o">==</span> <span class="s2">&quot;default&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">text_color_tool</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="CanvasKeybinds.mouse_button1_pressed_handler">
+<a class="viewcode-back" href="../keybinds.html#keybinds.CanvasKeybinds.mouse_button1_pressed_handler">[docs]</a>
+    <span class="k">def</span> <span class="nf">mouse_button1_pressed_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handles Mouse Left button press events.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            event (tkinter.Event): Mouse Click event.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Pan tool acts as a text reposition tool when the display mode is &#39;default&#39;.</span>
+        <span class="k">if</span> <span class="n">Tools</span><span class="o">.</span><span class="n">current_tool</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">pick_color</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">canvas</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">active_canvas</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">display_mode</span> <span class="o">==</span> <span class="s2">&quot;default&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">Tools</span><span class="o">.</span><span class="n">current_tool</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">gm</span><span class="o">.</span><span class="n">select_canvas_item</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+
+            <span class="k">elif</span> <span class="n">Tools</span><span class="o">.</span><span class="n">current_tool</span> <span class="o">==</span> <span class="mi">7</span><span class="p">:</span>
+                <span class="k">pass</span>
+
+            <span class="k">elif</span> <span class="n">Tools</span><span class="o">.</span><span class="n">current_tool</span> <span class="o">==</span> <span class="mi">9</span><span class="p">:</span>
+                <span class="c1"># Returns true if the click was on a text and has been colored.</span>
+                <span class="n">text_colored</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gm</span><span class="o">.</span><span class="n">update_text_color</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">text_colored</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">modify_previous_color_list</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+
+            <span class="k">else</span><span class="p">:</span>  <span class="c1"># Not default</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">gm</span><span class="o">.</span><span class="n">initial_canvas_click</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">modify_previous_color_list</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">Tools</span><span class="o">.</span><span class="n">current_tool</span> <span class="o">==</span> <span class="mi">7</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">set_drag</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">gm</span><span class="o">.</span><span class="n">initial_canvas_click</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">modify_previous_color_list</span><span class="p">(</span><span class="n">event</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CanvasKeybinds.mouse_button1_motion_handler">
+<a class="viewcode-back" href="../keybinds.html#keybinds.CanvasKeybinds.mouse_button1_motion_handler">[docs]</a>
+    <span class="k">def</span> <span class="nf">mouse_button1_motion_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handles the Mouse Drag even while left button pressed.</span>
+
+<span class="sd">         Args:</span>
+<span class="sd">            event (tkinter.Event): Mouse Click event.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">display_mode</span> <span class="o">!=</span> <span class="s2">&quot;default&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">state</span> <span class="o">&amp;</span> <span class="mh">0x1</span><span class="p">:</span>
+                <span class="n">constraint</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="k">if</span> <span class="n">Tools</span><span class="o">.</span><span class="n">current_tool</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">pick_color</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">canvas</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">active_canvas</span><span class="p">)</span>
+
+        <span class="c1"># While shift key pressed down, constraint the transformations to a single axis.</span>
+        <span class="k">elif</span> <span class="n">Tools</span><span class="o">.</span><span class="n">current_tool</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">state</span> <span class="o">&amp;</span> <span class="mh">0x1</span><span class="p">:</span>
+                <span class="n">constraint</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">constraint</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">gm</span><span class="o">.</span><span class="n">selected_text_item</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">gm</span><span class="o">.</span><span class="n">reposition_text_item</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">constraint</span><span class="o">=</span><span class="n">constraint</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">Tools</span><span class="o">.</span><span class="n">current_tool</span> <span class="o">==</span> <span class="mi">7</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">display_mode</span> <span class="o">==</span> <span class="s2">&quot;default&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">drag_canvas</span><span class="p">(</span><span class="n">event</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CanvasKeybinds.mouse_button1_release_handler">
+<a class="viewcode-back" href="../keybinds.html#keybinds.CanvasKeybinds.mouse_button1_release_handler">[docs]</a>
+    <span class="k">def</span> <span class="nf">mouse_button1_release_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handles the Left Mouse button Release events.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            event (tkinter.Event): Mouse click release event.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">reset_scale_slider</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">Tools</span><span class="o">.</span><span class="n">current_tool</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">gm</span><span class="o">.</span><span class="n">reveal_text_item_selection_border</span><span class="p">()</span>
+
+        <span class="k">elif</span> <span class="n">Tools</span><span class="o">.</span><span class="n">current_tool</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">gm</span><span class="o">.</span><span class="n">draw_release</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gm</span><span class="o">.</span><span class="n">flush_mouse_events</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="CanvasKeybinds.mouse_button2_pressed_handler">
+<a class="viewcode-back" href="../keybinds.html#keybinds.CanvasKeybinds.mouse_button2_pressed_handler">[docs]</a>
+    <span class="k">def</span> <span class="nf">mouse_button2_pressed_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handles the Middle Mouse button click event.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            event (tkinter.Event): Mouse click event.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">display_mode</span> <span class="o">!=</span> <span class="s2">&quot;default&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">set_drag</span><span class="p">(</span><span class="n">event</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CanvasKeybinds.mouse_button2_motion_handler">
+<a class="viewcode-back" href="../keybinds.html#keybinds.CanvasKeybinds.mouse_button2_motion_handler">[docs]</a>
+    <span class="k">def</span> <span class="nf">mouse_button2_motion_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handles the Middle Mouse button drag event.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            event (tkinter.Event): Mouse drag event.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">display_mode</span> <span class="o">!=</span> <span class="s2">&quot;default&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">drag_canvas</span><span class="p">(</span><span class="n">event</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CanvasKeybinds.mouse_button2_release_handler">
+<a class="viewcode-back" href="../keybinds.html#keybinds.CanvasKeybinds.mouse_button2_release_handler">[docs]</a>
+    <span class="k">def</span> <span class="nf">mouse_button2_release_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handles the Middle Mouse button release event.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            event (tkinter.Event): Mouse click release event.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gm</span><span class="o">.</span><span class="n">flush_mouse_events</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="CanvasKeybinds.mouse_scroll_handler">
+<a class="viewcode-back" href="../keybinds.html#keybinds.CanvasKeybinds.mouse_scroll_handler">[docs]</a>
+    <span class="k">def</span> <span class="nf">mouse_scroll_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handles the Mouse wheel scroll events.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            event (tkinter.Event): Mouse wheel scroll event.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;linux&#39;</span><span class="p">):</span>
+            <span class="c1"># num=4 is scroll up and .num=5 is scrolldown.</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">num</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+                <span class="n">event</span><span class="o">.</span><span class="n">delta</span> <span class="o">=</span> <span class="mi">120</span>
+            <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">num</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>
+                <span class="n">event</span><span class="o">.</span><span class="n">delta</span> <span class="o">=</span> <span class="o">-</span><span class="mi">120</span>
+
+        <span class="c1"># Checking if Ctrl or Cmd key(rich people) is pressed</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">state</span> <span class="o">&amp;</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">2</span><span class="p">)</span> <span class="ow">or</span> <span class="n">event</span><span class="o">.</span><span class="n">state</span> <span class="o">&amp;</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">6</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">zoom_image</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">keysym</span> <span class="o">==</span> <span class="s2">&quot;plus&quot;</span> <span class="ow">or</span> <span class="n">event</span><span class="o">.</span><span class="n">keysym</span> <span class="o">==</span> <span class="s2">&quot;equal&quot;</span><span class="p">:</span>
+            <span class="n">event</span><span class="o">.</span><span class="n">delta</span> <span class="o">=</span> <span class="mi">120</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">zoom_image</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">keysym</span> <span class="o">==</span> <span class="s2">&quot;minus&quot;</span><span class="p">:</span>
+            <span class="n">event</span><span class="o">.</span><span class="n">delta</span> <span class="o">=</span> <span class="o">-</span><span class="mi">120</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">zoom_image</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># If no key pressed change the stroke width.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">change_stroke_width</span><span class="p">(</span><span class="n">event</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CanvasKeybinds.on_space_pressed">
+<a class="viewcode-back" href="../keybinds.html#keybinds.CanvasKeybinds.on_space_pressed">[docs]</a>
+    <span class="k">def</span> <span class="nf">on_space_pressed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks if the Spacebar key is pressed.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            event (tkinter.Event): Key pressed event.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Switch to pan tool if Spacebar held down.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">Tools</span><span class="o">.</span><span class="n">current_tool</span> <span class="o">==</span> <span class="mi">7</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">pan_tool</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="CanvasKeybinds.on_space_released">
+<a class="viewcode-back" href="../keybinds.html#keybinds.CanvasKeybinds.on_space_released">[docs]</a>
+    <span class="k">def</span> <span class="nf">on_space_released</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="c1"># Press the button of the previous tool.(ik its dirty)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">tool_buttons</span><span class="p">[</span><span class="n">Tools</span><span class="o">.</span><span class="n">previous_tool</span><span class="p">]</span><span class="o">.</span><span class="n">invoke</span><span class="p">()</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="OverlayKeyBinds">
+<a class="viewcode-back" href="../keybinds.html#keybinds.OverlayKeyBinds">[docs]</a>
+<span class="k">class</span> <span class="nc">OverlayKeyBinds</span><span class="p">(</span><span class="n">CanvasKeybinds</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Handles the user inputs while the OverlayCanvas is in focus.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app</span><span class="p">,</span> <span class="n">graphics_manager</span><span class="p">,</span> <span class="n">canvas</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializer</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            app: Tkinter main app</span>
+<span class="sd">            graphics_manager :GraphicsManager or OverlayGraphicsManager object</span>
+<span class="sd">            canvas: Tkinter Canvas item.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">graphics_manager</span><span class="p">,</span> <span class="n">canvas</span><span class="p">)</span>
+
+<div class="viewcode-block" id="OverlayKeyBinds.text_insert_window_hotkey">
+<a class="viewcode-back" href="../keybinds.html#keybinds.OverlayKeyBinds.text_insert_window_hotkey">[docs]</a>
+    <span class="k">def</span> <span class="nf">text_insert_window_hotkey</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handles the display of the text_insert_window and the text insertions.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            event (tkinter.Event,Optional): Mouse Click event.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">text_tool</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">TextInsertWindow</span><span class="o">.</span><span class="n">stored_text_position</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">gm</span><span class="o">.</span><span class="n">initial_canvas_click</span><span class="p">(</span><span class="n">TextInsertWindow</span><span class="o">.</span><span class="n">stored_text_position</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">error_prompt</span><span class="o">.</span><span class="n">display_error_prompt</span><span class="p">(</span><span class="n">error_msg</span><span class="o">=</span><span class="s2">&quot;Quick Insert requires a set text position.&quot;</span><span class="p">,</span>
+                                                       <span class="n">priority</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="OverlayKeyBinds.mouse_scroll_handler">
+<a class="viewcode-back" href="../keybinds.html#keybinds.OverlayKeyBinds.mouse_scroll_handler">[docs]</a>
+    <span class="k">def</span> <span class="nf">mouse_scroll_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handles the Mouse wheel scroll events.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            event (tkinter.Event): Mouse wheel scroll event.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">               None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">change_stroke_width</span><span class="p">(</span><span class="n">event</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="OverlayKeyBinds.mouse_button1_motion_handler">
+<a class="viewcode-back" href="../keybinds.html#keybinds.OverlayKeyBinds.mouse_button1_motion_handler">[docs]</a>
+    <span class="k">def</span> <span class="nf">mouse_button1_motion_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">         Handles the Mouse Drag even while left button pressed.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            event (tkinter.Event): Mouse Click event.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">Tools</span><span class="o">.</span><span class="n">current_tool</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>  <span class="c1"># If shift key pressed constraint the transform to a single axis.</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">state</span> <span class="o">&amp;</span> <span class="mh">0x1</span><span class="p">:</span>
+                <span class="n">constraint</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">constraint</span> <span class="o">=</span> <span class="kc">False</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">gm</span><span class="o">.</span><span class="n">selected_overlay_image</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">gm</span><span class="o">.</span><span class="n">reposition_overlay_image</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">constraint</span><span class="o">=</span><span class="n">constraint</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">mouse_button1_motion_handler</span><span class="p">(</span><span class="n">event</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="OverlayKeyBinds.mouse_button1_release_handler">
+<a class="viewcode-back" href="../keybinds.html#keybinds.OverlayKeyBinds.mouse_button1_release_handler">[docs]</a>
+    <span class="k">def</span> <span class="nf">mouse_button1_release_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handles the Left Mouse button Release events.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">           event (tkinter.Event): Mouse click release event.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">           None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">gm</span><span class="o">.</span><span class="n">reveal_overlay_image_selection_border</span><span class="p">()</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">mouse_button1_release_handler</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>  <span class="c1"># Calls the parent method.</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Agnivesh S P.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
